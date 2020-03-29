@@ -11,6 +11,10 @@ import CoreBluetooth
 import Foundation
 import CoreLocation
 
+// REVIEW: Maybe convert this into a struct
+// timestamp may be useful to differentiate with bluetooth timestamp to indicate accuracy of location
+typealias SimpleCoordinates = (lon: Double, lat: Double, timestamp: Double)
+
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
@@ -22,7 +26,7 @@ class ViewController: UIViewController {
         let rssi: NSNumber
         let timestamp: Double
         let deviceIdentifier: String
-        
+        let coordinates: SimpleCoordinates
         func dateString(formatter: DateFormatter) -> String {
             let date = Date(timeIntervalSince1970: timestamp)
             return formatter.string(from: date)
@@ -37,7 +41,8 @@ class ViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter
     }()
-    var currentCoords: (Double,Double) = (Double.nan,Double.nan)
+    
+    var currentCoords: SimpleCoordinates = (lon: Double.nan, lat: Double.nan, timestamp: Double.nan)
     
     var centralManager: CBCentralManager!
     var peripheralManager: CBPeripheralManager!
@@ -101,7 +106,7 @@ extension ViewController: CBCentralManagerDelegate {
         guard
             let deviceIdentifier = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?.last?.uuidString,
             !items.contains(where: {$0.deviceIdentifier == deviceIdentifier}) else {
-                print("ignoring \(peripheral.name) with rssi: \(RSSI)")
+                print("ignoring \(peripheral.name ?? "unknown") with rssi: \(RSSI)")
             return
         }
         //append node
@@ -109,7 +114,9 @@ extension ViewController: CBCentralManagerDelegate {
             name: peripheral.name ?? "unknown",
             rssi: RSSI,
             timestamp: Date().timeIntervalSince1970,
-            deviceIdentifier: deviceIdentifier)
+            deviceIdentifier: deviceIdentifier,
+            coordinates: currentCoords
+            )
         items.append(detected_node)
         
         //reload table view
@@ -244,9 +251,9 @@ extension ViewController: CLLocationManagerDelegate {
         
        print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
         
-        currentCoords.0 = coordinates.latitude
-        currentCoords.1 = coordinates.longitude
-        
+        currentCoords.lat = coordinates.latitude
+        currentCoords.lon = coordinates.longitude
+        currentCoords.timestamp = Date().timeIntervalSince1970
     }
     
 }
