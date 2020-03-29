@@ -242,12 +242,11 @@ extension ViewController: CLLocationManagerDelegate {
             
         default:
             print("location auth error")
-            
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinates: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        guard let coordinates: CLLocationCoordinate2D = locations.last?.coordinate else { return }
         
        print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
         
