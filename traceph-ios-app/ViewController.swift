@@ -10,7 +10,6 @@ import UIKit
 import CoreBluetooth
 import Foundation
 import CoreLocation
-import MapKit
 
 class ViewController: UIViewController {
     struct Constants {
@@ -38,11 +37,18 @@ class ViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter
     }()
-    var currentCoords: (Double,Double) = (0,0)
+    var currentCoords: (Double,Double) = (Double.nan,Double.nan)
     
     var centralManager: CBCentralManager!
     var peripheralManager: CBPeripheralManager!
-    lazy var locationManager = CLLocationManager()
+    lazy var locationManager:CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        manager.distanceFilter = 10
+        manager.pausesLocationUpdatesAutomatically = true
+        return manager
+    }()
 
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var deviceTable: UITableView!
@@ -62,6 +68,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         centralManager = CBCentralManager(delegate: self, queue: nil)
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
     
     @IBOutlet weak var peripheralStatus: UILabel!
@@ -208,19 +216,6 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController: CLLocationManagerDelegate {
-    
-    func getLocation(locationManager: CLLocationManager) {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.distanceFilter = 10
-        locationManager.pausesLocationUpdatesAutomatically = true
-        
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-        
-//        locationManager.allowsBackgroundLocationUpdates = true
-    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
