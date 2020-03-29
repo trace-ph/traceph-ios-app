@@ -9,6 +9,8 @@
 import UIKit
 import CoreBluetooth
 import Foundation
+import CoreLocation
+import MapKit
 
 class ViewController: UIViewController {
     struct Constants {
@@ -30,15 +32,18 @@ class ViewController: UIViewController {
     
     var items = [node_data]()
     
-    var centralManager: CBCentralManager!
-    var peripheralManager: CBPeripheralManager!
-    
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.current
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter
     }()
+    var currentCoords: (Double,Double) = (0,0)
+    
+    var centralManager: CBCentralManager!
+    var peripheralManager: CBPeripheralManager!
+    lazy var locationManager = CLLocationManager()
+
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var deviceTable: UITableView!
     
@@ -199,5 +204,54 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
+    
+}
+
+extension ViewController: CLLocationManagerDelegate {
+    
+    func getLocation(locationManager: CLLocationManager) {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.distanceFilter = 10
+        locationManager.pausesLocationUpdatesAutomatically = true
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        
+//        locationManager.allowsBackgroundLocationUpdates = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            locationManager.startUpdatingLocation()
+            
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            
+        case .denied:
+            print("location auth denied")
+        
+        case .notDetermined:
+            print("location auth not determined")
+            
+        case .restricted:
+            print("location auth restricted")
+            
+        default:
+            print("location auth error")
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let coordinates: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+       print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
+        
+        currentCoords.0 = coordinates.latitude
+        currentCoords.1 = coordinates.longitude
+        
+    }
     
 }

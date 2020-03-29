@@ -22,6 +22,14 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>placeholder text</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>placeholder text</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>placeholder text</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>placeholder text</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>placeholder text</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>placeholder text</string>
 	<key>UIApplicationSceneManifest</key>
@@ -54,8 +62,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
