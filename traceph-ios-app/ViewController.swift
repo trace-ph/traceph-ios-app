@@ -86,8 +86,9 @@ extension ViewController: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard
-            let deviceIdentifier = advertisementData[Constants.IDENTIFIER_KEY] as? String,
+            let deviceIdentifier = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?.last?.uuidString,
             !items.contains(where: {$0.deviceIdentifier == deviceIdentifier}) else {
+                print("ignoring \(peripheral.name) with rssi: \(RSSI)")
             return
         }
         //append node
@@ -135,8 +136,7 @@ extension ViewController: CBPeripheralManagerDelegate {
         //start advertising
         let advertisementData:[String:Any] = [
             CBAdvertisementDataLocalNameKey : UIDevice.current.name,
-            CBAdvertisementDataServiceUUIDsKey : [identifier],
-            Constants.IDENTIFIER_KEY: Utility.getDeviceIdentifier()
+            CBAdvertisementDataServiceUUIDsKey : [identifier]
         ]
         manager.startAdvertising(advertisementData)
         print("Started Advertising")
@@ -146,7 +146,12 @@ extension ViewController: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
-            advertise(manager: peripheral, identifier: CBUUID(nsuuid: UUID()))
+            // TODO: replace identifier with whatever we plan on using. Maybe fingerprintjs
+            // REVIEW: Is this how to properly pass the fingerprint? As an element in CBAdvertisementDataServiceUUIDsKey
+            guard let identifier = UIDevice.current.identifierForVendor else {
+                return
+            }
+            advertise(manager: peripheral, identifier: CBUUID(nsuuid: identifier))
         default:
             switch peripheral.state {
                 case .poweredOff:
