@@ -13,17 +13,21 @@ import Foundation
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
+        static let IDENTIFIER_KEY = "identifierForVendor"
     }
     
     struct node_data {
-        var name: String
-        var rssi: NSNumber
-        var timestamp: String
+        let name: String
+        let rssi: NSNumber
+        let timestamp: Double
+        let deviceIdentifier: String
         
-        init(name: String, rssi: NSNumber, timestamp: String) {
-            self.name = name
-            self.rssi = rssi
-            self.timestamp = timestamp
+        var dateString: String {
+            let date = Date(timeIntervalSince1970: timestamp)
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone.current
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            return formatter.string(from: date)
         }
     }
     
@@ -83,19 +87,17 @@ extension ViewController: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        guard !items.contains(where: {$0.rssi == RSSI}) else {
+        guard
+            let deviceIdentifier = advertisementData[Constants.IDENTIFIER_KEY] as? String,
+            !items.contains(where: {$0.deviceIdentifier == deviceIdentifier}) else {
             return
         }
-        //get timestamp
-        let dateString: String = {
-            let now = Date()
-            let formatter = DateFormatter()
-            formatter.timeZone = TimeZone.current
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            return formatter.string(from: now)
-        }()
         //append node
-        let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: RSSI, timestamp: dateString)
+        let detected_node =  node_data(
+            name: peripheral.name ?? "unknown",
+            rssi: RSSI,
+            timestamp: Date().timeIntervalSince1970,
+            deviceIdentifier: deviceIdentifier)
         items.append(detected_node)
         
         //reload table view
@@ -172,7 +174,7 @@ extension ViewController: UITableViewDataSource {
         }
         let node = items[indexPath.row]
         cell.textLabel?.text = node.name
-        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.timestamp)"
+        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString)"
         return cell
     }
 }
