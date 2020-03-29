@@ -39,15 +39,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var deviceTable: UITableView!
     
-    @IBAction func detectPress(_ sender: Any) {
+    @IBAction func detectPress(_ sender: UIButton?) {
         items.removeAll()
+        deviceTable.reloadData()
+        guard centralManager.state == .poweredOn else {
+            sender?.isEnabled = false
+            assertionFailure("Disable Detect Button if Central Manager is not powered on")
+            return
+        }
         centralManager.scanForPeripherals(withServices: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        peripheralStatus.text = "NOT ADVERTISING"
-        
+        detectButton.isEnabled = centralManager.state == .poweredOn
+        advertise(manager: peripheralManager, identifier: CBUUID(nsuuid: UUID()))
     }
     @IBOutlet weak var peripheralStatus: UILabel!
     private var identifier: CBUUID!
@@ -56,18 +62,13 @@ class ViewController: UIViewController {
 
 extension ViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        self.detectButton.isEnabled = central.state == .poweredOn
         switch central.state {
             
         case .poweredOn:
             print("powered on")
-            self.detectButton.setTitle("DETECT",for: .normal)
-            self.detectButton.isEnabled = true
-
         case .poweredOff:
             print("powered off state")
-            self.detectButton.setTitle("BLUETOOTH OFF",for: .normal)
-            self.detectButton.isEnabled = false
-            
         case .unauthorized:
             print("unauthorized state")
         
