@@ -16,11 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-DF-xyj">
-                                <rect key="frame" x="0.0" y="34" width="414" height="49"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-DF-xyj">
+                                <rect key="frame" x="0.0" y="44" width="414" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="vdU-hR-yQv"/>
+                                    <constraint firstAttribute="height" constant="48" id="fhM-YJ-E8u"/>
                                 </constraints>
                                 <state key="normal" title="DETECT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -33,6 +33,11 @@
                                 <rect key="frame" x="0.0" y="91" width="414" height="719"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="fQS-Vg-6a0">
+                                    <rect key="frame" x="0.0" y="111.5" width="414" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="discoveredNodeCell" textLabel="uEx-US-qYD" detailTextLabel="QAc-Hw-HDI" style="IBUITableViewCellStyleSubtitle" id="8ce-7S-wHy">
                                         <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
@@ -64,8 +69,11 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="3Cw-pw-7j0"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADVERTISING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tos-4a-cam">
-                                <rect key="frame" x="149.5" y="841" width="108" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOT ADVERTISING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tos-4a-cam">
+                                <rect key="frame" x="0.0" y="814" width="414" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="ieE-ep-U7z"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -73,14 +81,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="top" constant="10" id="2tX-0A-3ig"/>
-                            <constraint firstItem="Tos-4a-cam" firstAttribute="top" secondItem="IZA-jP-AuW" secondAttribute="bottom" constant="31" id="9XT-BR-HXe"/>
-                            <constraint firstItem="IZA-jP-AuW" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="bottom" constant="8" id="N2j-ll-cu6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="top" constant="10" id="acZ-Vn-ZkH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="top" id="2tX-0A-3ig"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tos-4a-cam" secondAttribute="trailing" id="EBV-xf-iJC"/>
+                            <constraint firstItem="Tos-4a-cam" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HA1-sp-HBA"/>
                             <constraint firstItem="jYC-DF-xyj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cGE-3z-9q3"/>
-                            <constraint firstItem="jYC-DF-xyj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="34" id="eA2-DN-YJf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tos-4a-cam" secondAttribute="bottom" id="obE-z4-GDD"/>
-                            <constraint firstItem="Tos-4a-cam" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-3.5" id="p4D-4E-Vvz"/>
                             <constraint firstItem="jYC-DF-xyj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zoo-VJ-ago"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
