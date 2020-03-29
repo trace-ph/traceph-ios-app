@@ -165,6 +165,11 @@ extension ViewController: CBPeripheralManagerDelegate {
         }
         peripheralStatus.text = peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING"
     }
+    
+    func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
+        print(error?.localizedDescription)
+        peripheralStatus.text = peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING"
+    }
 }
 
 extension ViewController: UITableViewDataSource {
