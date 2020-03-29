@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     
     var items = [node_data]()
     
-    var centralManager: CBCentralManager!
-    var peripheralManager: CBPeripheralManager!
+    lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
+    lazy var peripheralManager: CBPeripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     
     @IBOutlet weak var deviceCV: UICollectionView!
     @IBOutlet weak var detectButton: UIButton!
@@ -42,10 +42,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        centralManager = CBCentralManager(delegate: self, queue: nil)
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        
         peripheralStatus.text = "NOT ADVERTISING"
         
     }
