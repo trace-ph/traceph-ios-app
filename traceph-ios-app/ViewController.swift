@@ -138,7 +138,6 @@ extension ViewController: CBPeripheralManagerDelegate {
             Constants.IDENTIFIER_KEY: Utility.getDeviceIdentifier()
         ]
         manager.startAdvertising(advertisementData)
-        peripheralStatus.text = "ADVERTISING"
         print("Started Advertising")
     }
     
@@ -148,7 +147,6 @@ extension ViewController: CBPeripheralManagerDelegate {
             print("CBPeripheralManager powered on")
             advertise(manager: peripheral, identifier: CBUUID(nsuuid: UUID()))
         default:
-            peripheralStatus.text = "NOT ADVERTISING"
             switch peripheral.state {
                 case .poweredOff:
                     print("CBPeripheralManagerDelegate powered off state")
@@ -164,6 +162,7 @@ extension ViewController: CBPeripheralManagerDelegate {
                     assertionFailure("handle \(peripheral.state.rawValue) state")
             }
         }
+        peripheralStatus.text = peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING"
     }
 }
 
