@@ -30,8 +30,9 @@ class ViewController: UIViewController {
     
     var items = [node_data]()
     
-    lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
-    lazy var peripheralManager: CBPeripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+    var centralManager: CBCentralManager!
+    var peripheralManager: CBPeripheralManager!
+    
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.current
@@ -54,8 +55,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detectButton.isEnabled = centralManager.state == .poweredOn
-        advertise(manager: peripheralManager, identifier: CBUUID(nsuuid: UUID()))
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
     
     @IBOutlet weak var peripheralStatus: UILabel!
