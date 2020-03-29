@@ -22,11 +22,8 @@ class ViewController: UIViewController {
         let timestamp: Double
         let deviceIdentifier: String
         
-        var dateString: String {
+        func dateString(formatter: DateFormatter) -> String {
             let date = Date(timeIntervalSince1970: timestamp)
-            let formatter = DateFormatter()
-            formatter.timeZone = TimeZone.current
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
             return formatter.string(from: date)
         }
     }
@@ -35,7 +32,12 @@ class ViewController: UIViewController {
     
     lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
     lazy var peripheralManager: CBPeripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-    
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var deviceTable: UITableView!
     
@@ -181,7 +183,7 @@ extension ViewController: UITableViewDataSource {
         }
         let node = items[indexPath.row]
         cell.textLabel?.text = node.name
-        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString)"
+        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))"
         return cell
     }
 }
