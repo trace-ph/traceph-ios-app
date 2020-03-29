@@ -63,26 +63,20 @@ extension ViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         self.detectButton.isEnabled = central.state == .poweredOn
         switch central.state {
-            
         case .poweredOn:
-            print("powered on")
+            print("CBCentralManager powered on")
         case .poweredOff:
-            print("powered off state")
+            print("CBCentralManager powered off state")
         case .unauthorized:
-            print("unauthorized state")
-        
+            print("CBCentralManager unauthorized state")
         case .resetting:
-            print("resetting state")
-            
+            print("CBCentralManager resetting state")
         case .unsupported:
-            print("unsupported state")
-            
+            print("CBCentralManager unsupported state")
         case .unknown:
-            print("unknown state")
-            
+            print("CBCentralManager unknown state")
         default:
-            print("error")
-
+            print("CBCentralManager error")
         }
     }
     
