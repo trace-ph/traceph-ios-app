@@ -55,9 +55,8 @@ class ViewController: UIViewController {
         detectButton.isEnabled = centralManager.state == .poweredOn
         advertise(manager: peripheralManager, identifier: CBUUID(nsuuid: UUID()))
     }
+    
     @IBOutlet weak var peripheralStatus: UILabel!
-    private var identifier: CBUUID!
-
 }
 
 extension ViewController: CBCentralManagerDelegate {
@@ -109,52 +108,65 @@ extension ViewController: CBCentralManagerDelegate {
 }
 
 extension ViewController: CBPeripheralManagerDelegate {
-    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-        switch peripheral.state {
-            
-        case .poweredOn:
-            print("powered on")
-            
-            //create new identifier
-            identifier = CBUUID(nsuuid: UUID())
-            
+    func advertise(manager: CBPeripheralManager, identifier: CBUUID) {
+        guard manager.state == .poweredOn else {
+            print("CBPeripheralManager must be powered on")
+            return
+        }
+        guard !manager.isAdvertising else {
+            print("Advertising has already begun")
+            return
+        }
+        
+        // REVIEW: does this really need to be done every time we want to advertise something new?
+        // reset manager
+        manager.removeAllServices()
+        
+        //add service
+        let service:CBMutableService = {
             //create characteristics
             let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.notify, .write, .read], value: nil, permissions: [.readable, .writeable])
-                        
             //create service
             let service = CBMutableService(type: identifier, primary: true)
-            
             //set characteristic
             service.characteristics = [characteristic]
-            
-            //add service
-            peripheralManager.add(service)
-            
-            //start advertising
-            peripheralManager.startAdvertising([CBAdvertisementDataLocalNameKey : UIDevice.current.name, CBAdvertisementDataServiceUUIDsKey : [identifier]]  )
-            
-            print("Started Advertising")
-            peripheralStatus.text = "ADVERTISING"
-            
-            
-
-        case .poweredOff:
-            print("powered off state")
-            
-        case .unauthorized:
-            print("unauthorized state")
+            return service
+        }()
+        manager.add(service)
         
-        case .resetting:
-            print("resetting state")
-            
-        case .unsupported:
-            print("unsupported state")
-            
-        case .unknown:
-            print("unknown state")
-            
+        //start advertising
+        let advertisementData:[String:Any] = [
+            CBAdvertisementDataLocalNameKey : UIDevice.current.name,
+            CBAdvertisementDataServiceUUIDsKey : [identifier],
+            Constants.IDENTIFIER_KEY: Utility.getDeviceIdentifier()
+        ]
+        manager.startAdvertising(advertisementData)
+        peripheralStatus.text = "ADVERTISING"
+        print("Started Advertising")
+    }
+    
+    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+        switch peripheral.state {
+        case .poweredOn:
+            print("CBPeripheralManager powered on")
+            advertise(manager: peripheral, identifier: CBUUID(nsuuid: UUID()))
         default:
-            assertionFailure("handle \(peripheral.state) state")
+            peripheralManager.stopAdvertising()
+            peripheralStatus.text = "NOT ADVERTISING"
+            switch peripheral.state {
+                case .poweredOff:
+                    print("CBPeripheralManagerDelegate powered off state")
+                case .unauthorized:
+                    print("CBPeripheralManagerDelegate unauthorized state")
+                case .resetting:
+                    print("CBPeripheralManagerDelegate resetting state")
+                case .unsupported:
+                    print("CBPeripheralManagerDelegate unsupported state")
+                case .unknown:
+                    print("CBPeripheralManagerDelegate unknown state")
+                default:
+                    assertionFailure("handle \(peripheral.state.rawValue) state")
+            }
         }
     }
 }
