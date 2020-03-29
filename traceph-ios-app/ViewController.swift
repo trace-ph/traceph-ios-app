@@ -111,8 +111,7 @@ extension ViewController: CBPeripheralManagerDelegate {
             print("Advertising has already begun")
             return
         }
-        
-        // REVIEW: does this really need to be done every time we want to advertise something new?
+        // REVIEW: does this really need to be done every time we want to advertise?
         // reset manager
         manager.removeAllServices()
         
@@ -145,7 +144,8 @@ extension ViewController: CBPeripheralManagerDelegate {
             print("CBPeripheralManager powered on")
             advertise(manager: peripheral, identifier: CBUUID(nsuuid: UUID()))
         default:
-            peripheralManager.stopAdvertising()
+            peripheral.removeAllServices()
+            peripheral.stopAdvertising()
             peripheralStatus.text = "NOT ADVERTISING"
             switch peripheral.state {
                 case .poweredOff:
