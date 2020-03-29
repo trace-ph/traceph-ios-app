@@ -12,15 +12,15 @@ import Foundation
 
 class ViewController: UIViewController {
     struct Constants {
-        static let REUSE_IDENTIFIER = "CollectionViewCell"
+        static let REUSE_IDENTIFIER = "discoveredNodeCell"
     }
     
     struct node_data {
         var name: String
-        var rssi: Int
+        var rssi: NSNumber
         var timestamp: String
         
-        init(name: String, rssi: Int, timestamp: String) {
+        init(name: String, rssi: NSNumber, timestamp: String) {
             self.name = name
             self.rssi = rssi
             self.timestamp = timestamp
@@ -32,8 +32,8 @@ class ViewController: UIViewController {
     lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
     lazy var peripheralManager: CBPeripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     
-    @IBOutlet weak var deviceCV: UICollectionView!
     @IBOutlet weak var detectButton: UIButton!
+    @IBOutlet weak var deviceTable: UITableView!
     
     @IBAction func detectPress(_ sender: Any) {
         items.removeAll()
@@ -83,28 +83,26 @@ extension ViewController: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-            
-            //get timestamp
+        guard !items.contains(where: {$0.rssi == RSSI}) else {
+            return
+        }
+        //get timestamp
+        let dateString: String = {
             let now = Date()
             let formatter = DateFormatter()
             formatter.timeZone = TimeZone.current
             formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let dateString = formatter.string(from: now)
-            
-            //append node
-    //        let detected_node = node_data(name: peripheral.name ?? peripheral.identifier.uuidString, rssi: Int(RSSI), timestamp: dateString)
-            
-            let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: Int(RSSI), timestamp: dateString)
-            
-            items.append(detected_node)
-            
-    //        print(detected_node)
-            
-            //reload collection view
-            DispatchQueue.main.async {
-                self.deviceCV.reloadData()
-            }
+            return formatter.string(from: now)
+        }()
+        //append node
+        let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: RSSI, timestamp: dateString)
+        items.append(detected_node)
+        
+        //reload table view
+        DispatchQueue.main.async {
+            self.deviceTable.reloadData()
         }
+    }
 }
 
 extension ViewController: CBPeripheralManagerDelegate {
@@ -153,31 +151,32 @@ extension ViewController: CBPeripheralManagerDelegate {
             print("unknown state")
             
         default:
-            print("error")
-
+            assertionFailure("handle \(peripheral.state) state")
         }
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
+extension ViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
-}
-
-extension ViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewController.Constants.REUSE_IDENTIFIER, for: indexPath) as? CollectionViewCell else {
-            assertionFailure("Register \(ViewController.Constants.REUSE_IDENTIFIER) cell first")
-            return UICollectionViewCell()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.REUSE_IDENTIFIER) else {
+            assertionFailure("Register \(Constants.REUSE_IDENTIFIER) cell first")
+            return UITableViewCell()
         }
-        let item = items[indexPath.row]
-        cell.nodeName.text = item.name
-        cell.nodeRSSI.text = String(item.rssi)
-        cell.nodeTimestamp.text = item.timestamp
+        let node = items[indexPath.row]
+        cell.textLabel?.text = node.name
+        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.timestamp)"
         return cell
     }
+}
+
+extension ViewController: UITableViewDelegate {
+    
 }

@@ -15,7 +15,7 @@
 		0AE8F8E4243062E1004FFFE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8F8E2243062E1004FFFE9 /* LaunchScreen.storyboard */; };
 		0AE8F8EF243062E1004FFFE9 /* traceph_ios_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8EE243062E1004FFFE9 /* traceph_ios_appTests.swift */; };
 		0AE8F8FA243062E1004FFFE9 /* traceph_ios_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */; };
-		0AE8F908243064E0004FFFE9 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F907243064E0004FFFE9 /* CollectionViewCell.swift */; };
+		C6901E252430E54000415BAD /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6901E242430E54000415BAD /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		0AE8F8F5243062E1004FFFE9 /* traceph-ios-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "traceph-ios-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = traceph_ios_appUITests.swift; sourceTree = "<group>"; };
 		0AE8F8FB243062E2004FFFE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0AE8F907243064E0004FFFE9 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		C6901E242430E54000415BAD /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 				0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */,
 				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
 				0AE8F8DB243062DE004FFFE9 /* ViewController.swift */,
-				0AE8F907243064E0004FFFE9 /* CollectionViewCell.swift */,
+				C6901E242430E54000415BAD /* Utility.swift */,
 				0AE8F8DD243062DE004FFFE9 /* Main.storyboard */,
 				0AE8F8E0243062E1004FFFE9 /* Assets.xcassets */,
 				0AE8F8E2243062E1004FFFE9 /* LaunchScreen.storyboard */,
@@ -262,9 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6901E252430E54000415BAD /* Utility.swift in Sources */,
 				0AE8F8DC243062DE004FFFE9 /* ViewController.swift in Sources */,
 				0AE8F8D8243062DE004FFFE9 /* AppDelegate.swift in Sources */,
-				0AE8F908243064E0004FFFE9 /* CollectionViewCell.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
