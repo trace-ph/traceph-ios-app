@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -17,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vjN-Oh-6aj">
-                                <rect key="frame" x="0.0" y="91" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="91" width="414" height="624"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="724" id="O5O-5A-ocJ"/>
+                                    <constraint firstAttribute="height" constant="624" id="O5O-5A-ocJ"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LVs-do-pbL">
                                     <size key="itemSize" width="414" height="70"/>
@@ -94,7 +95,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ADVERTISING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tos-4a-cam">
-                                <rect key="frame" x="20" y="841" width="367" height="21"/>
+                                <rect key="frame" x="24" y="737" width="367" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECEIVED DATA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hP-Bd-KZF">
+                                <rect key="frame" x="144.5" y="797" width="125" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -102,15 +109,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="0hP-Bd-KZF" firstAttribute="top" secondItem="Tos-4a-cam" secondAttribute="bottom" constant="39" id="2Hy-Ta-7gK"/>
                             <constraint firstItem="vjN-Oh-6aj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="618-Hz-VyU"/>
                             <constraint firstItem="vjN-Oh-6aj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ey8-2s-4F3"/>
                             <constraint firstItem="vjN-Oh-6aj" firstAttribute="trailing" secondItem="jYC-DF-xyj" secondAttribute="trailing" id="JVc-Z0-CYK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0hP-Bd-KZF" secondAttribute="bottom" constant="44" id="Maq-6S-2qt"/>
                             <constraint firstItem="vjN-Oh-6aj" firstAttribute="leading" secondItem="jYC-DF-xyj" secondAttribute="leading" id="Q2h-tB-6qj"/>
-                            <constraint firstItem="Tos-4a-cam" firstAttribute="top" secondItem="vjN-Oh-6aj" secondAttribute="bottom" constant="26" id="Vqi-pq-I1t"/>
+                            <constraint firstItem="Tos-4a-cam" firstAttribute="top" secondItem="vjN-Oh-6aj" secondAttribute="bottom" constant="22" id="Vqi-pq-I1t"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="top" constant="10" id="acZ-Vn-ZkH"/>
+                            <constraint firstItem="0hP-Bd-KZF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dAv-vj-WkV"/>
                             <constraint firstItem="vjN-Oh-6aj" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="bottom" constant="8" id="muE-Za-tJc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tos-4a-cam" secondAttribute="bottom" id="obE-z4-GDD"/>
-                            <constraint firstItem="Tos-4a-cam" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-3.5" id="p4D-4E-Vvz"/>
+                            <constraint firstItem="Tos-4a-cam" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="0.5" id="p4D-4E-Vvz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

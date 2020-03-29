@@ -9,6 +9,8 @@
 import UIKit
 import CoreBluetooth
 import Foundation
+import CoreLocation
+import MapKit
 
 class ViewController: UIViewController {
     struct Constants {
@@ -29,9 +31,12 @@ class ViewController: UIViewController {
     
     var items = [node_data]()
     
-    lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
-    lazy var peripheralManager: CBPeripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+    var currentCoords: (Double,Double) = (0,0)
     
+    lazy var centralManager = CBCentralManager(delegate: self, queue: nil)
+    var peripheralManager: CBPeripheralManager!
+    var locationManager = CLLocationManager()
+
     @IBOutlet weak var deviceCV: UICollectionView!
     @IBOutlet weak var detectButton: UIButton!
     
@@ -44,7 +49,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         peripheralStatus.text = "NOT ADVERTISING"
         
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+        
+        getLocation(locationManager: locationManager)
     }
+
+    
     @IBOutlet weak var peripheralStatus: UILabel!
     private var identifier: CBUUID!
 
@@ -55,7 +65,7 @@ extension ViewController: CBCentralManagerDelegate {
         switch central.state {
             
         case .poweredOn:
-            print("powered on")
+//            print("powered on")
             self.detectButton.setTitle("DETECT",for: .normal)
             self.detectButton.isEnabled = true
 
@@ -92,13 +102,11 @@ extension ViewController: CBCentralManagerDelegate {
             let dateString = formatter.string(from: now)
             
             //append node
-    //        let detected_node = node_data(name: peripheral.name ?? peripheral.identifier.uuidString, rssi: Int(RSSI), timestamp: dateString)
-            
             let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: Int(RSSI), timestamp: dateString)
             
             items.append(detected_node)
             
-    //        print(detected_node)
+//            print(detected_node)
             
             //reload collection view
             DispatchQueue.main.async {
@@ -112,7 +120,7 @@ extension ViewController: CBPeripheralManagerDelegate {
         switch peripheral.state {
             
         case .poweredOn:
-            print("powered on")
+//            print("powered on")
             
             //create new identifier
             identifier = CBUUID(nsuuid: UUID())
@@ -132,7 +140,6 @@ extension ViewController: CBPeripheralManagerDelegate {
             //start advertising
             peripheralManager.startAdvertising([CBAdvertisementDataLocalNameKey : UIDevice.current.name, CBAdvertisementDataServiceUUIDsKey : [identifier]]  )
             
-            print("Started Advertising")
             peripheralStatus.text = "ADVERTISING"
             
             
@@ -180,4 +187,53 @@ extension ViewController: UICollectionViewDataSource {
         cell.nodeTimestamp.text = item.timestamp
         return cell
     }
+}
+
+extension ViewController: CLLocationManagerDelegate {
+    
+    func getLocation(locationManager: CLLocationManager) {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.distanceFilter = 10
+        locationManager.pausesLocationUpdatesAutomatically = true
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        
+//        locationManager.allowsBackgroundLocationUpdates = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            locationManager.startUpdatingLocation()
+            
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            
+        case .denied:
+            print("location auth denied")
+        
+        case .notDetermined:
+            print("location auth not determined")
+            
+        case .restricted:
+            print("location auth restricted")
+            
+        default:
+            print("location auth error")
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let coordinates: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+       print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
+        
+        currentCoords.0 = coordinates.latitude
+        currentCoords.1 = coordinates.longitude
+        
+    }
+    
 }
