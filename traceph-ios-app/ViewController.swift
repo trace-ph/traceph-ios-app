@@ -10,8 +10,10 @@ import UIKit
 import CoreBluetooth
 import Foundation
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,  CBCentralManagerDelegate, CBPeripheralManagerDelegate {
-    
+class ViewController: UIViewController {
+    struct Constants {
+        static let REUSE_IDENTIFIER = "CollectionViewCell"
+    }
     
     struct node_data {
         var name: String
@@ -47,27 +49,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         peripheralStatus.text = "NOT ADVERTISING"
         
     }
-    
-    // MARK: - Collection View
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
-        cell.nodeName.text = items[indexPath.row].name
-        cell.nodeRSSI.text = String(items[indexPath.row].rssi)
-        cell.nodeTimestamp.text = items[indexPath.row].timestamp
-    
-        return cell
-    }
-    
-    
-    // MARK: - CoreBluetooth Central
-    
+    @IBOutlet weak var peripheralStatus: UILabel!
+    private var identifier: CBUUID!
+
+}
+
+extension ViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
             
@@ -100,35 +87,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
-        //get timestamp
-        let now = Date()
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.current
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let dateString = formatter.string(from: now)
-        
-        //append node
-//        let detected_node = node_data(name: peripheral.name ?? peripheral.identifier.uuidString, rssi: Int(RSSI), timestamp: dateString)
-        
-        let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: Int(RSSI), timestamp: dateString)
-        
-        items.append(detected_node)
-        
-//        print(detected_node)
-        
-        //reload collection view
-        DispatchQueue.main.async {
-            self.deviceCV.reloadData()
+            
+            //get timestamp
+            let now = Date()
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone.current
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let dateString = formatter.string(from: now)
+            
+            //append node
+    //        let detected_node = node_data(name: peripheral.name ?? peripheral.identifier.uuidString, rssi: Int(RSSI), timestamp: dateString)
+            
+            let detected_node = node_data(name: peripheral.name ?? "N/A", rssi: Int(RSSI), timestamp: dateString)
+            
+            items.append(detected_node)
+            
+    //        print(detected_node)
+            
+            //reload collection view
+            DispatchQueue.main.async {
+                self.deviceCV.reloadData()
+            }
         }
-    }
-    
-    // MARK: - CoreBluetooth Peripheral
-    
-    @IBOutlet weak var peripheralStatus: UILabel!
-    
-    private var identifier: CBUUID!
-    
+}
+
+extension ViewController: CBPeripheralManagerDelegate {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         switch peripheral.state {
             
@@ -178,6 +161,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         }
     }
-
 }
 
+extension ViewController: UICollectionViewDelegate {
+    
+}
+
+extension ViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewController.Constants.REUSE_IDENTIFIER, for: indexPath) as? CollectionViewCell else {
+            assertionFailure("Register \(ViewController.Constants.REUSE_IDENTIFIER) cell first")
+            return UICollectionViewCell()
+        }
+        let item = items[indexPath.row]
+        cell.nodeName.text = item.name
+        cell.nodeRSSI.text = String(item.rssi)
+        cell.nodeTimestamp.text = item.timestamp
+        return cell
+    }
+}
