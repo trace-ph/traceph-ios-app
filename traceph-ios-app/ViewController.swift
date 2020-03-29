@@ -64,6 +64,7 @@ class ViewController: UIViewController {
 extension ViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         self.detectButton.isEnabled = central.state == .poweredOn
+        self.detectButton.alpha = self.detectButton.isEnabled ? 1 : 0.5
         switch central.state {
         case .poweredOn:
             print("CBCentralManager powered on")
