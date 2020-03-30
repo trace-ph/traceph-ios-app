@@ -24,14 +24,28 @@ class ViewController: UIViewController {
     }
     
     struct node_data {
-        var name: String
+        let name: String
         let rssi: NSNumber
         let timestamp: Double
         let deviceIdentifier: String
+        let peripheralIdentifier: UUID
         let coordinates: SimpleCoordinates
+        let message: String? // maybe convert to a bool `didConnect`
+        
         func dateString(formatter: DateFormatter) -> String {
             let date = Date(timeIntervalSince1970: timestamp)
             return formatter.string(from: date)
+        }
+        
+        func newWithMessage(_ message: String?) -> node_data {
+            return node_data(
+                name: name,
+                rssi: rssi,
+                timestamp: timestamp,
+                deviceIdentifier: deviceIdentifier,
+                peripheralIdentifier: peripheralIdentifier,
+                coordinates: coordinates,
+                message: message)
         }
     }
     
@@ -111,8 +125,7 @@ extension ViewController: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard
             let deviceIdentifier = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?.last?.uuidString,
-            !items.contains(where: {$0.deviceIdentifier == deviceIdentifier}) else {
-//                print("ignoring \(peripheral.name ?? "unknown") with rssi: \(RSSI)")
+            !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}) else {
             return
         }
         
@@ -122,7 +135,9 @@ extension ViewController: CBCentralManagerDelegate {
             rssi: RSSI,
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
-            coordinates: currentCoords
+            peripheralIdentifier: peripheral.identifier,
+            coordinates: currentCoords,
+            message: nil
             )
         items.append(detected_node)
         
@@ -157,16 +172,10 @@ extension ViewController: CBCentralManagerDelegate {
         print("\(peripheral.name ?? "N/A") disconnected")
         
         //REVIEW: Implementation can be changed
-        //check if node name is unchanged (handshake fail)
-        if (items.contains{$0.name == peripheral.name}) {
-            
-            //find device index in tableview
-            let indexPath = items.firstIndex { (item) -> Bool in
-              item.name == peripheral.name
-            }
-            
-            //indicate handshake fail
-            items[indexPath!].name = "\(items[indexPath!].name)\t-\tHandshake fail"
+        //check if node message is unset (handshake fail)
+        if let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier && $0.message == nil }) {
+             //indicate handshake fail
+            items[itemIndex] = items[itemIndex].newWithMessage("Handshake fail")
         }
         
         //reload table view
@@ -201,7 +210,7 @@ extension ViewController: CBPeripheralManagerDelegate {
             let sendMSG = Constants.CHARACTERISTIC_VALUE.data(using: .utf8)
             
             //create characteristics
-            let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG.data(using: .utf8), permissions: [.readable])
+            let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG, permissions: [.readable])
             //create service
             let service = CBMutableService(type: identifier, primary: true)
             //set characteristic
@@ -261,10 +270,9 @@ extension ViewController: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        guard let services = peripheral.services else { return }
-
+        guard let lastService = peripheral.services?.last else { return }
         //REVIEW: Only detects the last service since handshake value is appended to list of services
-        peripheral.discoverCharacteristics(nil, for: services[services.endIndex - 1])
+        peripheral.discoverCharacteristics(nil, for: lastService)
     }
     
     func peripheral( _ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -286,19 +294,18 @@ extension ViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard let data = characteristic.value else { return }
         // indicates successful handshakes in device table for now
-        // REVIEW: Name is not a good identifier because it's not unique.
+        // REVIEW: Changed identifier to peripheral.identifier instead of name because name is not unique
         // Since we only plan on connecting to one, why use item array at all?
-        guard let itemIndex = items.firstIndex(where: {$0.name == peripheral.name }) else {
-            assertionFailure("items does not contain: \(peripheral.name)")
+        guard let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }) else {
+            assertionFailure("items does not contain: \(peripheral.identifier)")
             return
         }
         
         //TODO: Process received data from peripheral to server
-        var recvMSG = String(decoding:data, as: UTF8.self)
+        let recvMSG = String(decoding:data, as: UTF8.self)
         
         if recvMSG == Constants.CHARACTERISTIC_VALUE {
-            recvMSG = recvMSG + " success"
-            items[itemIndex].name = "\(items[itemIndex].name)\t-\t\(recvMSG)"
+            items[itemIndex] = items[itemIndex].newWithMessage(recvMSG + " success")
         }
         
         //reload table view
@@ -327,7 +334,11 @@ extension ViewController: UITableViewDataSource {
         }
 
         let node = items[indexPath.row]
-        cell.textLabel?.text = node.name
+        if let message = node.message {
+            cell.textLabel?.text = "\(node.name)\t-\t\(message)"
+        } else {
+            cell.textLabel?.text = node.name
+        }
         
         //REVIEW: Create UITableViewCell depending on needed information
         cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))"
