@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="traceph_ios_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-DF-xyj">
-                                <rect key="frame" x="0.0" y="44" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="fhM-YJ-E8u"/>
@@ -34,27 +34,27 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="fQS-Vg-6a0">
-                                    <rect key="frame" x="0.0" y="111.5" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="111.66666793823242" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="discoveredNodeCell" textLabel="uEx-US-qYD" detailTextLabel="QAc-Hw-HDI" style="IBUITableViewCellStyleSubtitle" id="8ce-7S-wHy">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8ce-7S-wHy" id="hJK-DW-rS8">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uEx-US-qYD">
-                                                    <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="8.9999999999999982" width="33.333333333333336" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QAc-Hw-HDI">
-                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <rect key="frame" x="14.999999999999996" y="31.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -70,7 +70,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOT ADVERTISING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tos-4a-cam">
-                                <rect key="frame" x="0.0" y="814" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="730" width="375" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="ieE-ep-U7z"/>
                                 </constraints>
@@ -100,5 +100,236 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="rUG-1F-8gy">
+            <objects>
+                <viewController id="vaW-gv-CBb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Evh-1k-ira">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DESIGNED BY FREEPIK" translatesAutoresizingMaskIntoConstraints="NO" id="hLh-qk-cDk">
+                                <rect key="frame" x="29" y="163" width="317" height="112"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOS-Kc-6GN">
+                                <rect key="frame" x="29" y="310" width="317" height="330"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">TracePH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
+
+To do this, we will need your help to turn on your device bluetooth.
+
+TracePH exchanges Bluetooth signals with nearby mobile phones which runs the same app.</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="20" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfZ-ot-ijK">
+                                <rect key="frame" x="30.666666666666657" y="112" width="313.66666666666674" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebA-QW-OOK">
+                                <rect key="frame" x="30.666666666666657" y="678" width="313.66666666666674" height="38"/>
+                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <state key="normal" title="I agree on this">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eOS-Kc-6GN" firstAttribute="top" secondItem="Tyh-na-xhK" secondAttribute="top" constant="266" id="1My-h4-AJr"/>
+                            <constraint firstItem="Tyh-na-xhK" firstAttribute="bottom" secondItem="eOS-Kc-6GN" secondAttribute="bottom" constant="138" id="I00-WK-eeS"/>
+                            <constraint firstItem="hLh-qk-cDk" firstAttribute="width" secondItem="eOS-Kc-6GN" secondAttribute="width" id="Mnt-22-ORX"/>
+                            <constraint firstItem="ebA-QW-OOK" firstAttribute="top" secondItem="eOS-Kc-6GN" secondAttribute="bottom" constant="38" id="NRv-XF-Qly"/>
+                            <constraint firstItem="eOS-Kc-6GN" firstAttribute="top" secondItem="hLh-qk-cDk" secondAttribute="bottom" constant="35" id="NjP-jp-ZW8"/>
+                            <constraint firstItem="eOS-Kc-6GN" firstAttribute="leading" secondItem="Tyh-na-xhK" secondAttribute="leading" constant="29" id="QGi-Ae-WCs"/>
+                            <constraint firstItem="kfZ-ot-ijK" firstAttribute="width" secondItem="hLh-qk-cDk" secondAttribute="width" multiplier="0.988764" id="SgP-d4-SbT"/>
+                            <constraint firstItem="kfZ-ot-ijK" firstAttribute="centerX" secondItem="hLh-qk-cDk" secondAttribute="centerX" id="Th1-Vm-yZT"/>
+                            <constraint firstItem="hLh-qk-cDk" firstAttribute="top" secondItem="kfZ-ot-ijK" secondAttribute="bottom" constant="8" id="VLd-hm-dEN"/>
+                            <constraint firstItem="ebA-QW-OOK" firstAttribute="centerX" secondItem="eOS-Kc-6GN" secondAttribute="centerX" id="Z1I-Jz-UaR"/>
+                            <constraint firstItem="hLh-qk-cDk" firstAttribute="centerX" secondItem="eOS-Kc-6GN" secondAttribute="centerX" id="n3O-WI-inW"/>
+                            <constraint firstItem="ebA-QW-OOK" firstAttribute="width" secondItem="eOS-Kc-6GN" secondAttribute="width" multiplier="0.988764" id="q9J-yt-Cau"/>
+                            <constraint firstItem="Tyh-na-xhK" firstAttribute="trailing" secondItem="eOS-Kc-6GN" secondAttribute="trailing" constant="29" id="yMG-Va-Xk5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Tyh-na-xhK"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CcO-fU-rG7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="134.78260869565219" y="794.83695652173924"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fON-bB-bGU">
+            <objects>
+                <viewController id="X7N-XD-MfW" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i8O-DI-Xcj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXX-Bh-Pum">
+                                <rect key="frame" x="29" y="310" width="317" height="330"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">We noticed that your bluetooth is off.
+
+Please turn on your bluetooth from your settings to start using TracePH app.</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="20" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-II-Fj0">
+                                <rect key="frame" x="30.666666666666657" y="678" width="313.66666666666674" height="38"/>
+                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <state key="normal" title="Okay! Got it">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="TracePH" translatesAutoresizingMaskIntoConstraints="NO" id="aNQ-Pv-0G6">
+                                <rect key="frame" x="131" y="115" width="113" height="160"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="QpU-Ab-hdf" firstAttribute="bottom" secondItem="MXX-Bh-Pum" secondAttribute="bottom" constant="138" id="1Sf-Dc-KDe"/>
+                            <constraint firstItem="Yah-II-Fj0" firstAttribute="centerX" secondItem="MXX-Bh-Pum" secondAttribute="centerX" id="5nt-82-ORO"/>
+                            <constraint firstItem="MXX-Bh-Pum" firstAttribute="leading" secondItem="QpU-Ab-hdf" secondAttribute="leading" constant="29" id="8j4-aL-RM1"/>
+                            <constraint firstItem="Yah-II-Fj0" firstAttribute="width" secondItem="MXX-Bh-Pum" secondAttribute="width" multiplier="0.988764" id="E1T-YB-KgS"/>
+                            <constraint firstItem="Yah-II-Fj0" firstAttribute="top" secondItem="MXX-Bh-Pum" secondAttribute="bottom" constant="38" id="E3w-ED-4F8"/>
+                            <constraint firstItem="aNQ-Pv-0G6" firstAttribute="centerX" secondItem="QpU-Ab-hdf" secondAttribute="centerX" id="Xh2-Ts-n4O"/>
+                            <constraint firstItem="QpU-Ab-hdf" firstAttribute="trailing" secondItem="MXX-Bh-Pum" secondAttribute="trailing" constant="29" id="eph-1a-NgN"/>
+                            <constraint firstItem="MXX-Bh-Pum" firstAttribute="top" secondItem="QpU-Ab-hdf" secondAttribute="top" constant="266" id="flj-PJ-DhW"/>
+                            <constraint firstItem="MXX-Bh-Pum" firstAttribute="top" secondItem="aNQ-Pv-0G6" secondAttribute="bottom" constant="35" id="p57-0s-PKJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QpU-Ab-hdf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t2X-Qi-5dT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1065" y="794.36619718309862"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Bey-HT-FwE">
+            <objects>
+                <viewController id="8Vr-cx-aEh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kh8-sz-xer">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-NN-OIF">
+                                <rect key="frame" x="39" y="226" width="307" height="201"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">We want you to be informed.
+
+Let this app run in the background. Whenever we confirmed that someone you have encountered has been tested positive for COVID-19, we will give you a notification. You may also share the app through:
+
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="20" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IqU-4f-qgc">
+                                <rect key="frame" x="34.666666666666657" y="554" width="315.66666666666674" height="65"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">or you can let your friends or family scan the QR code below
+
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="20" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NKq-F6-3pA">
+                                <rect key="frame" x="34" y="443" width="307" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="www.traceph.com/samplelinkfordownload"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Od1-Wa-xdH">
+                                <rect key="frame" x="36.333333333333343" y="508" width="312.33333333333326" height="38"/>
+                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <state key="normal" title="Copy link to share">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="8tc-cH-IaL">
+                                <rect key="frame" x="14.666666666666629" y="102" width="356" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="356" id="7xd-xm-5D6"/>
+                                    <constraint firstAttribute="height" constant="112" id="BMV-e6-8gc"/>
+                                    <constraint firstAttribute="width" constant="356" id="waT-14-5QA"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="SampleQR" translatesAutoresizingMaskIntoConstraints="NO" id="jpF-d4-NP4">
+                                <rect key="frame" x="69.666666666666671" y="639" width="235.66666666666663" height="106"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="106" id="uGC-qf-4u6"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Od1-Wa-xdH" firstAttribute="width" secondItem="rPt-NN-OIF" secondAttribute="width" multiplier="1.01734" id="5xf-mA-u8R"/>
+                            <constraint firstItem="rPt-NN-OIF" firstAttribute="leading" secondItem="EUH-EU-CGJ" secondAttribute="leading" constant="39" id="6PO-1M-oNU"/>
+                            <constraint firstItem="EUH-EU-CGJ" firstAttribute="bottom" secondItem="jpF-d4-NP4" secondAttribute="bottom" constant="33" id="8JG-Zh-4Zh"/>
+                            <constraint firstItem="8tc-cH-IaL" firstAttribute="centerX" secondItem="rPt-NN-OIF" secondAttribute="centerX" id="ES4-mR-anF"/>
+                            <constraint firstItem="NKq-F6-3pA" firstAttribute="centerX" secondItem="EUH-EU-CGJ" secondAttribute="centerX" id="Ekk-Lh-Te0"/>
+                            <constraint firstItem="jpF-d4-NP4" firstAttribute="top" secondItem="IqU-4f-qgc" secondAttribute="bottom" constant="20" id="Hx6-kk-68u"/>
+                            <constraint firstItem="NKq-F6-3pA" firstAttribute="width" secondItem="rPt-NN-OIF" secondAttribute="width" id="PuF-RX-kxW"/>
+                            <constraint firstItem="rPt-NN-OIF" firstAttribute="top" secondItem="8tc-cH-IaL" secondAttribute="bottom" constant="12" id="Qu1-pU-Szm"/>
+                            <constraint firstItem="EUH-EU-CGJ" firstAttribute="trailing" secondItem="rPt-NN-OIF" secondAttribute="trailing" constant="29" id="TMo-h9-abV"/>
+                            <constraint firstItem="IqU-4f-qgc" firstAttribute="top" secondItem="Od1-Wa-xdH" secondAttribute="bottom" constant="8" id="Wey-Dd-ktB"/>
+                            <constraint firstItem="IqU-4f-qgc" firstAttribute="centerX" secondItem="rPt-NN-OIF" secondAttribute="centerX" id="Xm0-rI-itI"/>
+                            <constraint firstItem="EUH-EU-CGJ" firstAttribute="bottom" secondItem="Od1-Wa-xdH" secondAttribute="bottom" constant="232" id="Xxw-Jw-5gE"/>
+                            <constraint firstItem="jpF-d4-NP4" firstAttribute="centerX" secondItem="EUH-EU-CGJ" secondAttribute="centerX" id="dg9-6d-6nb"/>
+                            <constraint firstItem="EUH-EU-CGJ" firstAttribute="bottom" secondItem="rPt-NN-OIF" secondAttribute="bottom" constant="351" id="fnv-VS-6DT"/>
+                            <constraint firstItem="rPt-NN-OIF" firstAttribute="top" secondItem="EUH-EU-CGJ" secondAttribute="top" constant="182" id="gdv-Ta-o8t"/>
+                            <constraint firstItem="NKq-F6-3pA" firstAttribute="top" secondItem="rPt-NN-OIF" secondAttribute="bottom" constant="16" id="hSk-2m-jFL"/>
+                            <constraint firstItem="IqU-4f-qgc" firstAttribute="width" secondItem="rPt-NN-OIF" secondAttribute="width" multiplier="1.0289" id="laL-tf-F0i"/>
+                            <constraint firstItem="Od1-Wa-xdH" firstAttribute="centerX" secondItem="rPt-NN-OIF" secondAttribute="centerX" id="o9M-Bd-QUA"/>
+                            <constraint firstItem="jpF-d4-NP4" firstAttribute="width" secondItem="kh8-sz-xer" secondAttribute="width" multiplier="0.628019" id="oXl-ZW-aw7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EUH-EU-CGJ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="phq-7H-Ipe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1965.5999999999999" y="790.25487256371821"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="DESIGNED BY FREEPIK" width="280" height="112"/>
+        <image name="Mask Group 1" width="280" height="112"/>
+        <image name="SampleQR" width="378" height="348"/>
+        <image name="TracePH" width="113" height="160"/>
+    </resources>
 </document>
