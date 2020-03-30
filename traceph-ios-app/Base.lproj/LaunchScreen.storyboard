@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="App Icon" translatesAutoresizingMaskIntoConstraints="NO" id="n0A-W3-Exk">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TracePH" translatesAutoresizingMaskIntoConstraints="NO" id="n0A-W3-Exk">
                                 <rect key="frame" x="94.5" y="288" width="225" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="HmA-28-E0i"/>
@@ -49,6 +49,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="App Icon" width="113" height="160"/>
+        <image name="TracePH" width="113" height="160"/>
     </resources>
 </document>
