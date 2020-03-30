@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     struct node_data {
-        let name: String
+        var name: String
         let rssi: NSNumber
         let timestamp: Double
         let deviceIdentifier: String
@@ -46,6 +46,9 @@ class ViewController: UIViewController {
     
     var centralManager: CBCentralManager!
     var peripheralManager: CBPeripheralManager!
+    
+    var currentPeripheral: CBPeripheral!
+    
     lazy var locationManager:CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self
@@ -81,6 +84,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: CBCentralManagerDelegate {
+        
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         self.detectButton.isEnabled = central.state == .poweredOn
         self.detectButton.alpha = self.detectButton.isEnabled ? 1 : 0.5
@@ -106,9 +110,10 @@ extension ViewController: CBCentralManagerDelegate {
         guard
             let deviceIdentifier = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?.last?.uuidString,
             !items.contains(where: {$0.deviceIdentifier == deviceIdentifier}) else {
-                print("ignoring \(peripheral.name ?? "unknown") with rssi: \(RSSI)")
+//                print("ignoring \(peripheral.name ?? "unknown") with rssi: \(RSSI)")
             return
         }
+        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "unknown",
@@ -119,10 +124,56 @@ extension ViewController: CBCentralManagerDelegate {
             )
         items.append(detected_node)
         
+        //delegate for handshake procedure
+        currentPeripheral = peripheral
+        currentPeripheral.delegate = self
+        
+        //limit discovered peripherals to one device at a time
+        centralManager.stopScan()
+        
+        //connect to device
+        centralManager?.connect(currentPeripheral, options: nil)
+        
         //reload table view
         DispatchQueue.main.async {
             self.deviceTable.reloadData()
         }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Successfully connected to \(peripheral.name ?? "N/A")")
+        currentPeripheral.discoverServices(nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print("Failed to connect to \(peripheral.name ?? "N/A")")
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        
+        print("\(peripheral.name ?? "N/A") disconnected")
+        
+        //REVIEW: Implementation can be changed
+        //check if node name is unchanged (handshake fail)
+        if (items.contains{$0.name == peripheral.name}) {
+            
+            //find device index in tableview
+            let indexPath = items.firstIndex { (item) -> Bool in
+              item.name == peripheral.name
+            }
+            
+            //indicate handshake fail
+            items[indexPath!].name = "\(items[indexPath!].name)\t-\tHandshake fail"
+        }
+        
+        //reload table view
+        DispatchQueue.main.async {
+            self.deviceTable.reloadData()
+        }
+        
+        //scan for devices again
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
 }
 
@@ -139,12 +190,16 @@ extension ViewController: CBPeripheralManagerDelegate {
         // REVIEW: does this really need to be done every time we want to advertise?
         // reset manager
         manager.stopAdvertising()
-        manager.removeAllServices()
+        manager.removeAllServices() //ASTI: I think this needs to be done because my code assumes that the last appended service is the one that contains the handshake message
         
         //add service
         let service:CBMutableService = {
+            
+            //REVIEW: Set characteristic value as currentCoords or just use central's currentCoords upon handshake to send less bytes
+            let sendMSG = "Handshake"
+            
             //create characteristics
-            let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.notify, .write, .read], value: nil, permissions: [.readable, .writeable])
+            let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG.data(using: .utf8), permissions: [.readable])
             //create service
             let service = CBMutableService(type: identifier, primary: true)
             //set characteristic
@@ -197,6 +252,62 @@ extension ViewController: CBPeripheralManagerDelegate {
     }
 }
 
+extension ViewController: CBPeripheralDelegate {
+    
+    func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
+        print("\(peripheral.name ?? "N/A") services changed")
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+
+        //REVIEW: Only detects the last service since handshake value is appended to list of services
+        peripheral.discoverCharacteristics(nil, for: services[services.endIndex - 1])
+    }
+    
+    func peripheral( _ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        
+        //checks all characteristics
+        for characteristic: CBCharacteristic in service.characteristics! {
+            print("Sending handshake to \(characteristic.uuid.uuidString)")
+            
+            peripheral.readValue(for: characteristic)
+            
+            //disconnect after N seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.centralManager.cancelPeripheralConnection(peripheral)
+            }
+            
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+
+        guard let data = characteristic.value else { return }
+                
+        //TODO: Process received data from peripheral to server
+        var recvMSG = String(decoding:data, as: UTF8.self)
+        
+        //indicates successful handshakes in device table for now
+        let indexPath = items.firstIndex { (item) -> Bool in
+            item.name == peripheral.name
+        }
+        
+        if recvMSG == "Handshake" {
+            recvMSG = recvMSG + " success"
+            items[indexPath!].name = "\(items[indexPath!].name)\t-\t\(recvMSG)"
+        }
+        
+        //reload table view
+        DispatchQueue.main.async {
+            self.deviceTable.reloadData()
+        }
+        
+        //disconnect
+        centralManager.cancelPeripheralConnection(peripheral)
+    }
+}
+
 extension ViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -211,11 +322,16 @@ extension ViewController: UITableViewDataSource {
             assertionFailure("Register \(Constants.REUSE_IDENTIFIER) cell first")
             return UITableViewCell()
         }
+
         let node = items[indexPath.row]
         cell.textLabel?.text = node.name
+        
+        //REVIEW: Create UITableViewCell depending on needed information
         cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))"
+        
         return cell
     }
+    
 }
 
 extension ViewController: UITableViewDelegate {
@@ -248,11 +364,12 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coordinates: CLLocationCoordinate2D = locations.last?.coordinate else { return }
         
-       print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
+//        print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
         
         currentCoords.lat = coordinates.latitude
         currentCoords.lon = coordinates.longitude
         currentCoords.timestamp = Date().timeIntervalSince1970
+        
     }
     
 }
