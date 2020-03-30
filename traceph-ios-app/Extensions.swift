@@ -6,8 +6,8 @@
 //  Copyright © 2020 traceph. All rights reserved.
 //
 
-import UIKit
-
-class Extensions: NSObject {
-
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }
