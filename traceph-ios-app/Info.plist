@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,8 +29,6 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>placeholder text</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>placeholder text</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>placeholder text</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>placeholder text</string>
