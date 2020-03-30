@@ -11,10 +11,6 @@ import CoreBluetooth
 import Foundation
 import CoreLocation
 
-// REVIEW: Maybe convert this into a struct
-// timestamp may be useful to differentiate with bluetooth timestamp to indicate accuracy of location
-typealias SimpleCoordinates = (lon: Double, lat: Double, timestamp: Double)
-
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
@@ -58,21 +54,12 @@ class ViewController: UIViewController {
         return formatter
     }()
     
-    var currentCoords: SimpleCoordinates = (lon: Double.nan, lat: Double.nan, timestamp: Double.nan)
-    
     var centralManager: CBCentralManager!
     var peripheralManager: CBPeripheralManager!
     
     var currentPeripheral: CBPeripheral!
     
-    lazy var locationManager:CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        manager.distanceFilter = 10
-        manager.pausesLocationUpdatesAutomatically = true
-        return manager
-    }()
+    lazy var locationService = LocationService()
 
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var deviceTable: UITableView!
@@ -92,8 +79,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         centralManager = CBCentralManager(delegate: self, queue: nil)
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
+        locationService.requestPermissions()
     }
     
     @IBOutlet weak var peripheralStatus: UILabel!
@@ -136,7 +122,7 @@ extension ViewController: CBCentralManagerDelegate {
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheral.identifier,
-            coordinates: currentCoords,
+            coordinates: locationService.currentCoords,
             message: nil
             )
         items.append(detected_node)
@@ -352,37 +338,4 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-}
-
-extension ViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways:
-            manager.startUpdatingLocation()
-            
-        case .authorizedWhenInUse:
-            manager.startUpdatingLocation()
-            
-        case .denied:
-            print("location auth denied")
-        
-        case .notDetermined:
-            print("location auth not determined")
-            
-        case .restricted:
-            print("location auth restricted")
-            
-        default:
-            print("location auth error")
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinates: CLLocationCoordinate2D = locations.last?.coordinate else { return }
-        currentCoords.lat = coordinates.latitude
-        currentCoords.lon = coordinates.longitude
-        currentCoords.timestamp = Date().timeIntervalSince1970
-        
-    }
-    
 }
