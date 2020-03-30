@@ -118,7 +118,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Failed to connect to \(peripheral.name ?? "N/A")")
-        central.scanForPeripherals(withServices: nil, options: nil)
+        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -138,7 +138,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         }
         
         //scan for devices again
-        central.scanForPeripherals(withServices: nil, options: nil)
+        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
     }
 }
 
