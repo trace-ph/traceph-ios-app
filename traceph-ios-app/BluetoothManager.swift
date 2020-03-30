@@ -19,6 +19,11 @@ class BluetoothManager: NSObject {
         static let IDENTIFIER_KEY = "identifierForVendor"
         static let CHARACTERISTIC_VALUE = "Handshake"
         static let HANDSHAKE_TIMEOUT: Double = 1.0
+        static let DEVICE_IDENTIFIER: UUID = {
+            let identifier = UIDevice.current.identifierForVendor
+            assert(identifier != nil, "Device Identifier must exist")
+            return identifier ?? UUID()
+        }()
     }
     
     var centralManager: CBCentralManager!
