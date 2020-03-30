@@ -130,10 +130,10 @@ extension ViewController: CBCentralManagerDelegate {
         currentPeripheral.delegate = self
         
         //limit discovered peripherals to one device at a time
-        centralManager.stopScan()
+        central.stopScan()
         
         //connect to device
-        centralManager?.connect(currentPeripheral, options: nil)
+        central.connect(currentPeripheral, options: nil)
         
         //reload table view
         DispatchQueue.main.async {
@@ -148,7 +148,7 @@ extension ViewController: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Failed to connect to \(peripheral.name ?? "N/A")")
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        central.scanForPeripherals(withServices: nil, options: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -174,7 +174,7 @@ extension ViewController: CBCentralManagerDelegate {
         }
         
         //scan for devices again
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        central.scanForPeripherals(withServices: nil, options: nil)
     }
 }
 
@@ -337,17 +337,19 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
-            locationManager.startUpdatingLocation()
+            manager.startUpdatingLocation()
             
         case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
+            manager.startUpdatingLocation()
             
         case .denied:
             print("location auth denied")
@@ -365,9 +367,6 @@ extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coordinates: CLLocationCoordinate2D = locations.last?.coordinate else { return }
-        
-//        print("coordinates= \(coordinates.latitude) \(coordinates.longitude)")
-        
         currentCoords.lat = coordinates.latitude
         currentCoords.lon = coordinates.longitude
         currentCoords.timestamp = Date().timeIntervalSince1970
