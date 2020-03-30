@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
         static let IDENTIFIER_KEY = "identifierForVendor"
+        static let CHARACTERISTIC_VALUE = "Handshake"
     }
     
     struct node_data {
@@ -196,7 +197,7 @@ extension ViewController: CBPeripheralManagerDelegate {
         let service:CBMutableService = {
             
             //REVIEW: Set characteristic value as currentCoords or just use central's currentCoords upon handshake to send less bytes
-            let sendMSG = "Handshake"
+            let sendMSG = Constants.CHARACTERISTIC_VALUE.data(using: .utf8)
             
             //create characteristics
             let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG.data(using: .utf8), permissions: [.readable])
@@ -293,7 +294,7 @@ extension ViewController: CBPeripheralDelegate {
             item.name == peripheral.name
         }
         
-        if recvMSG == "Handshake" {
+        if recvMSG == Constants.CHARACTERISTIC_VALUE {
             recvMSG = recvMSG + " success"
             items[indexPath!].name = "\(items[indexPath!].name)\t-\t\(recvMSG)"
         }
