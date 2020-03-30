@@ -1,0 +1,8 @@
+.DS_Store
+.Trash
+*~
+Pods/**
+**/xcuserdata/**
+*.xcworkspacedata
+*.swp
+*.generated.swift
