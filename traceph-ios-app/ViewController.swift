@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
         static let IDENTIFIER_KEY = "identifierForVendor"
         static let CHARACTERISTIC_VALUE = "Handshake"
+        static let HANDSHAKE_TIMEOUT: Double = 1.0
     }
     
     struct node_data {
@@ -275,7 +276,7 @@ extension ViewController: CBPeripheralDelegate {
             peripheral.readValue(for: characteristic)
             
             //disconnect after N seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_TIMEOUT) {
                 self.centralManager.cancelPeripheralConnection(peripheral)
             }
             
