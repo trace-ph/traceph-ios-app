@@ -10,10 +10,15 @@ import CoreLocation
 
 // REVIEW: Maybe convert this into a struct
 // timestamp may be useful to differentiate with bluetooth timestamp to indicate accuracy of location
-typealias SimpleCoordinates = (lon: Double, lat: Double, timestamp: Double)
+
+struct SimpleCoordinates {
+    let lon: Double
+    let lat: Double
+    let timestamp: Double
+}
 
 class LocationService: NSObject {
-    var currentCoords: SimpleCoordinates = (lon: Double.nan, lat: Double.nan, timestamp: Double.nan)
+    var currentCoords = SimpleCoordinates(lon: Double.nan, lat: Double.nan, timestamp: Double.nan)
     
     lazy var locationManager:CLLocationManager = {
         let manager = CLLocationManager()
@@ -55,8 +60,6 @@ extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coordinates: CLLocationCoordinate2D = locations.last?.coordinate else { return }
-        currentCoords.lat = coordinates.latitude
-        currentCoords.lon = coordinates.longitude
-        currentCoords.timestamp = Date().timeIntervalSince1970
+        currentCoords = SimpleCoordinates(lon: coordinates.longitude, lat: coordinates.latitude, timestamp: Date().timeIntervalSince1970)
     }
 }
