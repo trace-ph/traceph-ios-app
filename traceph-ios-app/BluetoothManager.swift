@@ -78,12 +78,11 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        guard
-            let deviceIdentifier = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?.last?.uuidString,
-            !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}) else {
+        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
+            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String else {
+                print("ignoring: \(peripheral.identifier)")
             return
         }
-        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "unknown",
@@ -175,7 +174,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         manager.add(service)
         //start advertising
         manager.startAdvertising([
-            CBAdvertisementDataLocalNameKey : UIDevice.current.name,
+            CBAdvertisementDataLocalNameKey : Constants.DEVICE_IDENTIFIER.uuidString,
             CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
         ])
         print("Started Advertising")
