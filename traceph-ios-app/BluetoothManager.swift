@@ -9,32 +9,6 @@
 import CoreBluetooth
 import UIKit.UIDevice
 
-struct node_data {
-    let name: String
-    let rssi: NSNumber
-    let timestamp: Double
-    let deviceIdentifier: String
-    let peripheralIdentifier: UUID
-    let coordinates: SimpleCoordinates
-    let message: String? // maybe convert to a bool `didConnect`
-    
-    func dateString(formatter: DateFormatter) -> String {
-        let date = Date(timeIntervalSince1970: timestamp)
-        return formatter.string(from: date)
-    }
-    
-    func newWithMessage(_ message: String?) -> node_data {
-        return node_data(
-            name: name,
-            rssi: rssi,
-            timestamp: timestamp,
-            deviceIdentifier: deviceIdentifier,
-            peripheralIdentifier: peripheralIdentifier,
-            coordinates: coordinates,
-            message: message)
-    }
-}
-
 class BluetoothManager: NSObject {
     struct Constants {
         static let IDENTIFIER_KEY = "identifierForVendor"
