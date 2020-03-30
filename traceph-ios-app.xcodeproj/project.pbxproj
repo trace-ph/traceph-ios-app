@@ -35,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AE8F8D4243062DE004FFFE9 /* traceph-ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "traceph-ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AE8F8D4243062DE004FFFE9 /* TracePH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TracePH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0AE8F8DB243062DE004FFFE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		0AE8F8D5243062DE004FFFE9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AE8F8D4243062DE004FFFE9 /* traceph-ios-app.app */,
+				0AE8F8D4243062DE004FFFE9 /* TracePH.app */,
 				0AE8F8EA243062E1004FFFE9 /* traceph-ios-appTests.xctest */,
 				0AE8F8F5243062E1004FFFE9 /* traceph-ios-appUITests.xctest */,
 			);
@@ -145,7 +145,7 @@
 			);
 			name = "traceph-ios-app";
 			productName = "traceph-ios-app";
-			productReference = 0AE8F8D4243062DE004FFFE9 /* traceph-ios-app.app */;
+			productReference = 0AE8F8D4243062DE004FFFE9 /* TracePH.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0AE8F8E9243062E1004FFFE9 /* traceph-ios-appTests */ = {
@@ -443,7 +443,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.upd.traceph-ios-app";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TracePH;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -462,7 +462,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.upd.traceph-ios-app";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TracePH;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
