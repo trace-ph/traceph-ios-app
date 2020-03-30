@@ -15,7 +15,7 @@ protocol ViewControllerInputs {
     //NOTE: creating these functions may slow you down so you can just do `viewController.controller.deviceTable` or something for quicker access.
     var controller: ViewController { get }
     func setDetectButton(enabled: Bool)
-    func reloadTable(items: [node_data])
+    func reloadTable(indexPath: IndexPath?)
     func setPeripheral(status: String?)
 }
 
@@ -23,9 +23,7 @@ class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
     }
-    
-    var items = [node_data]()
-    
+        
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.current
@@ -51,6 +49,14 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ViewControllerInputs {
+    func reloadTable(indexPath: IndexPath?) {
+        if let indexPath = indexPath {
+            deviceTable.reloadRows(at: [indexPath], with: .automatic)
+        } else {
+            deviceTable.reloadData()
+        }
+    }
+    
     var controller: ViewController {
         return self
     }
@@ -59,8 +65,7 @@ extension ViewController: ViewControllerInputs {
         detectButton.alpha = enabled ? 1 : 0.5
     }
     
-    func reloadTable(items: [node_data]) {
-        self.items = items
+    func reloadTable() {
         deviceTable.reloadData()
     }
     
@@ -75,7 +80,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return bluetoothManager.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,7 +89,7 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let node = items[indexPath.row]
+        let node = bluetoothManager.items[indexPath.row]
         if let message = node.message {
             cell.textLabel?.text = "\(node.name)\t-\t\(message)"
         } else {

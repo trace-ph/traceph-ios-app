@@ -61,7 +61,7 @@ class BluetoothManager: NSObject {
     
     func detect() {
         items.removeAll()
-        viewController.reloadTable(items: items)
+        viewController.reloadTable(indexPath: nil)
         guard centralManager.state == .poweredOn else {
             viewController.setDetectButton(enabled: false)
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
@@ -124,7 +124,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(items: self.items)
+            self.viewController.reloadTable(indexPath: nil)
         }
     }
     
@@ -151,7 +151,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(items: self.items)
+            self.viewController.reloadTable(indexPath: nil)
         }
         
         //scan for devices again
@@ -283,7 +283,7 @@ extension BluetoothManager: CBPeripheralDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(items: self.items)
+            self.viewController.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
         }
         
         //disconnect
