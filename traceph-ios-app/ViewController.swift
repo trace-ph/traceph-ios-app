@@ -283,20 +283,21 @@ extension ViewController: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-
         guard let data = characteristic.value else { return }
-                
+        // indicates successful handshakes in device table for now
+        // REVIEW: Name is not a good identifier because it's not unique.
+        // Since we only plan on connecting to one, why use item array at all?
+        guard let itemIndex = items.firstIndex(where: {$0.name == peripheral.name }) else {
+            assertionFailure("items does not contain: \(peripheral.name)")
+            return
+        }
+        
         //TODO: Process received data from peripheral to server
         var recvMSG = String(decoding:data, as: UTF8.self)
         
-        //indicates successful handshakes in device table for now
-        let indexPath = items.firstIndex { (item) -> Bool in
-            item.name == peripheral.name
-        }
-        
         if recvMSG == Constants.CHARACTERISTIC_VALUE {
             recvMSG = recvMSG + " success"
-            items[indexPath!].name = "\(items[indexPath!].name)\t-\t\(recvMSG)"
+            items[itemIndex].name = "\(items[itemIndex].name)\t-\t\(recvMSG)"
         }
         
         //reload table view
