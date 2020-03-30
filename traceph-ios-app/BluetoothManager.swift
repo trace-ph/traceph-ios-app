@@ -11,6 +11,11 @@ import UIKit.UIDevice
 
 class BluetoothManager: NSObject {
     struct Constants {
+        static let SERVICE_IDENTIFIER:CBUUID = {
+            let identifier = UUID(uuidString: "A85A30E5-93F3-42AE-86EB-33BFD8133597") // make sure this matches other platforms
+            assert(identifier != nil, "Device Identifier must exist")
+            return CBUUID(nsuuid: identifier ?? UUID())
+        }()
         static let IDENTIFIER_KEY = "identifierForVendor"
         static let CHARACTERISTIC_VALUE = "Handshake"
         static let HANDSHAKE_TIMEOUT: Double = 1.0
@@ -41,7 +46,7 @@ class BluetoothManager: NSObject {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
-        centralManager.scanForPeripherals(withServices: nil)
+        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
     }
 }
 
@@ -134,7 +139,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
 }
 
 extension BluetoothManager: CBPeripheralManagerDelegate {
-    func advertise(manager: CBPeripheralManager, identifier: CBUUID) {
+    func advertise(manager: CBPeripheralManager) {
         guard manager.state == .poweredOn else {
             print("CBPeripheralManager must be powered on")
             return
@@ -157,19 +162,17 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             //create characteristics
             let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG, permissions: [.readable])
             //create service
-            let service = CBMutableService(type: identifier, primary: true)
+            let service = CBMutableService(type: Constants.SERVICE_IDENTIFIER, primary: true)
             //set characteristic
             service.characteristics = [characteristic]
             return service
         }()
         manager.add(service)
-        
         //start advertising
-        let advertisementData:[String:Any] = [
+        manager.startAdvertising([
             CBAdvertisementDataLocalNameKey : UIDevice.current.name,
-            CBAdvertisementDataServiceUUIDsKey : [identifier]
-        ]
-        manager.startAdvertising(advertisementData)
+            CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
+        ])
         print("Started Advertising")
     }
     
@@ -177,12 +180,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
-            // TODO: replace identifier with whatever we plan on using. Maybe fingerprintjs
-            // REVIEW: Is this how to properly pass the fingerprint? As an element in CBAdvertisementDataServiceUUIDsKey
-            guard let identifier = UIDevice.current.identifierForVendor else {
-                return
-            }
-            advertise(manager: peripheral, identifier: CBUUID(nsuuid: identifier))
+            advertise(manager: peripheral)
         default:
             switch peripheral.state {
                 case .poweredOff:
