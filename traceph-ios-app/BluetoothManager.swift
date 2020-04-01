@@ -51,7 +51,9 @@ class BluetoothManager: NSObject {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
-        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+//        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
+
     }
 }
 
@@ -85,7 +87,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         }
         //append node
         let detected_node =  node_data(
-            name: peripheral.name ?? "unknown",
+            name: peripheral.name ?? "N/A",
             rssi: RSSI,
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
@@ -93,17 +95,18 @@ extension BluetoothManager: CBCentralManagerDelegate {
             coordinates: locationService.currentCoords,
             message: nil
             )
+        
         items.append(detected_node)
         
         //delegate for handshake procedure
         currentPeripheral = peripheral
         currentPeripheral.delegate = self
         
-        //limit discovered peripherals to one device at a time
-        central.stopScan()
-        
-        //connect to device
-        central.connect(currentPeripheral, options: nil)
+//        //limit discovered peripherals to one device at a time
+//        central.stopScan()
+//
+//        //connect to device
+//        central.connect(currentPeripheral, options: nil)
         
         //reload table view
         DispatchQueue.main.async {
@@ -118,7 +121,8 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Failed to connect to \(peripheral.name ?? "N/A")")
-        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+//        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        central.scanForPeripherals(withServices: nil, options: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -138,7 +142,8 @@ extension BluetoothManager: CBCentralManagerDelegate {
         }
         
         //scan for devices again
-        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+//        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        central.scanForPeripherals(withServices: nil, options: nil)
     }
 }
 

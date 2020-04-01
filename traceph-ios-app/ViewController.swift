@@ -96,8 +96,11 @@ extension ViewController: UITableViewDataSource {
             cell.textLabel?.text = node.name
         }
         
+        let currentLat = String(format: "%.6f", bluetoothManager.locationService.currentCoords.lat)
+        let currentLon = String(format: "%.6f", bluetoothManager.locationService.currentCoords.lon)
+
         //REVIEW: Create UITableViewCell depending on needed information
-        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))"
+        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t-\t[\(currentLat), \(currentLon)]"
         
         return cell
     }
