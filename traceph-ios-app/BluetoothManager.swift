@@ -12,7 +12,10 @@ import UIKit.UIDevice
 class BluetoothManager: NSObject {
     struct Constants {
         static let SERVICE_IDENTIFIER:CBUUID = {
-            let identifier = UUID(uuidString: "A85A30E5-93F3-42AE-86EB-33BFD8133597") // make sure this matches other platforms
+//            let identifier = UUID(uuidString: "A85A30E5-93F3-42AE-86EB-33BFD8133597") // make sure this matches other platforms
+            
+            let identifier = UUID(uuidString: "0000FF01-0000-1000-8000-00805F9B34FB") // matches android app
+            
             assert(identifier != nil, "Device Identifier must exist")
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
@@ -51,8 +54,10 @@ class BluetoothManager: NSObject {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
-//        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        
+//        print("Detecting peripherals with serivces: \(Constants.SERVICE_IDENTIFIER)")
+//        centralManager.scanForPeripherals(withServices: nil, options: nil)
 
     }
 }
@@ -80,11 +85,21 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
-            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String else {
-                print("ignoring: \(peripheral.identifier)")
-            return
-        }
+        
+        
+        
+        
+            //REVIEW: Either Android can't advertise or iOS can't read this specific data
+        let deviceIdentifier = ""
+//        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
+//
+//            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String
+//
+//            else {
+//                print("ignoring: \(peripheral.identifier)")
+//            return
+//        }
+                
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
@@ -96,12 +111,14 @@ extension BluetoothManager: CBCentralManagerDelegate {
             message: nil
             )
         
+        print(detected_node)
+                
         items.append(detected_node)
         
         //delegate for handshake procedure
         currentPeripheral = peripheral
         currentPeripheral.delegate = self
-        
+
 //        //limit discovered peripherals to one device at a time
 //        central.stopScan()
 //
@@ -178,8 +195,12 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         }()
         manager.add(service)
         //start advertising
+        
+        
+        // REVIEW: Advertises UIDevice name for easier debugging
+        // Constants.DEVICE_IDENTIFIER.uuidString
         manager.startAdvertising([
-            CBAdvertisementDataLocalNameKey : Constants.DEVICE_IDENTIFIER.uuidString,
+            CBAdvertisementDataLocalNameKey : UIDevice.current.name,
             CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
         ])
         print("Started Advertising")
@@ -213,7 +234,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         if let error = error {
             print("Peripheral Manager Start Advertising Error: \(error.localizedDescription)")
         }
-        
+         
         viewController.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
     }
 }

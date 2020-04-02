@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,13 +22,13 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>placeholder text</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>placeholder text</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>placeholder text</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>placeholder text</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>placeholder text</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>placeholder text</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -51,6 +49,12 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -70,5 +74,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
