@@ -27,6 +27,9 @@ class BluetoothManager: NSObject {
             assert(identifier != nil, "Device Identifier must exist")
             return identifier ?? UUID()
         }()
+        
+        static let USER_PROFILE = "\(UIDevice.current.name) TEST"
+        
     }
     
     var centralManager: CBCentralManager!
@@ -54,10 +57,10 @@ class BluetoothManager: NSObject {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
-        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+//        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         
 //        print("Detecting peripherals with serivces: \(Constants.SERVICE_IDENTIFIER)")
-//        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
 
     }
 }
@@ -86,9 +89,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        
-        
-        
             //REVIEW: Either Android can't advertise or iOS can't read this specific data
         let deviceIdentifier = ""
 //        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
@@ -99,7 +99,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
 //                print("ignoring: \(peripheral.identifier)")
 //            return
 //        }
-                
+        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
@@ -111,9 +111,13 @@ extension BluetoothManager: CBCentralManagerDelegate {
             message: nil
             )
         
-        print(detected_node)
+        //CBPeripheralManager advertises again when app enters background
+        if !(items.contains {$0.peripheralIdentifier == peripheral.identifier}) {
+            items.append(detected_node)
+        }
+        
+//        print(peripheral.identifier)
                 
-        items.append(detected_node)
         
         //delegate for handshake procedure
         currentPeripheral = peripheral
@@ -162,6 +166,25 @@ extension BluetoothManager: CBCentralManagerDelegate {
 //        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         central.scanForPeripherals(withServices: nil, options: nil)
     }
+    
+    func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
+        //append node
+        let detected_node =  node_data(
+            name: peripheral.name ?? "N/A",
+            rssi: -63,
+            timestamp: Date().timeIntervalSince1970,
+            deviceIdentifier: "",
+            peripheralIdentifier: peripheral.identifier,
+            coordinates: locationService.currentCoords,
+            message: nil
+            )
+        
+        //CBPeripheralManager advertises again when app enters background
+        if !(items.contains {$0.peripheralIdentifier == peripheral.identifier}) {
+            items.append(detected_node)
+        }
+        
+    }
 }
 
 extension BluetoothManager: CBPeripheralManagerDelegate {
@@ -200,7 +223,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         // REVIEW: Advertises UIDevice name for easier debugging
         // Constants.DEVICE_IDENTIFIER.uuidString
         manager.startAdvertising([
-            CBAdvertisementDataLocalNameKey : UIDevice.current.name,
+            CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
             CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
         ])
         print("Started Advertising")

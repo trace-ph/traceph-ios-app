@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     }
     
     @IBOutlet weak var peripheralStatus: UILabel!
+    @IBOutlet weak var deviceProfile: UILabel!
 }
 
 extension ViewController: ViewControllerInputs {
