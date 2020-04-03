@@ -12,24 +12,24 @@ import UIKit.UIDevice
 class BluetoothManager: NSObject {
     struct Constants {
         static let SERVICE_IDENTIFIER:CBUUID = {
-//            let identifier = UUID(uuidString: "A85A30E5-93F3-42AE-86EB-33BFD8133597") // make sure this matches other platforms
-            
+
             let identifier = UUID(uuidString: "0000FF01-0000-1000-8000-00805F9B34FB") // matches android app
             
             assert(identifier != nil, "Device Identifier must exist")
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
         static let IDENTIFIER_KEY = "identifierForVendor"
-        static let CHARACTERISTIC_VALUE = "Handshake"
+        static let CHARACTERISTIC_VALUE = "Handshake Test"
         static let HANDSHAKE_TIMEOUT: Double = 1.0
+        static let HANDSHAKE_INTERVAL: Double = 3.0
         static let DEVICE_IDENTIFIER: UUID = {
             let identifier = UIDevice.current.identifierForVendor
             assert(identifier != nil, "Device Identifier must exist")
             return identifier ?? UUID()
         }()
         
-        static let USER_PROFILE = "\(UIDevice.current.name) TEST"
-        
+        //TO DO: create setting for this
+        static let USER_PROFILE = "\(UIDevice.current.name)"
     }
     
     var centralManager: CBCentralManager!
@@ -57,10 +57,17 @@ class BluetoothManager: NSObject {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
-//        centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         
-//        print("Detecting peripherals with serivces: \(Constants.SERVICE_IDENTIFIER)")
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        //add interval after first peripheral detection
+        if (items.count > 0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) {
+                self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+            }
+        }
+        
+        else {
+            self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        }
 
     }
 }
@@ -112,22 +119,20 @@ extension BluetoothManager: CBCentralManagerDelegate {
             )
         
         //CBPeripheralManager advertises again when app enters background
-        if !(items.contains {$0.peripheralIdentifier == peripheral.identifier}) {
+        //Do not append if detected name and corresponding GPS is duplicate
+        if !(items.contains {$0.name == peripheral.name} && items.contains {$0.coordinates.lat == locationService.currentCoords.lat} && items.contains {$0.coordinates.lon == locationService.currentCoords.lon}) {
             items.append(detected_node)
-        }
-        
-//        print(peripheral.identifier)
-                
-        
-        //delegate for handshake procedure
-        currentPeripheral = peripheral
-        currentPeripheral.delegate = self
+            
+            //delegate for handshake procedure
+            currentPeripheral = peripheral
+            currentPeripheral.delegate = self
 
-//        //limit discovered peripherals to one device at a time
-//        central.stopScan()
-//
-//        //connect to device
-//        central.connect(currentPeripheral, options: nil)
+            //limit discovered peripherals to one device at a time
+            central.stopScan()
+
+            //connect to device
+            central.connect(currentPeripheral, options: nil)
+        }
         
         //reload table view
         DispatchQueue.main.async {
@@ -136,19 +141,27 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Successfully connected to \(peripheral.name ?? "N/A")")
+//        print("Successfully connected to \(peripheral.name ?? "N/A")")
         currentPeripheral.discoverServices(nil)
+        
+        //disconnect after timeout (enough time to handshake)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_TIMEOUT) {
+//            print("Disconnected after handshake timeout")
+            central.cancelPeripheralConnection(self.currentPeripheral)
+        }
+        
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("Failed to connect to \(peripheral.name ?? "N/A")")
-//        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        central.scanForPeripherals(withServices: nil, options: nil)
+        print("Failed to connect to \(peripheral.name ?? "N/A"), waiting \(Constants.HANDSHAKE_INTERVAL) seconds")
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) {
+            central.scanForPeripherals(withServices: [Constants.SERVICE_IDENTIFIER], options: nil)
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         
-        print("\(peripheral.name ?? "N/A") disconnected")
+        print("\(peripheral.name ?? "N/A") disconnected, waiting \(Constants.HANDSHAKE_INTERVAL) seconds")
         
         //REVIEW: Implementation can be changed
         //check if node message is unset (handshake fail)
@@ -163,28 +176,11 @@ extension BluetoothManager: CBCentralManagerDelegate {
         }
         
         //scan for devices again
-//        central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        central.scanForPeripherals(withServices: nil, options: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) {
+            central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        }
     }
     
-    func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
-        //append node
-        let detected_node =  node_data(
-            name: peripheral.name ?? "N/A",
-            rssi: -63,
-            timestamp: Date().timeIntervalSince1970,
-            deviceIdentifier: "",
-            peripheralIdentifier: peripheral.identifier,
-            coordinates: locationService.currentCoords,
-            message: nil
-            )
-        
-        //CBPeripheralManager advertises again when app enters background
-        if !(items.contains {$0.peripheralIdentifier == peripheral.identifier}) {
-            items.append(detected_node)
-        }
-        
-    }
 }
 
 extension BluetoothManager: CBPeripheralManagerDelegate {
@@ -197,10 +193,10 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             print("Advertising has already begun")
             return
         }
-        // REVIEW: does this really need to be done every time we want to advertise?
+
         // reset manager
         manager.stopAdvertising()
-        manager.removeAllServices() //ASTI: I think this needs to be done because my code assumes that the last appended service is the one that contains the handshake message
+        manager.removeAllServices()
         
         //add service
         let service:CBMutableService = {
@@ -209,7 +205,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             let sendMSG = Constants.CHARACTERISTIC_VALUE.data(using: .utf8)
             
             //create characteristics
-            let characteristic = CBMutableCharacteristic(type: CBUUID(nsuuid: UUID()), properties: [.read], value: sendMSG, permissions: [.readable])
+            let characteristic = CBMutableCharacteristic(type: Constants.SERVICE_IDENTIFIER, properties: [.read], value: sendMSG, permissions: [.readable])
             //create service
             let service = CBMutableService(type: Constants.SERVICE_IDENTIFIER, primary: true)
             //set characteristic
@@ -219,9 +215,8 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         manager.add(service)
         //start advertising
         
-        
-        // REVIEW: Advertises UIDevice name for easier debugging
-        // Constants.DEVICE_IDENTIFIER.uuidString
+        // REVIEW: Advertises username for profiling
+        // TO DO: Include a setting/text field to set this user profile
         manager.startAdvertising([
             CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
             CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
@@ -270,15 +265,17 @@ extension BluetoothManager: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let lastService = peripheral.services?.last else { return }
+        
+//        print("discovered services: \(lastService)")
+        
         //REVIEW: Only detects the last service since handshake value is appended to list of services
         peripheral.discoverCharacteristics(nil, for: lastService)
     }
     
     func peripheral( _ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        
         //checks all characteristics
         for characteristic: CBCharacteristic in service.characteristics! {
-            print("Sending handshake to \(characteristic.uuid.uuidString)")
+//            print("Sending handshake to \(characteristic.uuid.uuidString)")
             
             peripheral.readValue(for: characteristic)
             
@@ -294,6 +291,7 @@ extension BluetoothManager: CBPeripheralDelegate {
         // indicates successful handshakes in device table for now
         // REVIEW: Changed identifier to peripheral.identifier instead of name because name is not unique
         // Since we only plan on connecting to one, why use item array at all?
+        
         guard let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }) else {
             assertionFailure("items does not contain: \(peripheral.identifier)")
             return
@@ -301,10 +299,8 @@ extension BluetoothManager: CBPeripheralDelegate {
         
         //TODO: Process received data from peripheral to server
         let recvMSG = String(decoding:data, as: UTF8.self)
-        
-        if recvMSG == Constants.CHARACTERISTIC_VALUE {
-            items[itemIndex] = items[itemIndex].newWithMessage(recvMSG + " success")
-        }
+                
+        items[itemIndex] = items[itemIndex].newWithMessage(recvMSG + " (success)")
         
         //reload table view
         DispatchQueue.main.async {
@@ -314,4 +310,5 @@ extension BluetoothManager: CBPeripheralDelegate {
         //disconnect
         centralManager.cancelPeripheralConnection(peripheral)
     }
+
 }
