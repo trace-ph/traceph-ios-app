@@ -10,7 +10,7 @@ import UIKit
 import CoreBluetooth
 
 protocol AdvertismentWaiter: class {
-    var bluetoothManager: BluetoothManager? { get }
+    var bluetoothManager: BluetoothManager? { get set }
     func bluetoothManager(_ manager: BluetoothManager, didStartAdvertising: Bool)
 }
 
@@ -38,7 +38,6 @@ class IntroViewController: UIViewController {
     }
     
     func proceed() {
-        bluetoothManager?.waiterDelegate = nil
         DefaultsKeys.userHasConsented.setBool(true)
         dismiss(animated: true, completion: nil)
     }
