@@ -12,16 +12,25 @@ import Foundation
 import CoreLocation
 
 protocol ViewControllerInputs {
-    //NOTE: creating these functions may slow you down so you can just do `viewController.controller.deviceTable` or something for quicker access.
-    var controller: ViewController { get }
-    func setDetectButton(enabled: Bool)
     func reloadTable(indexPath: IndexPath?)
     func setPeripheral(status: String?)
+    func waitForAdvertisment()
 }
+
 
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
+        static let downloadURL: String = "https://www.traceph.com/samplelinkfordownload"
+    }
+    
+    enum Segues: String {
+        case intro = "intro"
+        case authorize = "authorize"
+        
+        func perform(controller: UIViewController, sender: Any?) {
+            controller.performSegue(withIdentifier: self.rawValue, sender: sender)
+        }
     }
         
     lazy var dateFormatter: DateFormatter = {
@@ -33,31 +42,75 @@ class ViewController: UIViewController {
     
     var bluetoothManager: BluetoothManager!
 
-    @IBOutlet weak var detectButton: UIButton!
-    @IBOutlet weak var deviceTable: UITableView!
+    @IBOutlet weak var debugView: UIView?
+    @IBOutlet weak var shareView: UIView?
+    @IBOutlet weak var shareTextView: UITextView?
+    @IBOutlet weak var detectButton: UIButton?
+    @IBOutlet weak var deviceTable: UITableView?
     
     @IBAction func detectPress(_ sender: UIButton?) {
         bluetoothManager.detect()
     }
     
+    @IBAction func copyAction(_ sender: UIButton?) {
+        UIPasteboard.general.string = Constants.downloadURL
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bluetoothManager = BluetoothManager(controller: self)
+        #if DEBUG
+        shareView = nil
+        view = debugView
+        #else
+        debugView = nil
+        view = shareView
+        #endif
+        self.bluetoothManager = BluetoothManager(inputs: self)
+        shareTextView?.text += "\n\(Constants.downloadURL)"
+        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
+        shareTextView?.sizeToFit()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkForModals()
+    }
+    
+    func checkForModals() {
+        if !DefaultsKeys.userHasConsented.boolValue {
+            Segues.intro.perform(controller: self, sender: nil)
+        } else if bluetoothManager.centralManager.state != .poweredOn {
+            waitForAdvertisment()
+        } else {
+            bluetoothManager.detect()
+        }
+    }
+    
+    func waitForAdvertisment() {
+        guard presentedViewController == nil else {
+            return
+        }
+        print("presenting waiter")
+        Segues.authorize.perform(controller: self, sender: nil)
     }
     
     @IBOutlet weak var peripheralStatus: UILabel!
     @IBOutlet weak var deviceProfile: UILabel!
     
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let controller = segue.destination as? AdvertismentWaiter else {
+            return
+        }
+        controller.bluetoothManager = self.bluetoothManager
+    }
 }
 
 extension ViewController: ViewControllerInputs {
     func reloadTable(indexPath: IndexPath?) {
         if let indexPath = indexPath {
-            deviceTable.reloadRows(at: [indexPath], with: .automatic)
+            deviceTable?.reloadRows(at: [indexPath], with: .automatic)
         } else {
-            deviceTable.reloadData()
+            deviceTable?.reloadData()
         }
     }
     
@@ -65,12 +118,15 @@ extension ViewController: ViewControllerInputs {
         return self
     }
     func setDetectButton(enabled: Bool) {
-        detectButton.isEnabled = enabled
-        detectButton.alpha = enabled ? 1 : 0.5
+        detectButton?.isEnabled = enabled
+        detectButton?.alpha = enabled ? 1 : 0.5
+        if !enabled {
+            waitForAdvertisment()
+        }
     }
     
     func reloadTable() {
-        deviceTable.reloadData()
+        deviceTable?.reloadData()
     }
     
     func setPeripheral(status: String?) {
@@ -99,9 +155,9 @@ extension ViewController: UITableViewDataSource {
         } else {
             cell.textLabel?.text = node.name
         }
-        
-        let currentLat = String(format: "%.6f", bluetoothManager.locationService.currentCoords.lat)
-        let currentLon = String(format: "%.6f", bluetoothManager.locationService.currentCoords.lon)
+        let coordinates = bluetoothManager.locationService.currentCoords
+        let currentLat = String(format: "%.6f", coordinates.lat)
+        let currentLon = String(format: "%.6f", coordinates.lon)
 
         //REVIEW: Create UITableViewCell depending on needed information
         cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t-\t[\(currentLat), \(currentLon)]"
