@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bluetoothManager = BluetoothManager(inputs: self)
         #if DEBUG
         shareView = nil
         view = debugView
@@ -65,11 +66,10 @@ class ViewController: UIViewController {
         debugView = nil
         view = shareView
         bluetoothManager.detect()
-        #endif
-        self.bluetoothManager = BluetoothManager(inputs: self)
         shareTextView?.text += "\n\(Constants.downloadURL)"
         shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
+        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
