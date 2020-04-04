@@ -26,7 +26,7 @@ class IntroViewController: UIViewController {
         case .unsupported, .unauthorized, .poweredOff, .none:
             let alert = UIAlertController(title: "Bluetooth Disabled", message: "Bluetooth is required", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)

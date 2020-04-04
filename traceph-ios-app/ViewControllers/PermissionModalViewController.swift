@@ -24,7 +24,7 @@ class PermissionModalViewController: UIViewController {
     }
     
     @IBAction func agreeAction(_ sender: UIButton?) {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
     }
     
     func proceed() {
