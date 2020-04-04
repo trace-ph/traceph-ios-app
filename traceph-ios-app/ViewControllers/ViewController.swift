@@ -64,6 +64,7 @@ class ViewController: UIViewController {
         #else
         debugView = nil
         view = shareView
+        bluetoothManager.detect()
         #endif
         self.bluetoothManager = BluetoothManager(inputs: self)
         shareTextView?.text += "\n\(Constants.downloadURL)"
