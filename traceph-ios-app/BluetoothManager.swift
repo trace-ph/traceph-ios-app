@@ -32,28 +32,30 @@ class BluetoothManager: NSObject {
         static let USER_PROFILE = "\(UIDevice.current.name)"
     }
     
-    var centralManager: CBCentralManager!
+    lazy var centralManager: CBCentralManager = CBCentralManager(delegate: self, queue: nil)
     var peripheralManager: CBPeripheralManager!
     var currentPeripheral: CBPeripheral!
     
     var items = [node_data]()
-    let viewController: ViewControllerInputs
+    let viewController: ViewControllerInputs?
+    weak var waiterDelegate: AdvertismentWaiter?
     
     lazy var locationService = LocationService()
     
-    init(controller: ViewControllerInputs) {
-        self.viewController = controller
+    init(inputs: ViewControllerInputs?) {
+        self.viewController = inputs
         super.init()
-        self.centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    func restart() {
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
         locationService.requestPermissions()
     }
     
     func detect() {
         items.removeAll()
-        viewController.reloadTable(indexPath: nil)
+        viewController?.reloadTable(indexPath: nil)
         guard centralManager.state == .poweredOn else {
-            viewController.setDetectButton(enabled: false)
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
@@ -75,7 +77,9 @@ class BluetoothManager: NSObject {
 extension BluetoothManager: CBCentralManagerDelegate {
         
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        self.viewController.setDetectButton(enabled: central.state == .poweredOn)
+        if central.state != .poweredOn {
+            self.viewController?.waitForAdvertisment()
+        }
         switch central.state {
         case .poweredOn:
             print("CBCentralManager powered on")
@@ -136,7 +140,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(indexPath: nil)
+            self.viewController?.reloadTable(indexPath: nil)
         }
     }
     
@@ -172,7 +176,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(indexPath: nil)
+            self.viewController?.reloadTable(indexPath: nil)
         }
         
         //scan for devices again
@@ -221,10 +225,14 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
             CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
         ])
+        waiterDelegate?.bluetoothManager(self, didStartAdvertising: true)
         print("Started Advertising")
     }
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+        if peripheral.state != .poweredOn {
+           viewController?.waitForAdvertisment()
+        }
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
@@ -245,7 +253,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
                     assertionFailure("handle \(peripheral.state.rawValue) state")
             }
         }
-        viewController.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
+        viewController?.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
     }
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
@@ -253,7 +261,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             print("Peripheral Manager Start Advertising Error: \(error.localizedDescription)")
         }
          
-        viewController.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
+        viewController?.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
     }
 }
 
@@ -304,7 +312,7 @@ extension BluetoothManager: CBPeripheralDelegate {
         
         //reload table view
         DispatchQueue.main.async {
-            self.viewController.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
+            self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
         }
         
         //disconnect
