@@ -15,7 +15,9 @@
 		0AE8F8E4243062E1004FFFE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8F8E2243062E1004FFFE9 /* LaunchScreen.storyboard */; };
 		0AE8F8EF243062E1004FFFE9 /* traceph_ios_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8EE243062E1004FFFE9 /* traceph_ios_appTests.swift */; };
 		0AE8F8FA243062E1004FFFE9 /* traceph_ios_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */; };
-		C6A180A92432423B001B36D2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A180A82432423B001B36D2 /* Extensions.swift */; };
+		C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F3243863390041B871 /* IntroViewController.swift */; };
+		C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F5243863450041B871 /* PermissionModalViewController.swift */; };
+		C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F7243864B50041B871 /* DefaultsKeys.swift */; };
 		C6A180AB24324309001B36D2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A180AA24324309001B36D2 /* Node.swift */; };
 		C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C759D32431FF61002C4C5C /* LocationService.swift */; };
 		C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C759D5243200FD002C4C5C /* BluetoothManager.swift */; };
@@ -53,6 +55,9 @@
 		0AE8F8F5243062E1004FFFE9 /* traceph-ios-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "traceph-ios-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = traceph_ios_appUITests.swift; sourceTree = "<group>"; };
 		0AE8F8FB243062E2004FFFE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C60AE9F3243863390041B871 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		C60AE9F5243863450041B871 /* PermissionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionModalViewController.swift; sourceTree = "<group>"; };
+		C60AE9F7243864B50041B871 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		C6A180A82432423B001B36D2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C6A180AA24324309001B36D2 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		C6C759D32431FF61002C4C5C /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -109,12 +114,11 @@
 			children = (
 				0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */,
 				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
-				0AE8F8DB243062DE004FFFE9 /* ViewController.swift */,
+				C60AE9F22438631A0041B871 /* ViewControllers */,
 				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
 				C6A180AA24324309001B36D2 /* Node.swift */,
-				0AE8F8DD243062DE004FFFE9 /* Main.storyboard */,
 				C6C759D32431FF61002C4C5C /* LocationService.swift */,
-				C6A180A82432423B001B36D2 /* Extensions.swift */,
+				C60AE9F12438626D0041B871 /* Tools */,
 				0AE8F8E0243062E1004FFFE9 /* Assets.xcassets */,
 				0AE8F8E2243062E1004FFFE9 /* LaunchScreen.storyboard */,
 				0AE8F8E5243062E1004FFFE9 /* Info.plist */,
@@ -138,6 +142,26 @@
 				0AE8F8FB243062E2004FFFE9 /* Info.plist */,
 			);
 			path = "traceph-ios-appUITests";
+			sourceTree = "<group>";
+		};
+		C60AE9F12438626D0041B871 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				C6A180A82432423B001B36D2 /* Extensions.swift */,
+				C60AE9F7243864B50041B871 /* DefaultsKeys.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		C60AE9F22438631A0041B871 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0AE8F8DD243062DE004FFFE9 /* Main.storyboard */,
+				0AE8F8DB243062DE004FFFE9 /* ViewController.swift */,
+				C60AE9F3243863390041B871 /* IntroViewController.swift */,
+				C60AE9F5243863450041B871 /* PermissionModalViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,13 +295,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */,
+				C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */,
 				0AE8F8DC243062DE004FFFE9 /* ViewController.swift in Sources */,
-				C6A180A92432423B001B36D2 /* Extensions.swift in Sources */,
 				0AE8F8D8243062DE004FFFE9 /* AppDelegate.swift in Sources */,
 				C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
 				C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */,
 				C6A180AB24324309001B36D2 /* Node.swift in Sources */,
+				C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
