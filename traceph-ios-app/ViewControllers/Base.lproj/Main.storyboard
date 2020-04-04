@@ -78,6 +78,91 @@
                                     <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GAB-A4-1Xo"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="11N-Go-lNa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DQ-zU-Cpn">
+                                        <rect key="frame" x="20" y="196" width="374" height="124"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">We want you to be informed.
+
+Let this app run in the background. Whenever we confirm that someone you have encountered has been tested positive for COVID-19, we will give you a notification. You may also share the app through:</string>
+                                                <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" size="20" name="Tahoma"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgc-9Z-shs">
+                                        <rect key="frame" x="20" y="380" width="374" height="64"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="wRy-XW-vKF"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="or you can let your friends or family scan the QR code below">
+                                                <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" size="20" name="Tahoma"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jr-kL-fls">
+                                        <rect key="frame" x="20" y="328" width="374" height="44"/>
+                                        <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Lh0-Zn-Uyu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <state key="normal" title="Copy link to share">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="copyAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vI9-bp-Bib"/>
+                                        </connections>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="H9a-zg-EK0">
+                                        <rect key="frame" x="29" y="64" width="356" height="112"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="H9a-zg-EK0" secondAttribute="height" multiplier="89:28" id="N8B-bt-ldU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="SampleQR" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-dL-4O2">
+                                        <rect key="frame" x="18" y="452" width="378" height="378"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="oBg-dL-4O2" secondAttribute="height" id="lae-Dg-8oU"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="H9a-zg-EK0" firstAttribute="centerX" secondItem="11N-Go-lNa" secondAttribute="centerX" id="Ah9-ET-uV4"/>
+                                    <constraint firstItem="oBg-dL-4O2" firstAttribute="top" secondItem="Vgc-9Z-shs" secondAttribute="bottom" constant="8" id="Bml-CQ-iBY"/>
+                                    <constraint firstItem="8DQ-zU-Cpn" firstAttribute="top" secondItem="H9a-zg-EK0" secondAttribute="bottom" constant="20" id="EjV-vO-7lC"/>
+                                    <constraint firstItem="7jr-kL-fls" firstAttribute="top" secondItem="8DQ-zU-Cpn" secondAttribute="bottom" constant="8" id="H8K-fO-l45"/>
+                                    <constraint firstItem="dmU-HX-5ub" firstAttribute="trailing" secondItem="8DQ-zU-Cpn" secondAttribute="trailing" constant="20" id="IRE-tk-VhT"/>
+                                    <constraint firstItem="Vgc-9Z-shs" firstAttribute="top" secondItem="7jr-kL-fls" secondAttribute="bottom" constant="8" id="IWE-Cb-H2X"/>
+                                    <constraint firstItem="Vgc-9Z-shs" firstAttribute="trailing" secondItem="7jr-kL-fls" secondAttribute="trailing" id="KYr-Q0-ZFJ"/>
+                                    <constraint firstItem="H9a-zg-EK0" firstAttribute="top" secondItem="dmU-HX-5ub" secondAttribute="top" constant="20" id="Tjg-GB-hGW"/>
+                                    <constraint firstItem="oBg-dL-4O2" firstAttribute="centerX" secondItem="dmU-HX-5ub" secondAttribute="centerX" id="ZgI-gE-FeU"/>
+                                    <constraint firstItem="Vgc-9Z-shs" firstAttribute="leading" secondItem="7jr-kL-fls" secondAttribute="leading" id="hOH-yB-v4c"/>
+                                    <constraint firstItem="7jr-kL-fls" firstAttribute="trailing" secondItem="8DQ-zU-Cpn" secondAttribute="trailing" id="k1b-be-rMY"/>
+                                    <constraint firstItem="7jr-kL-fls" firstAttribute="leading" secondItem="8DQ-zU-Cpn" secondAttribute="leading" id="ljS-sP-wwd"/>
+                                    <constraint firstItem="8DQ-zU-Cpn" firstAttribute="leading" secondItem="dmU-HX-5ub" secondAttribute="leading" constant="20" id="mTh-b3-6wa"/>
+                                    <constraint firstItem="dmU-HX-5ub" firstAttribute="bottom" secondItem="oBg-dL-4O2" secondAttribute="bottom" constant="32" id="o1y-Nw-zY4"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="dmU-HX-5ub"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -94,6 +179,8 @@
                         <outlet property="detectButton" destination="jYC-DF-xyj" id="Tmp-w7-VhH"/>
                         <outlet property="deviceTable" destination="IZA-jP-AuW" id="KmX-Kb-nEV"/>
                         <outlet property="peripheralStatus" destination="Tos-4a-cam" id="Ulq-aA-Q7m"/>
+                        <outlet property="shareTextView" destination="8DQ-zU-Cpn" id="vcZ-3l-Aa5"/>
+                        <outlet property="shareView" destination="11N-Go-lNa" id="mFl-vH-yyy"/>
                         <segue destination="PEJ-ZK-VDo" kind="presentation" identifier="intro" animates="NO" modalPresentationStyle="fullScreen" id="Ygr-ZA-A0C"/>
                         <segue destination="xie-LI-JGp" kind="presentation" identifier="authorize" id="wR8-ds-58k"/>
                     </connections>
@@ -186,7 +273,7 @@ TracePH exchanges Bluetooth signals with nearby mobile phones which runs the sam
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDM-Ky-Npo">
-                                <rect key="frame" x="29" y="266" width="356" height="404"/>
+                                <rect key="frame" x="29" y="212" width="356" height="500"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <attributedString key="attributedText">
                                     <fragment>
@@ -203,26 +290,32 @@ Please turn on your bluetooth from your settings to start using TracePH app.</st
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Par-WC-mPl">
-                                <rect key="frame" x="31" y="708" width="352" height="38"/>
+                                <rect key="frame" x="31" y="732" width="352" height="44"/>
                                 <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fPg-EB-Ww7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Okay! Got it">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="agreeAction:" destination="xie-LI-JGp" eventType="touchUpInside" id="Qah-eR-0uW"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="TracePH" translatesAutoresizingMaskIntoConstraints="NO" id="FYg-SB-XZK">
-                                <rect key="frame" x="150.5" y="71" width="113" height="160"/>
+                                <rect key="frame" x="150.5" y="32" width="113" height="160"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="5Y8-3f-xGo" firstAttribute="bottom" secondItem="Par-WC-mPl" secondAttribute="bottom" constant="32" id="2E1-7d-omP"/>
                             <constraint firstItem="Par-WC-mPl" firstAttribute="width" secondItem="xDM-Ky-Npo" secondAttribute="width" multiplier="0.988764" id="Owe-gX-3bY"/>
                             <constraint firstItem="xDM-Ky-Npo" firstAttribute="leading" secondItem="5Y8-3f-xGo" secondAttribute="leading" constant="29" id="PRi-XI-WzM"/>
-                            <constraint firstItem="Par-WC-mPl" firstAttribute="top" secondItem="xDM-Ky-Npo" secondAttribute="bottom" constant="38" id="U7W-qv-iKK"/>
-                            <constraint firstItem="xDM-Ky-Npo" firstAttribute="top" secondItem="5Y8-3f-xGo" secondAttribute="top" constant="266" id="YOx-of-Ma9"/>
-                            <constraint firstItem="xDM-Ky-Npo" firstAttribute="top" secondItem="FYg-SB-XZK" secondAttribute="bottom" constant="35" id="bXf-MW-39y"/>
+                            <constraint firstItem="Par-WC-mPl" firstAttribute="top" secondItem="xDM-Ky-Npo" secondAttribute="bottom" constant="20" id="U7W-qv-iKK"/>
+                            <constraint firstItem="xDM-Ky-Npo" firstAttribute="top" secondItem="FYg-SB-XZK" secondAttribute="bottom" constant="20" id="bXf-MW-39y"/>
                             <constraint firstItem="FYg-SB-XZK" firstAttribute="centerX" secondItem="5Y8-3f-xGo" secondAttribute="centerX" id="gIp-H6-tv8"/>
-                            <constraint firstItem="5Y8-3f-xGo" firstAttribute="bottom" secondItem="xDM-Ky-Npo" secondAttribute="bottom" constant="138" id="r8y-AT-cQx"/>
+                            <constraint firstItem="FYg-SB-XZK" firstAttribute="top" secondItem="5Y8-3f-xGo" secondAttribute="top" constant="32" id="iTk-Q6-YVm"/>
                             <constraint firstItem="5Y8-3f-xGo" firstAttribute="trailing" secondItem="xDM-Ky-Npo" secondAttribute="trailing" constant="29" id="wwa-GX-EKA"/>
                             <constraint firstItem="Par-WC-mPl" firstAttribute="centerX" secondItem="xDM-Ky-Npo" secondAttribute="centerX" id="wyx-vI-2kk"/>
                         </constraints>
@@ -233,107 +326,6 @@ Please turn on your bluetooth from your settings to start using TracePH app.</st
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUa-64-1JO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="952" y="867"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="v1d-us-fOT">
-            <objects>
-                <viewController storyboardIdentifier="main" id="o6N-EP-5qw" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PHY-xr-Mae">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-xi-IWF">
-                                <rect key="frame" x="39" y="226" width="346" height="285"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">We want you to be informed.
-
-Let this app run in the background. Whenever we confirmed that someone you have encountered has been tested positive for COVID-19, we will give you a notification. You may also share the app through:
-
-</string>
-                                        <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" size="20" name="Tahoma"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8S-Fr-inW">
-                                <rect key="frame" x="34" y="638" width="356" height="65"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">or you can let your friends or family scan the QR code below
-
-</string>
-                                        <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" size="20" name="Tahoma"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="g52-hu-uKx">
-                                <rect key="frame" x="34" y="527" width="346" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="www.traceph.com/samplelinkfordownload"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgc-R5-Cbd">
-                                <rect key="frame" x="36" y="592" width="352" height="38"/>
-                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Copy link to share">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="dD8-E6-rof">
-                                <rect key="frame" x="34" y="102" width="356" height="112"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="356" id="cLW-Iu-npd"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="356" id="qo6-ei-43b"/>
-                                    <constraint firstAttribute="height" constant="112" id="yNq-D4-NI9"/>
-                                </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="SampleQR" translatesAutoresizingMaskIntoConstraints="NO" id="oer-os-me5">
-                                <rect key="frame" x="77" y="723" width="260" height="106"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="106" id="tBa-Pa-RtH"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="dD8-E6-rof" firstAttribute="centerX" secondItem="uhX-xi-IWF" secondAttribute="centerX" id="4RQ-I2-ut3"/>
-                            <constraint firstItem="g52-hu-uKx" firstAttribute="centerX" secondItem="LWj-Ps-Hcz" secondAttribute="centerX" id="8sw-IY-1IB"/>
-                            <constraint firstItem="g52-hu-uKx" firstAttribute="top" secondItem="uhX-xi-IWF" secondAttribute="bottom" constant="16" id="Dyk-OX-7Vs"/>
-                            <constraint firstItem="uhX-xi-IWF" firstAttribute="leading" secondItem="LWj-Ps-Hcz" secondAttribute="leading" constant="39" id="E9O-vc-RVw"/>
-                            <constraint firstItem="d8S-Fr-inW" firstAttribute="width" secondItem="uhX-xi-IWF" secondAttribute="width" multiplier="1.0289" id="Lf8-h2-RPH"/>
-                            <constraint firstItem="d8S-Fr-inW" firstAttribute="top" secondItem="qgc-R5-Cbd" secondAttribute="bottom" constant="8" id="ODR-CR-r98"/>
-                            <constraint firstItem="LWj-Ps-Hcz" firstAttribute="bottom" secondItem="oer-os-me5" secondAttribute="bottom" constant="33" id="Pox-ez-cS8"/>
-                            <constraint firstItem="g52-hu-uKx" firstAttribute="width" secondItem="uhX-xi-IWF" secondAttribute="width" id="TT5-XI-7vy"/>
-                            <constraint firstItem="qgc-R5-Cbd" firstAttribute="width" secondItem="uhX-xi-IWF" secondAttribute="width" multiplier="1.01734" id="ZLQ-TS-26L"/>
-                            <constraint firstItem="LWj-Ps-Hcz" firstAttribute="bottom" secondItem="qgc-R5-Cbd" secondAttribute="bottom" constant="232" id="ZUP-Dg-aSn"/>
-                            <constraint firstItem="oer-os-me5" firstAttribute="top" secondItem="d8S-Fr-inW" secondAttribute="bottom" constant="20" id="cVr-OF-MeX"/>
-                            <constraint firstItem="oer-os-me5" firstAttribute="centerX" secondItem="LWj-Ps-Hcz" secondAttribute="centerX" id="eN8-T9-Vog"/>
-                            <constraint firstItem="oer-os-me5" firstAttribute="width" secondItem="PHY-xr-Mae" secondAttribute="width" multiplier="0.628019" id="fDb-2l-Gqm"/>
-                            <constraint firstItem="qgc-R5-Cbd" firstAttribute="centerX" secondItem="uhX-xi-IWF" secondAttribute="centerX" id="fbf-Du-dHg"/>
-                            <constraint firstItem="d8S-Fr-inW" firstAttribute="centerX" secondItem="uhX-xi-IWF" secondAttribute="centerX" id="gX8-64-T5R"/>
-                            <constraint firstItem="uhX-xi-IWF" firstAttribute="top" secondItem="dD8-E6-rof" secondAttribute="bottom" constant="12" id="jsQ-55-dEy"/>
-                            <constraint firstItem="uhX-xi-IWF" firstAttribute="top" secondItem="LWj-Ps-Hcz" secondAttribute="top" constant="182" id="m7Z-dV-kRS"/>
-                            <constraint firstItem="LWj-Ps-Hcz" firstAttribute="trailing" secondItem="uhX-xi-IWF" secondAttribute="trailing" constant="29" id="q05-va-Ury"/>
-                            <constraint firstItem="LWj-Ps-Hcz" firstAttribute="bottom" secondItem="uhX-xi-IWF" secondAttribute="bottom" constant="351" id="vav-Sz-fFX"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="LWj-Ps-Hcz"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zDv-nm-Huq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1409" y="128"/>
         </scene>
     </scenes>
     <resources>
