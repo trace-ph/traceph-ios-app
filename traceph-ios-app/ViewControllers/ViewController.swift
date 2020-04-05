@@ -21,7 +21,7 @@ protocol ViewControllerInputs {
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
-        static let downloadURL: String = "https://www.traceph.com/samplelinkfordownload"
+        static let downloadURL: String = "https://endcov.ph/dashboard/"
     }
     
     enum Segues: String {
@@ -47,7 +47,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareTextView: UITextView?
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
-    
+    @IBOutlet weak var qrTextView: UITextView!
+
     @IBAction func detectPress(_ sender: UIButton?) {
         bluetoothManager.detect()
     }
@@ -56,25 +57,55 @@ class ViewController: UIViewController {
         UIPasteboard.general.string = Constants.downloadURL
     }
     
+    func updateTextFont(textView: UITextView) {
+        if (textView.text.isEmpty || textView.bounds.size.equalTo(CGSize.zero)) {
+            return;
+        }
+
+        let textViewSize = textView.frame.size;
+        let fixedWidth = textViewSize.width;
+        let expectSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT)))
+
+        var expectFont = textView.font;
+        if (expectSize.height > textViewSize.height) {
+            while (textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT))).height > textViewSize.height) {
+                expectFont = textView.font!.withSize(textView.font!.pointSize - 1)
+                textView.font = expectFont
+            }
+        }
+        else {
+            while (textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT))).height < textViewSize.height) {
+                expectFont = textView.font;
+                textView.font = textView.font!.withSize(textView.font!.pointSize + 1)
+            }
+            textView.font = expectFont;
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
-        #if DEBUG
-        shareView = nil
-        view = debugView
-        #else
+//        #if DEBUG
+//        shareView = nil
+//        view = debugView
+//        #else
         debugView = nil
         view = shareView
-        bluetoothManager.detect()
+//        bluetoothManager.detect()
         shareTextView?.text += "\n\(Constants.downloadURL)"
-        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
+//        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
-        #endif
+        shareTextView?.isScrollEnabled = false
+        
+//        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
+        qrTextView?.sizeToFit()
+        qrTextView?.isScrollEnabled = false
+//        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkForModals()
+//        checkForModals()
     }
     
     func checkForModals() {
@@ -170,5 +201,11 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension UITextView {
+    func decreaseFontSize () {
+        self.font =  UIFont(name: self.font!.fontName, size: self.font!.pointSize-1)!
     }
 }

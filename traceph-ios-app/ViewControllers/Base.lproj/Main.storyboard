@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +17,7 @@
                         <outlet property="detectButton" destination="jYC-DF-xyj" id="Tmp-w7-VhH"/>
                         <outlet property="deviceTable" destination="IZA-jP-AuW" id="KmX-Kb-nEV"/>
                         <outlet property="peripheralStatus" destination="Tos-4a-cam" id="Ulq-aA-Q7m"/>
+                        <outlet property="qrTextView" destination="RAx-vj-VfD" id="2Rk-k1-2Du"/>
                         <outlet property="shareTextView" destination="kqk-5r-Ka3" id="b55-0W-LJZ"/>
                         <outlet property="shareView" destination="e34-f7-Zs7" id="9I4-ia-iBE"/>
                         <segue destination="PEJ-ZK-VDo" kind="presentation" identifier="intro" animates="NO" modalPresentationStyle="fullScreen" id="Ygr-ZA-A0C"/>
@@ -27,35 +28,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kqk-5r-Ka3">
-                            <rect key="frame" x="20" y="196" width="374" height="124"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <attributedString key="attributedText">
-                                <fragment>
-                                    <string key="content">We want you to be informed.
-
-Let this app run in the background. Whenever we confirm that someone you have encountered has been tested positive for COVID-19, we will give you a notification. You may also share the app through:</string>
-                                    <attributes>
-                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                        <font key="NSFont" size="20" name="Tahoma"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                        </textView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAx-vj-VfD">
-                            <rect key="frame" x="20" y="380" width="374" height="64"/>
+                            <rect key="frame" x="20" y="456" width="374" height="60"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="64" id="nVG-h5-d0d"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="F3r-vg-BJz"/>
                             </constraints>
                             <attributedString key="attributedText">
                                 <fragment content="or you can let your friends or family scan the QR code below">
                                     <attributes>
-                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                        <font key="NSFont" size="20" name="Tahoma"/>
+                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <font key="NSFont" size="18" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -63,10 +46,10 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTM-F1-1fW">
-                            <rect key="frame" x="20" y="328" width="374" height="44"/>
+                            <rect key="frame" x="20" y="410.5" width="374" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="44" id="3ic-UJ-4xs"/>
+                                <constraint firstAttribute="height" constant="38" id="Iel-lr-8un"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                             <state key="normal" title="Copy link to share">
@@ -77,34 +60,55 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="UiT-8w-jqm">
-                            <rect key="frame" x="29" y="64" width="356" height="112"/>
+                            <rect key="frame" x="67" y="44" width="280" height="88"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="UiT-8w-jqm" secondAttribute="height" multiplier="89:28" id="rFn-tU-LbC"/>
                             </constraints>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="SampleQR" translatesAutoresizingMaskIntoConstraints="NO" id="8NK-Ak-Tpb">
-                            <rect key="frame" x="18" y="452" width="378" height="378"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kqk-5r-Ka3">
+                            <rect key="frame" x="20" y="148" width="374" height="249"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="8NK-Ak-Tpb" secondAttribute="height" id="Enb-fs-6kx"/>
+                                <constraint firstAttribute="height" constant="249" id="BE7-mK-dph"/>
                             </constraints>
+                            <attributedString key="attributedText">
+                                <fragment>
+                                    <string key="content">We want you to be informed.
+
+Let this app run in the background. Whenever we confirm that someone you have encountered has been tested positive for COVID-19, we will give you a notification. 
+
+You may also get COVID-19 updates through:</string>
+                                    <attributes>
+                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="18" name="Tahoma"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
+                        </textView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="8NK-Ak-Tpb">
+                            <rect key="frame" x="57" y="537" width="300" height="300"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="F7T-ws-k7F" firstAttribute="bottom" secondItem="8NK-Ak-Tpb" secondAttribute="bottom" constant="32" id="2ha-wd-nlY"/>
-                        <constraint firstItem="F7T-ws-k7F" firstAttribute="trailing" secondItem="kqk-5r-Ka3" secondAttribute="trailing" constant="20" id="BLl-gf-dwd"/>
-                        <constraint firstItem="XTM-F1-1fW" firstAttribute="top" secondItem="kqk-5r-Ka3" secondAttribute="bottom" constant="8" id="Gl2-oV-X7d"/>
-                        <constraint firstItem="kqk-5r-Ka3" firstAttribute="top" secondItem="UiT-8w-jqm" secondAttribute="bottom" constant="20" id="Lqz-40-ser"/>
-                        <constraint firstItem="XTM-F1-1fW" firstAttribute="leading" secondItem="kqk-5r-Ka3" secondAttribute="leading" id="Mx4-Rh-uMt"/>
-                        <constraint firstItem="XTM-F1-1fW" firstAttribute="trailing" secondItem="kqk-5r-Ka3" secondAttribute="trailing" id="N5h-x2-PGe"/>
+                        <constraint firstItem="kqk-5r-Ka3" firstAttribute="leading" secondItem="F7T-ws-k7F" secondAttribute="leading" constant="20" id="21s-XH-PsI"/>
+                        <constraint firstItem="F7T-ws-k7F" firstAttribute="trailing" secondItem="kqk-5r-Ka3" secondAttribute="trailing" constant="20" id="L20-YW-RI4"/>
+                        <constraint firstItem="8NK-Ak-Tpb" firstAttribute="leading" secondItem="F7T-ws-k7F" secondAttribute="leading" constant="57" id="PcM-KP-7v0"/>
+                        <constraint firstItem="F7T-ws-k7F" firstAttribute="trailing" secondItem="8NK-Ak-Tpb" secondAttribute="trailing" constant="57" id="Sme-kh-X3f"/>
+                        <constraint firstItem="F7T-ws-k7F" firstAttribute="bottom" secondItem="8NK-Ak-Tpb" secondAttribute="bottom" constant="25" id="X9D-0I-9M6"/>
                         <constraint firstItem="UiT-8w-jqm" firstAttribute="centerX" secondItem="e34-f7-Zs7" secondAttribute="centerX" id="apf-fj-c9F"/>
-                        <constraint firstItem="UiT-8w-jqm" firstAttribute="top" secondItem="F7T-ws-k7F" secondAttribute="top" constant="20" id="dGC-F7-QGy"/>
-                        <constraint firstItem="RAx-vj-VfD" firstAttribute="trailing" secondItem="XTM-F1-1fW" secondAttribute="trailing" id="dQy-dc-VwX"/>
-                        <constraint firstItem="kqk-5r-Ka3" firstAttribute="leading" secondItem="F7T-ws-k7F" secondAttribute="leading" constant="20" id="qTE-p9-oPp"/>
-                        <constraint firstItem="8NK-Ak-Tpb" firstAttribute="top" secondItem="RAx-vj-VfD" secondAttribute="bottom" constant="8" id="sKI-Aq-hRO"/>
-                        <constraint firstItem="RAx-vj-VfD" firstAttribute="top" secondItem="XTM-F1-1fW" secondAttribute="bottom" constant="8" id="tzM-hd-Q3H"/>
-                        <constraint firstItem="8NK-Ak-Tpb" firstAttribute="centerX" secondItem="F7T-ws-k7F" secondAttribute="centerX" id="uGL-sv-h6i"/>
-                        <constraint firstItem="RAx-vj-VfD" firstAttribute="leading" secondItem="XTM-F1-1fW" secondAttribute="leading" id="wb1-A2-Zqa"/>
+                        <constraint firstItem="RAx-vj-VfD" firstAttribute="leading" secondItem="XTM-F1-1fW" secondAttribute="leading" id="bqG-Xx-i5i"/>
+                        <constraint firstItem="UiT-8w-jqm" firstAttribute="top" secondItem="F7T-ws-k7F" secondAttribute="top" id="dGC-F7-QGy"/>
+                        <constraint firstItem="XTM-F1-1fW" firstAttribute="top" secondItem="kqk-5r-Ka3" secondAttribute="bottom" constant="13.5" id="eQh-Oi-cf3"/>
+                        <constraint firstItem="8NK-Ak-Tpb" firstAttribute="top" secondItem="RAx-vj-VfD" secondAttribute="bottom" constant="21" id="ibg-Ia-KvH"/>
+                        <constraint firstItem="RAx-vj-VfD" firstAttribute="trailing" secondItem="XTM-F1-1fW" secondAttribute="trailing" id="kwj-sJ-ydQ"/>
+                        <constraint firstItem="XTM-F1-1fW" firstAttribute="trailing" secondItem="kqk-5r-Ka3" secondAttribute="trailing" id="sEX-IO-Bh7"/>
+                        <constraint firstItem="RAx-vj-VfD" firstAttribute="top" secondItem="XTM-F1-1fW" secondAttribute="bottom" constant="7.5" id="sxt-jW-sfi"/>
+                        <constraint firstItem="kqk-5r-Ka3" firstAttribute="top" secondItem="UiT-8w-jqm" secondAttribute="bottom" constant="16" id="wZW-vd-dY9"/>
+                        <constraint firstItem="XTM-F1-1fW" firstAttribute="leading" secondItem="kqk-5r-Ka3" secondAttribute="leading" id="xox-P1-mNR"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="F7T-ws-k7F"/>
                 </view>
@@ -212,7 +216,7 @@ To do this, we will need your help to turn on your device bluetooth.
 
 TracePH exchanges Bluetooth signals with nearby mobile phones which runs the same app.</string>
                                         <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="20" name="Tahoma"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -282,7 +286,7 @@ TracePH exchanges Bluetooth signals with nearby mobile phones which runs the sam
 
 Please turn on your bluetooth from your settings to start using TracePH app.</string>
                                         <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="20" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -332,7 +336,7 @@ Please turn on your bluetooth from your settings to start using TracePH app.</st
     <resources>
         <image name="DESIGNED BY FREEPIK" width="280" height="112"/>
         <image name="Mask Group 1" width="280" height="112"/>
-        <image name="SampleQR" width="378" height="348"/>
         <image name="TracePH" width="113" height="160"/>
+        <image name="endcov QR" width="1128.5" height="1128.5"/>
     </resources>
 </document>

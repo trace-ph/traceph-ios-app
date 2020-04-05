@@ -17,19 +17,19 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>placeholder text</string>
+	<string>Bluetooth is required to detect other devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>placeholder text</string>
+	<string>Bluetooth is required to detect other devices</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>placeholder text</string>
+	<string>Your location is needed for contact tracing</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>placeholder text</string>
+	<string>Your location is needed for contact tracing</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>placeholder text</string>
+	<string>Your location is needed for contact tracing</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
