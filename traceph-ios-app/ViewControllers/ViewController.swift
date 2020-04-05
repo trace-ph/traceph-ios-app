@@ -85,27 +85,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
-//        #if DEBUG
-//        shareView = nil
-//        view = debugView
-//        #else
+        #if DEBUG
+        shareView = nil
+        view = debugView
+        #else
         debugView = nil
         view = shareView
-//        bluetoothManager.detect()
+        bluetoothManager.detect()
         shareTextView?.text += "\n\(Constants.downloadURL)"
 //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false
-        
 //        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
         qrTextView?.sizeToFit()
         qrTextView?.isScrollEnabled = false
-//        #endif
+        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        checkForModals()
+        checkForModals()
     }
     
     func checkForModals() {
