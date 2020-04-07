@@ -12,14 +12,15 @@ import UIKit.UIDevice
 class BluetoothManager: NSObject {
     struct Constants {
         static let SERVICE_IDENTIFIER:CBUUID = {
-
+            
             let identifier = UUID(uuidString: "0000FF01-0000-1000-8000-00805F9B34FB") // matches android app
             
             assert(identifier != nil, "Device Identifier must exist")
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
         static let IDENTIFIER_KEY = "identifierForVendor"
-        static let CHARACTERISTIC_VALUE = "Handshake Test"
+        //        static let CHARACTERISTIC_VALUE = "Handshake Test"
+        static let CHARACTERISTIC_VALUE = Constants.DEVICE_IDENTIFIER.uuidString
         static let HANDSHAKE_TIMEOUT: Double = 1.0
         static let HANDSHAKE_INTERVAL: Double = 3.0
         static let DEVICE_IDENTIFIER: UUID = {
@@ -66,16 +67,16 @@ class BluetoothManager: NSObject {
                 self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
             }
         }
-        
+            
         else {
             self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         }
-
+        
     }
 }
 
 extension BluetoothManager: CBCentralManagerDelegate {
-        
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state != .poweredOn {
             self.viewController?.waitForAdvertisment()
@@ -120,20 +121,19 @@ extension BluetoothManager: CBCentralManagerDelegate {
             peripheralIdentifier: peripheral.identifier,
             coordinates: locationService.currentCoords,
             message: nil
-            )
+        )
         
         //CBPeripheralManager advertises again when app enters background
         //Do not append if detected name and corresponding GPS is duplicate
         if !(items.contains {$0.name == peripheral.name} && items.contains {$0.coordinates.lat == locationService.currentCoords.lat} && items.contains {$0.coordinates.lon == locationService.currentCoords.lon}) {
             items.append(detected_node)
-            
             //delegate for handshake procedure
             currentPeripheral = peripheral
             currentPeripheral.delegate = self
-
+            
             //limit discovered peripherals to one device at a time
             central.stopScan()
-
+            
             //connect to device
             central.connect(currentPeripheral, options: nil)
         }
@@ -145,12 +145,12 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-//        print("Successfully connected to \(peripheral.name ?? "N/A")")
+        //        print("Successfully connected to \(peripheral.name ?? "N/A")")
         currentPeripheral.discoverServices(nil)
         
         //disconnect after timeout (enough time to handshake)
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_TIMEOUT) {
-//            print("Disconnected after handshake timeout")
+            //            print("Disconnected after handshake timeout")
             central.cancelPeripheralConnection(self.currentPeripheral)
         }
         
@@ -170,7 +170,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //REVIEW: Implementation can be changed
         //check if node message is unset (handshake fail)
         if let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier && $0.message == nil }) {
-             //indicate handshake fail
+            //indicate handshake fail
             items[itemIndex] = items[itemIndex].newWithMessage("Handshake fail")
         }
         
@@ -197,7 +197,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             print("Advertising has already begun")
             return
         }
-
+        
         // reset manager
         manager.stopAdvertising()
         manager.removeAllServices()
@@ -231,7 +231,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         if peripheral.state != .poweredOn {
-           viewController?.waitForAdvertisment()
+            viewController?.waitForAdvertisment()
         }
         switch peripheral.state {
         case .poweredOn:
@@ -260,7 +260,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         if let error = error {
             print("Peripheral Manager Start Advertising Error: \(error.localizedDescription)")
         }
-         
+        
         viewController?.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
     }
 }
@@ -274,7 +274,7 @@ extension BluetoothManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let lastService = peripheral.services?.last else { return }
         
-//        print("discovered services: \(lastService)")
+        //        print("discovered services: \(lastService)")
         
         //REVIEW: Only detects the last service since handshake value is appended to list of services
         peripheral.discoverCharacteristics(nil, for: lastService)
@@ -283,7 +283,7 @@ extension BluetoothManager: CBPeripheralDelegate {
     func peripheral( _ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         //checks all characteristics
         for characteristic: CBCharacteristic in service.characteristics! {
-//            print("Sending handshake to \(characteristic.uuid.uuidString)")
+            //            print("Sending handshake to \(characteristic.uuid.uuidString)")
             
             peripheral.readValue(for: characteristic)
             
@@ -307,9 +307,8 @@ extension BluetoothManager: CBPeripheralDelegate {
         
         //TODO: Process received data from peripheral to server
         let recvMSG = String(decoding:data, as: UTF8.self)
-                
-        items[itemIndex] = items[itemIndex].newWithMessage(recvMSG + " (success)")
-        
+        let item = items[itemIndex].newWithMessage(recvMSG)
+        items[itemIndex] = item
         //reload table view
         DispatchQueue.main.async {
             self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
@@ -318,5 +317,5 @@ extension BluetoothManager: CBPeripheralDelegate {
         //disconnect
         centralManager.cancelPeripheralConnection(peripheral)
     }
-
+    
 }
