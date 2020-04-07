@@ -42,6 +42,7 @@ class BluetoothManager: NSObject {
     weak var waiterDelegate: AdvertismentWaiter?
     
     lazy var locationService = LocationService()
+    lazy var apiController = APIController()
     
     init(inputs: ViewControllerInputs?) {
         self.viewController = inputs
@@ -101,16 +102,16 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-            //REVIEW: Either Android can't advertise or iOS can't read this specific data
+        //REVIEW: Either Android can't advertise or iOS can't read this specific data
         let deviceIdentifier = ""
-//        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
-//
-//            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String
-//
-//            else {
-//                print("ignoring: \(peripheral.identifier)")
-//            return
-//        }
+        //        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
+        //
+        //            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String
+        //
+        //            else {
+        //                print("ignoring: \(peripheral.identifier)")
+        //            return
+        //        }
         
         //append node
         let detected_node =  node_data(
@@ -239,18 +240,18 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
             advertise(manager: peripheral)
         default:
             switch peripheral.state {
-                case .poweredOff:
-                    print("CBPeripheralManagerDelegate powered off state")
-                case .unauthorized:
-                    print("CBPeripheralManagerDelegate unauthorized state")
-                case .resetting:
-                    print("CBPeripheralManagerDelegate resetting state")
-                case .unsupported:
-                    print("CBPeripheralManagerDelegate unsupported state")
-                case .unknown:
-                    print("CBPeripheralManagerDelegate unknown state")
-                default:
-                    assertionFailure("handle \(peripheral.state.rawValue) state")
+            case .poweredOff:
+                print("CBPeripheralManagerDelegate powered off state")
+            case .unauthorized:
+                print("CBPeripheralManagerDelegate unauthorized state")
+            case .resetting:
+                print("CBPeripheralManagerDelegate resetting state")
+            case .unsupported:
+                print("CBPeripheralManagerDelegate unsupported state")
+            case .unknown:
+                print("CBPeripheralManagerDelegate unknown state")
+            default:
+                assertionFailure("handle \(peripheral.state.rawValue) state")
             }
         }
         viewController?.setPeripheral(status: peripheral.isAdvertising ? "ADVERTISING" : "NOT ADVERTISING")
@@ -309,6 +310,14 @@ extension BluetoothManager: CBPeripheralDelegate {
         let recvMSG = String(decoding:data, as: UTF8.self)
         let item = items[itemIndex].newWithMessage(recvMSG)
         items[itemIndex] = item
+        apiController.send(item: item) { result in
+            switch result {
+            case .success(let pairedIDs):
+                print("Sent: \(pairedIDs) to server")
+            case .failure(let error):
+                break
+            }
+        }
         //reload table view
         DispatchQueue.main.async {
             self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
