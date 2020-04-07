@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F3243863390041B871 /* IntroViewController.swift */; };
 		C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F5243863450041B871 /* PermissionModalViewController.swift */; };
 		C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F7243864B50041B871 /* DefaultsKeys.swift */; };
+		C650E96B243C9CFF008793F2 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650E96A243C9CFF008793F2 /* APIController.swift */; };
 		C6A180AB24324309001B36D2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A180AA24324309001B36D2 /* Node.swift */; };
 		C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C759D32431FF61002C4C5C /* LocationService.swift */; };
 		C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C759D5243200FD002C4C5C /* BluetoothManager.swift */; };
@@ -61,6 +62,7 @@
 		C60AE9F3243863390041B871 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C60AE9F5243863450041B871 /* PermissionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionModalViewController.swift; sourceTree = "<group>"; };
 		C60AE9F7243864B50041B871 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		C650E96A243C9CFF008793F2 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		C6A180A82432423B001B36D2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C6A180AA24324309001B36D2 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		C6C759D32431FF61002C4C5C /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
 				C60AE9F22438631A0041B871 /* ViewControllers */,
 				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
+				C650E96A243C9CFF008793F2 /* APIController.swift */,
 				C6A180AA24324309001B36D2 /* Node.swift */,
 				C6C759D32431FF61002C4C5C /* LocationService.swift */,
 				C60AE9F12438626D0041B871 /* Tools */,
@@ -185,7 +188,6 @@
 				8E935EAB62D4CAAE6EE0353B /* Pods-traceph-ios-app.debug.xcconfig */,
 				DCBB2E19511AE6F49871344A /* Pods-traceph-ios-app.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -368,6 +370,7 @@
 				C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */,
 				0AE8F8DC243062DE004FFFE9 /* ViewController.swift in Sources */,
 				0AE8F8D8243062DE004FFFE9 /* AppDelegate.swift in Sources */,
+				C650E96B243C9CFF008793F2 /* APIController.swift in Sources */,
 				C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
 				C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */,
