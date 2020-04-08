@@ -83,6 +83,8 @@ struct APIController {
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
+                    // REVIEW: This will still empty out the array even if the server responds a false positive
+                    DefaultsKeys.failedContactRecordPost.setValue(nil)
                     guard let contacts = JSON(value).array else {
                         handler(.success([]))
                         return
