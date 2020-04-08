@@ -97,6 +97,7 @@ struct APIController {
                     handler(.success(pairedIDs))
                 case .failure(let error):
                     print("API: CONTACTS POST ERROR: \(error.localizedDescription)")
+                    DefaultsKeys.failedContactRecordPost.setValue(contacts)
                     handler(.failure(error))
                 }
         }
