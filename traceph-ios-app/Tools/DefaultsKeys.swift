@@ -10,12 +10,22 @@ import Foundation
 
 enum DefaultsKeys: String {
     case userHasConsented = "UDUserHasConsented"
+    case failedContactRecordPost = "UDFailedContactRecordPost"
     
     var boolValue: Bool {
         return UserDefaults.standard.bool(forKey: self.rawValue)
     }
     
+    var dictArrayValue: [Any]? {
+        return UserDefaults.standard.array(forKey: self.rawValue)
+    }
+    
     func setBool(_ value: Bool) {
+        UserDefaults.standard.set(value, forKey: self.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setValue(_ value: Any?) {
         UserDefaults.standard.set(value, forKey: self.rawValue)
         UserDefaults.standard.synchronize()
     }
