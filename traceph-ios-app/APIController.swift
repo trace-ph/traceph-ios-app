@@ -73,7 +73,8 @@ struct APIController {
             lon: item.coordinates.lon,
             lat: item.coordinates.lat
         )
-        print([Constants.CONTACTS_KEY: [contact.dict]])
+        var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
+        contacts.append(contact.dict)
         Alamofire.request(
             Constants.CONTACTS_POST_URL,
             method: .post,
