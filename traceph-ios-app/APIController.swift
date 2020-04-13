@@ -95,6 +95,9 @@ struct APIController {
                 case .success(let value):
                     // REVIEW: This will still empty out the array even if the server responds a false positive
                     DefaultsKeys.failedContactRecordPost.setValue(nil)
+                    //disable background fetch
+                    UIApplication.shared
+                    .setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
                     guard let contacts = JSON(value).array else {
                         handler(.success([]))
                         return
@@ -108,6 +111,9 @@ struct APIController {
                     }
                     handler(.success(pairedIDs))
                 case .failure(let error):
+                   //enable background fetch
+                    UIApplication.shared
+                    .setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
                     print("API: CONTACTS POST ERROR: \(error.localizedDescription)")
                     DefaultsKeys.failedContactRecordPost.setValue(contacts)
                     handler(.failure(error))
