@@ -6,6 +6,7 @@
 //  Copyright © 2020 traceph. All rights reserved.
 //
 
+import Foundation
 import Alamofire
 import SwiftyJSON
 
@@ -56,25 +57,33 @@ struct APIController {
         case invalidNode
     }
     
-    func send(item: node_data, handler: @escaping (Result<[String]>) -> Void) {
-        
-        // SINGLE ITEM SENDING
-        // TODO: Create one for multiple send that ignores ones already sent
-        guard let message = item.message else {
+    func send(item: node_data?, handler: @escaping (Result<[String]>) -> Void) {
+        // TODO: Create function for multiple send that ignores ones already sent
+        // Sends failed posts
+        var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
+        let deviceID = BluetoothManager.Constants.DEVICE_IDENTIFIER.uuidString
+        if let item = item,
+            let message = item.message {
+            if UUID(uuidString: message) == nil{
+                // TODO: Turn this into an assertion
+                print("\(message) should be a UUID")
+                return
+            } else {
+                let contact = Contact(
+                    type: .directBluetooth,
+                    timestamp: item.timestamp,
+                    sourceNodeID: deviceID,
+                    nodePairs: [message],
+                    lon: item.coordinates.lon,
+                    lat: item.coordinates.lat
+                )
+                contacts.append(contact.dict)
+            }
+        }
+        guard contacts.count > 0 else {
             handler(.failure(ContactsError.invalidNode))
             return
         }
-        let deviceID = BluetoothManager.Constants.DEVICE_IDENTIFIER.uuidString
-        let contact = Contact(
-            type: .directBluetooth,
-            timestamp: item.timestamp,
-            sourceNodeID: deviceID,
-            nodePairs: [message],
-            lon: item.coordinates.lon,
-            lat: item.coordinates.lat
-        )
-        var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
-        contacts.append(contact.dict)
         Alamofire.request(
             Constants.CONTACTS_POST_URL,
             method: .post,
