@@ -78,7 +78,7 @@ struct APIController {
         Alamofire.request(
             Constants.CONTACTS_POST_URL,
             method: .post,
-            parameters: [Constants.CONTACTS_KEY: [contact.dict]],
+            parameters: [Constants.CONTACTS_KEY: contacts],
             encoding: JSONEncoding.default
         )
             .responseJSON { response in
