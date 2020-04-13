@@ -314,7 +314,7 @@ extension BluetoothManager: CBPeripheralDelegate {
             switch result {
             case .success(let pairedIDs):
                 print("Sent: \(pairedIDs) to server")
-            case .failure(let error):
+            case .failure(_):
                 break
             }
         }
