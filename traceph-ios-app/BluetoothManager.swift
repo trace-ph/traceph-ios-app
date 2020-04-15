@@ -19,8 +19,6 @@ class BluetoothManager: NSObject {
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
         static let IDENTIFIER_KEY = "identifierForVendor"
-        //        static let CHARACTERISTIC_VALUE = "Handshake Test"
-        static let CHARACTERISTIC_VALUE = Constants.DEVICE_IDENTIFIER.uuidString
         static let HANDSHAKE_TIMEOUT: Double = 1.0
         static let HANDSHAKE_INTERVAL: Double = 3.0
         static let DEVICE_IDENTIFIER: UUID = {
@@ -190,7 +188,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
 }
 
 extension BluetoothManager: CBPeripheralManagerDelegate {
-    func advertise(manager: CBPeripheralManager) {
+    func advertise(manager: CBPeripheralManager, characteristicValue: String) {
         guard manager.state == .poweredOn else {
             print("CBPeripheralManager must be powered on")
             return
@@ -208,7 +206,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         let service:CBMutableService = {
             
             //REVIEW: Set characteristic value as currentCoords or just use central's currentCoords upon handshake to send less bytes
-            let sendMSG = Constants.CHARACTERISTIC_VALUE.data(using: .utf8)
+            let sendMSG = characteristicValue.data(using: .utf8)
             
             //create characteristics
             let characteristic = CBMutableCharacteristic(type: Constants.SERVICE_IDENTIFIER, properties: [.read], value: sendMSG, permissions: [.readable])
@@ -238,7 +236,14 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
-            advertise(manager: peripheral)
+            characteristicValue?.observe(using: { [weak self] result in
+                switch result {
+                case .success(let value):
+                    self?.advertise(manager: peripheral, characteristicValue: value)
+                case .failure(let error):
+                    print(error)
+                }
+            })
         default:
             switch peripheral.state {
             case .poweredOff:
