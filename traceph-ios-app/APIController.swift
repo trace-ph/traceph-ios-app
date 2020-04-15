@@ -34,6 +34,7 @@ struct Contact {
     let nodePairs: [String]
     let lon: Double
     let lat: Double
+    let rssi: NSNumber
     
     var dict: [String:Any] {
         let formatter = DateFormatter()
@@ -44,7 +45,9 @@ struct Contact {
             Keys.timestamp: formatter.string(from: date),
             Keys.sourceNodeID: sourceNodeID,
             Keys.nodePair: nodePairs,
-            Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]]
+            Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]],
+            Keys.rssi: rssi,
+            Keys.txPower: 0
         ]
     }
 }
@@ -127,8 +130,7 @@ struct APIController {
             nodePairs: [message],
             lon: item.coordinates.lon,
             lat: item.coordinates.lat,
-            rssi: item.rssi,
-            txPower: 0
+            rssi: item.rssi
         )
         contacts.append(contact.dict)
         return contacts
