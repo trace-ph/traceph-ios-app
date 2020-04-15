@@ -22,9 +22,11 @@ struct Contact {
         static let type = "type"
         static let timestamp = "timestamp"
         static let sourceNodeID = "source_node_id"
-        static let nodePairs = "node_pairs"
+        static let nodePair = "node_pair"
         static let location = "location"
         static let coordinates = "coordinates"
+        static let rssi = "rssi"
+        static let txPower = "txPower"
     }
     let type: ContactType
     let timestamp: Double
@@ -41,7 +43,7 @@ struct Contact {
             Keys.type: type.rawValue,
             Keys.timestamp: formatter.string(from: date),
             Keys.sourceNodeID: sourceNodeID,
-            Keys.nodePairs: nodePairs,
+            Keys.nodePair: nodePairs,
             Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]]
         ]
     }
@@ -85,31 +87,36 @@ struct APIController {
         }
         return promise
     }
+    
+    func compose(item: node_data?, deviceID: String) -> [[String:Any]] {
+        // Includes failed posts
+        var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
+        
+        guard let item = item,
+            let message = item.message else {
+                return contacts
+        }
+        guard UUID(uuidString: message) != nil else {
+            // TODO: Turn this into an assertion
+            print("\(message) should be a UUID")
+            return contacts
+        }
+        let contact = Contact(
+            type: .directBluetooth,
+            timestamp: item.timestamp,
+            sourceNodeID: deviceID,
+            nodePairs: [message],
+            lon: item.coordinates.lon,
+            lat: item.coordinates.lat
+        )
+        contacts.append(contact.dict)
+        return contacts
     }
     
     func send(item: node_data?, handler: @escaping (Result<[String]>) -> Void) {
         // TODO: Create function for multiple send that ignores ones already sent
-        // Sends failed posts
-        var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
         let deviceID = BluetoothManager.Constants.DEVICE_IDENTIFIER.uuidString
-        if let item = item,
-            let message = item.message {
-            if UUID(uuidString: message) == nil{
-                // TODO: Turn this into an assertion
-                print("\(message) should be a UUID")
-                return
-            } else {
-                let contact = Contact(
-                    type: .directBluetooth,
-                    timestamp: item.timestamp,
-                    sourceNodeID: deviceID,
-                    nodePairs: [message],
-                    lon: item.coordinates.lon,
-                    lat: item.coordinates.lat
-                )
-                contacts.append(contact.dict)
-            }
-        }
+        let contacts = compose(item: item, deviceID: deviceID)
         guard contacts.count > 0 else {
             handler(.failure(ContactsError.invalidNode))
             return
@@ -120,6 +127,7 @@ struct APIController {
             parameters: [Constants.CONTACTS_KEY: contacts],
             encoding: JSONEncoding.default
         )
+//            .validate()
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
@@ -129,13 +137,14 @@ struct APIController {
                     UIApplication.shared
                     .setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
                     guard let contacts = JSON(value).array else {
+                        print(value)
                         handler(.success([]))
                         return
                     }
                     var pairedIDs = [String]()
                     contacts.forEach { contact in
                         assert(contact[Contact.Keys.sourceNodeID].string == deviceID, "These contacts do not belong to this device")
-                        pairedIDs.append(contentsOf: contact[Contact.Keys.nodePairs]
+                        pairedIDs.append(contentsOf: contact[Contact.Keys.nodePair]
                             .arrayValue
                             .compactMap {$0.string} )
                     }
