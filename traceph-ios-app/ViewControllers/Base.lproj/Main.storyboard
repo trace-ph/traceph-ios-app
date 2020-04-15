@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -210,11 +210,11 @@ You may also get COVID-19 updates through:</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <attributedString key="attributedText">
                                     <fragment>
-                                        <string key="content">TracePH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
+                                        <string key="content">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
 
 To do this, we will need your help to turn on your device bluetooth.
 
-TracePH exchanges Bluetooth signals with nearby mobile phones which runs the same app.</string>
+DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the same app.</string>
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="20" name="Tahoma"/>
@@ -284,7 +284,7 @@ TracePH exchanges Bluetooth signals with nearby mobile phones which runs the sam
                                     <fragment>
                                         <string key="content">We noticed that your bluetooth is off.
 
-Please turn on your bluetooth from your settings to start using TracePH app.</string>
+Please turn on your bluetooth from your settings to start using DetectPH app.</string>
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="20" name="Helvetica"/>
