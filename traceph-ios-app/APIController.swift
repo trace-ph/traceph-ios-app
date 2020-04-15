@@ -101,6 +101,7 @@ struct APIController {
                             promise.reject(with: ContactsError.nonExistentNode)
                         return
                     }
+                    assert(node[Constants.DEVICE_ID_KEY]?.string == deviceID, "response deviceID: \(node[Constants.DEVICE_ID_KEY]?.string ?? "") != \(deviceID)")
                     promise.resolve(with: nodeID)
                 case .failure(let error):
                     promise.reject(with: error)
