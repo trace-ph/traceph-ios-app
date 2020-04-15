@@ -50,11 +50,41 @@ struct Contact {
 struct APIController {
     struct Constants {
         static let CONTACTS_POST_URL = "https://api.traceph.org/api/node_contacts"
+        static let NODE_URL = "https://api.traceph.org/api/node"
         static let CONTACTS_KEY = "contacts"
+        static let DEVICE_ID_KEY = "device_id"
+        static let NODE_ID_KEY = "node_id"
     }
     
     enum ContactsError: Error {
         case invalidNode
+        case nonExistentNode
+    }
+    
+    func fetchNodeID(deviceID: String) -> Promise<String> {
+        let promise = Promise<String>()
+        Alamofire.request(
+            Constants.NODE_URL,
+            method: .post,
+            parameters: [Constants.DEVICE_ID_KEY: deviceID],
+            encoding: JSONEncoding.default
+        )
+            .validate()
+            .responseJSON { response in
+                switch response.result{
+                case .success(let value):
+                    guard let node = JSON(value).dictionary,
+                        let nodeID = node[Constants.NODE_ID_KEY]?.string else {
+                            promise.reject(with: ContactsError.nonExistentNode)
+                        return
+                    }
+                    promise.resolve(with: nodeID)
+                case .failure(let error):
+                    promise.reject(with: error)
+                }
+        }
+        return promise
+    }
     }
     
     func send(item: node_data?, handler: @escaping (Result<[String]>) -> Void) {
