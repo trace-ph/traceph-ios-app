@@ -43,10 +43,11 @@ class BluetoothManager: NSObject {
     
     lazy var locationService = LocationService()
     lazy var apiController = APIController()
-    
+    var characteristicValue: Promise<String>?
     init(inputs: ViewControllerInputs?) {
         self.viewController = inputs
         super.init()
+        characteristicValue = apiController.fetchNodeID(deviceID: Constants.DEVICE_IDENTIFIER.uuidString)
     }
     
     func restart() {
