@@ -15,6 +15,8 @@ class Future<Value> {
         didSet { result.map(report) }
     }
     private var callbacks = [(Result) -> Void]()
+    private var successCallbacks = [(Value) -> Void]()
+    private var failureCallbacks = [(Error) -> Void]()
     
     var value: Value? {
         guard case .success(let value) = result else {
@@ -32,8 +34,36 @@ class Future<Value> {
         callbacks.append(callback)
     }
     
+    func onSucceed(callback: @escaping (Value) -> Void) {
+        if let result = result {
+            if case .success(let value) = result {
+                return callback(value)
+            }
+        } else {
+            successCallbacks.append(callback)
+        }
+    }
+    
+    func onFail(callback: @escaping (Error) -> Void) {
+        if let result = result {
+            if case .failure(let error) = result {
+                return callback(error)
+            }
+        } else {
+            failureCallbacks.append(callback)
+        }
+    }
+    
     private func report(result: Result) {
         callbacks.forEach { $0(result) }
+        switch result {
+        case .success(let value):
+            successCallbacks.forEach { $0(value) }
+        case .failure(let error):
+            failureCallbacks.forEach { $0(error) }
+        }
+        failureCallbacks = []
+        successCallbacks = []
         callbacks = []
     }
 }

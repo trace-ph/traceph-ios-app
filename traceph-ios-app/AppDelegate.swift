@@ -14,13 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if (DefaultsKeys.failedContactRecordPost.dictArrayValue?.count ?? 0) > 0 {
+        if let nodeID = DefaultsKeys.myNodeID.stringValue,
+            (DefaultsKeys.failedContactRecordPost.dictArrayValue?.count ?? 0) > 0 {
             //enable background fetch
             application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
             // send failed requests
-            APIController().send(item: nil) { _ in
-                
-            }
+                APIController().send(item: nil, sourceNodeID: nodeID) { _ in
+                    
+                }
+            
         } else {
             //disable background fetch
             application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
@@ -88,7 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
-        APIController().send(item: nil) { result in
+        guard let nodeID = DefaultsKeys.myNodeID.stringValue else {
+            completionHandler(.failed)
+            return
+        }
+        APIController().send(item: nil, sourceNodeID: nodeID) { result in
             switch result {
             case .success(let pairdIDs):
                 completionHandler(pairdIDs.count == 0 ? .noData : .newData)

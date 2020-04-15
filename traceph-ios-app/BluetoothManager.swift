@@ -18,14 +18,8 @@ class BluetoothManager: NSObject {
             assert(identifier != nil, "Device Identifier must exist")
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
-        static let IDENTIFIER_KEY = "identifierForVendor"
         static let HANDSHAKE_TIMEOUT: Double = 1.0
         static let HANDSHAKE_INTERVAL: Double = 3.0
-        static let DEVICE_IDENTIFIER: UUID = {
-            let identifier = UIDevice.current.identifierForVendor
-            assert(identifier != nil, "Device Identifier must exist")
-            return identifier ?? UUID()
-        }()
         
         //TO DO: create setting for this
         static let USER_PROFILE = "\(UIDevice.current.name)"
@@ -41,11 +35,9 @@ class BluetoothManager: NSObject {
     
     lazy var locationService = LocationService()
     lazy var apiController = APIController()
-    var characteristicValue: Promise<String>?
     init(inputs: ViewControllerInputs?) {
         self.viewController = inputs
         super.init()
-        characteristicValue = apiController.fetchNodeID(deviceID: Constants.DEVICE_IDENTIFIER.uuidString)
     }
     
     func restart() {
@@ -111,7 +103,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //                print("ignoring: \(peripheral.identifier)")
         //            return
         //        }
-        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
@@ -236,7 +227,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
-            characteristicValue?.observe(using: { [weak self] result in
+            APIController.sourceNodeID.observe(using: { [weak self] result in
                 switch result {
                 case .success(let value):
                     self?.advertise(manager: peripheral, characteristicValue: value)
@@ -316,14 +307,17 @@ extension BluetoothManager: CBPeripheralDelegate {
         let recvMSG = String(decoding:data, as: UTF8.self)
         let item = items[itemIndex].newWithMessage(recvMSG)
         items[itemIndex] = item
-        apiController.send(item: item) { result in
-            switch result {
-            case .success(let pairedIDs):
-                print("Sent: \(pairedIDs) to server")
-            case .failure(_):
-                break
+        APIController.sourceNodeID.onSucceed { [weak self] value in
+            self?.apiController.send(item: item, sourceNodeID: value) { result in
+                switch result {
+                case .success(let pairedIDs):
+                    print("Sent: \(pairedIDs) to server")
+                case .failure(_):
+                    break
+                }
             }
         }
+        
         //reload table view
         DispatchQueue.main.async {
             self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))

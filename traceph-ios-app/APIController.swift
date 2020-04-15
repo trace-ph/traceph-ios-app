@@ -63,7 +63,26 @@ struct APIController {
         case nonExistentNode
     }
     
-    func fetchNodeID(deviceID: String) -> Promise<String> {
+    static let sourceNodeID: Promise<String> = {
+        if let existing = DefaultsKeys.myNodeID.stringValue {
+            return Promise<String>.init(value: existing)
+        }
+        let deviceID: UUID = {
+            let identifier = UIDevice.current.identifierForVendor
+            assert(identifier != nil, "Device Identifier must exist")
+            return identifier ?? UUID()
+        }()
+        let promise = fetchNodeID(deviceID: deviceID.uuidString)
+        promise.observe { result in
+            guard case .success(let value) = result else {
+                return
+            }
+            DefaultsKeys.myNodeID.setValue(value)
+        }
+        return promise
+    }()
+    
+    static func fetchNodeID(deviceID: String) -> Promise<String> {
         let promise = Promise<String>()
         Alamofire.request(
             Constants.NODE_URL,
@@ -88,7 +107,7 @@ struct APIController {
         return promise
     }
     
-    func compose(item: node_data?, deviceID: String) -> [[String:Any]] {
+    func compose(item: node_data?, sourceNodeID: String) -> [[String:Any]] {
         // Includes failed posts
         var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
         
@@ -104,19 +123,20 @@ struct APIController {
         let contact = Contact(
             type: .directBluetooth,
             timestamp: item.timestamp,
-            sourceNodeID: deviceID,
+            sourceNodeID: sourceNodeID,
             nodePairs: [message],
             lon: item.coordinates.lon,
-            lat: item.coordinates.lat
+            lat: item.coordinates.lat,
+            rssi: item.rssi,
+            txPower: 0
         )
         contacts.append(contact.dict)
         return contacts
     }
     
-    func send(item: node_data?, handler: @escaping (Result<[String]>) -> Void) {
+    func send(item: node_data?, sourceNodeID: String, handler: @escaping (Result<[String]>) -> Void) {
         // TODO: Create function for multiple send that ignores ones already sent
-        let deviceID = BluetoothManager.Constants.DEVICE_IDENTIFIER.uuidString
-        let contacts = compose(item: item, deviceID: deviceID)
+        let contacts = compose(item: item, sourceNodeID: sourceNodeID)
         guard contacts.count > 0 else {
             handler(.failure(ContactsError.invalidNode))
             return
@@ -143,14 +163,14 @@ struct APIController {
                     }
                     var pairedIDs = [String]()
                     contacts.forEach { contact in
-                        assert(contact[Contact.Keys.sourceNodeID].string == deviceID, "These contacts do not belong to this device")
+                        assert(contact[Contact.Keys.sourceNodeID].string == sourceNodeID, "These contacts do not belong to this device")
                         pairedIDs.append(contentsOf: contact[Contact.Keys.nodePair]
                             .arrayValue
                             .compactMap {$0.string} )
                     }
                     handler(.success(pairedIDs))
                 case .failure(let error):
-                   //enable background fetch
+                    //enable background fetch
                     UIApplication.shared
                     .setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
                     print("API: CONTACTS POST ERROR: \(error.localizedDescription)")
