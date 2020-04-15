@@ -43,7 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AE8F8D4243062DE004FFFE9 /* TracePH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TracePH.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AACCB142447085800EDAF27 /* DetectPH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DetectPH.entitlements; sourceTree = "<group>"; };
+		0AE8F8D4243062DE004FFFE9 /* DetectPH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DetectPH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0AE8F8DB243062DE004FFFE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +112,7 @@
 		0AE8F8D5243062DE004FFFE9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AE8F8D4243062DE004FFFE9 /* TracePH.app */,
+				0AE8F8D4243062DE004FFFE9 /* DetectPH.app */,
 				0AE8F8EA243062E1004FFFE9 /* traceph-ios-appTests.xctest */,
 				0AE8F8F5243062E1004FFFE9 /* traceph-ios-appUITests.xctest */,
 			);
@@ -121,6 +122,7 @@
 		0AE8F8D6243062DE004FFFE9 /* traceph-ios-app */ = {
 			isa = PBXGroup;
 			children = (
+				0AACCB142447085800EDAF27 /* DetectPH.entitlements */,
 				0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */,
 				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
 				C60AE9F22438631A0041B871 /* ViewControllers */,
@@ -210,7 +212,7 @@
 			);
 			name = "traceph-ios-app";
 			productName = "traceph-ios-app";
-			productReference = 0AE8F8D4243062DE004FFFE9 /* TracePH.app */;
+			productReference = 0AE8F8D4243062DE004FFFE9 /* DetectPH.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0AE8F8E9243062E1004FFFE9 /* traceph-ios-appTests */ = {
@@ -549,6 +551,7 @@
 			baseConfigurationReference = 8E935EAB62D4CAAE6EE0353B /* Pods-traceph-ios-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "traceph-ios-app/DetectPH.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 577YP86TR6;
@@ -559,7 +562,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.detectph.ios;
-				PRODUCT_NAME = TracePH;
+				PRODUCT_NAME = DetectPH;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -570,6 +573,7 @@
 			baseConfigurationReference = DCBB2E19511AE6F49871344A /* Pods-traceph-ios-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "traceph-ios-app/DetectPH.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 577YP86TR6;
@@ -580,7 +584,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.detectph.ios;
-				PRODUCT_NAME = TracePH;
+				PRODUCT_NAME = DetectPH;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import Foundation
 import CoreLocation
+import UserNotifications
 
 protocol ViewControllerInputs {
     func reloadTable(indexPath: IndexPath?)
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
             controller.performSegue(withIdentifier: self.rawValue, sender: sender)
         }
     }
-        
+    
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.current
@@ -41,14 +42,14 @@ class ViewController: UIViewController {
     }()
     
     var bluetoothManager: BluetoothManager!
-
+    
     @IBOutlet weak var debugView: UIView?
     @IBOutlet weak var shareView: UIView?
     @IBOutlet weak var shareTextView: UITextView?
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
     @IBOutlet weak var qrTextView: UITextView!
-
+    
     @IBAction func detectPress(_ sender: UIButton?) {
         bluetoothManager.detect()
     }
@@ -61,11 +62,11 @@ class ViewController: UIViewController {
         if (textView.text.isEmpty || textView.bounds.size.equalTo(CGSize.zero)) {
             return;
         }
-
+        
         let textViewSize = textView.frame.size;
         let fixedWidth = textViewSize.width;
         let expectSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT)))
-
+        
         var expectFont = textView.font;
         if (expectSize.height > textViewSize.height) {
             while (textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT))).height > textViewSize.height) {
@@ -93,13 +94,52 @@ class ViewController: UIViewController {
         view = shareView
         bluetoothManager.detect()
         shareTextView?.text += "\n\(Constants.downloadURL)"
-//        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
+        //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false
-//        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
+        //        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
         qrTextView?.sizeToFit()
         qrTextView?.isScrollEnabled = false
         #endif
+        
+        let backgroundNotifCenter = NotificationCenter.default
+        backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
+ 
+        
+        
+        
+    }
+    
+    @objc func didEnterBackground() {
+        print("App entered background")
+        
+        if #available(iOS 10.0, *) {
+            
+            let notifCenter = UNUserNotificationCenter.current()
+            
+            let notifContent = UNMutableNotificationContent()
+            notifContent.title = "DetectPH is running in the background"
+            notifContent.body = "Please keep DetectPH running to detect devices properly"
+            
+            let date = Date().addingTimeInterval(3)
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            
+            let notifUUID = UUID().uuidString
+            let notifRequest = UNNotificationRequest(identifier: notifUUID, content: notifContent, trigger: notifTrigger)
+            
+            notifCenter.add(notifRequest) { (error) in
+                if error != nil {
+                    print("Notification center add error: \(String(describing: error))")
+                }
+            }
+            
+            print("notification added")
+            
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -124,6 +164,7 @@ class ViewController: UIViewController {
         print("presenting waiter")
         Segues.authorize.perform(controller: self, sender: nil)
     }
+    
     
     @IBOutlet weak var peripheralStatus: UILabel!
     @IBOutlet weak var deviceProfile: UILabel!
@@ -179,7 +220,7 @@ extension ViewController: UITableViewDataSource {
             assertionFailure("Register \(Constants.REUSE_IDENTIFIER) cell first")
             return UITableViewCell()
         }
-
+        
         let node = bluetoothManager.items[indexPath.row]
         if let message = node.message {
             cell.textLabel?.text = "\(node.name)\t-\t\(message)"
@@ -189,7 +230,7 @@ extension ViewController: UITableViewDataSource {
         let coordinates = bluetoothManager.locationService.currentCoords
         let currentLat = String(format: "%.6f", coordinates.lat)
         let currentLon = String(format: "%.6f", coordinates.lon)
-
+        
         //REVIEW: Create UITableViewCell depending on needed information
         cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t-\t[\(currentLat), \(currentLon)]"
         

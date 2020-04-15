@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //disable background fetch
             application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
         }
+        
+        registerLocalNotif()
+        
         return true
     }
     
@@ -34,6 +38,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("TracePH entered foreground")
     }
+    
+    
+    func registerLocalNotif() {
+        if #available(iOS 10.0, *) {
+              let notifCenter = UNUserNotificationCenter.current()
+              
+              notifCenter.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                  
+                  if let error = error {
+                      print("Notification center request error: \(String(describing: error))")
+                  }
+                  
+                  
+                  if granted {
+                      print("Notifications authorized")
+                  }
+                      
+                  else {
+                      print("Notifications not authorized")
+                  }
+                  
+              }
+          } else {
+              // Fallback on earlier versions
+          }
+    }
+    
+    
+    
+    
 
     // MARK: UISceneSession Lifecycle
 

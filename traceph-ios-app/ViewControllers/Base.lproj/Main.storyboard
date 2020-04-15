@@ -214,10 +214,14 @@ You may also get COVID-19 updates through:</string>
 
 To do this, we will need your help to turn on your device bluetooth.
 
-DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the same app.</string>
+DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the same app.
+
+The iOS Application is required to run in the foreground to be able to scan other devices properly.
+
+Please allow the app to send you notifications and use the low-power mode to ensure that the application is running properly when you're in high-risk environments.</string>
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="Tahoma"/>
+                                            <font key="NSFont" size="16" name="Tahoma"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
