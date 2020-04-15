@@ -11,9 +11,14 @@ import Foundation
 enum DefaultsKeys: String {
     case userHasConsented = "UDUserHasConsented"
     case failedContactRecordPost = "UDFailedContactRecordPost"
+    case myNodeID = "UDMyNodeID"
     
     var boolValue: Bool {
         return UserDefaults.standard.bool(forKey: self.rawValue)
+    }
+    
+    var stringValue: String? {
+        return UserDefaults.standard.string(forKey: self.rawValue)
     }
     
     var dictArrayValue: [Any]? {

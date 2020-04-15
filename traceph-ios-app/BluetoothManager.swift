@@ -18,16 +18,8 @@ class BluetoothManager: NSObject {
             assert(identifier != nil, "Device Identifier must exist")
             return CBUUID(nsuuid: identifier ?? UUID())
         }()
-        static let IDENTIFIER_KEY = "identifierForVendor"
-        //        static let CHARACTERISTIC_VALUE = "Handshake Test"
-        static let CHARACTERISTIC_VALUE = Constants.DEVICE_IDENTIFIER.uuidString
         static let HANDSHAKE_TIMEOUT: Double = 1.0
         static let HANDSHAKE_INTERVAL: Double = 3.0
-        static let DEVICE_IDENTIFIER: UUID = {
-            let identifier = UIDevice.current.identifierForVendor
-            assert(identifier != nil, "Device Identifier must exist")
-            return identifier ?? UUID()
-        }()
         
         //TO DO: create setting for this
         static let USER_PROFILE = "\(UIDevice.current.name)"
@@ -43,7 +35,6 @@ class BluetoothManager: NSObject {
     
     lazy var locationService = LocationService()
     lazy var apiController = APIController()
-    
     init(inputs: ViewControllerInputs?) {
         self.viewController = inputs
         super.init()
@@ -112,7 +103,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //                print("ignoring: \(peripheral.identifier)")
         //            return
         //        }
-        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
@@ -190,7 +180,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
 }
 
 extension BluetoothManager: CBPeripheralManagerDelegate {
-    func advertise(manager: CBPeripheralManager) {
+    func advertise(manager: CBPeripheralManager, characteristicValue: String) {
         guard manager.state == .poweredOn else {
             print("CBPeripheralManager must be powered on")
             return
@@ -208,7 +198,7 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         let service:CBMutableService = {
             
             //REVIEW: Set characteristic value as currentCoords or just use central's currentCoords upon handshake to send less bytes
-            let sendMSG = Constants.CHARACTERISTIC_VALUE.data(using: .utf8)
+            let sendMSG = characteristicValue.data(using: .utf8)
             
             //create characteristics
             let characteristic = CBMutableCharacteristic(type: Constants.SERVICE_IDENTIFIER, properties: [.read], value: sendMSG, permissions: [.readable])
@@ -238,7 +228,14 @@ extension BluetoothManager: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             print("CBPeripheralManager powered on")
-            advertise(manager: peripheral)
+            APIController.sourceNodeID.observe(using: { [weak self] result in
+                switch result {
+                case .success(let value):
+                    self?.advertise(manager: peripheral, characteristicValue: value)
+                case .failure(let error):
+                    print(error)
+                }
+            })
         default:
             switch peripheral.state {
             case .poweredOff:
@@ -311,14 +308,17 @@ extension BluetoothManager: CBPeripheralDelegate {
         let recvMSG = String(decoding:data, as: UTF8.self)
         let item = items[itemIndex].newWithMessage(recvMSG)
         items[itemIndex] = item
-        apiController.send(item: item) { result in
-            switch result {
-            case .success(let pairedIDs):
-                print("Sent: \(pairedIDs) to server")
-            case .failure(_):
-                break
+        APIController.sourceNodeID.onSucceed { [weak self] value in
+            self?.apiController.send(item: item, sourceNodeID: value) { result in
+                switch result {
+                case .success(let pairedIDs):
+                    print("Sent: \(pairedIDs) to server")
+                case .failure(_):
+                    break
+                }
             }
         }
+        
         //reload table view
         DispatchQueue.main.async {
             self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
