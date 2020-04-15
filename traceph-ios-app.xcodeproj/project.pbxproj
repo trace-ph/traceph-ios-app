@@ -20,6 +20,8 @@
 		C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F5243863450041B871 /* PermissionModalViewController.swift */; };
 		C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F7243864B50041B871 /* DefaultsKeys.swift */; };
 		C64F51502447319500E0CA4E /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F514F2447319500E0CA4E /* Secrets.swift */; };
+		C64F51522447373600E0CA4E /* SecurityUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F51512447373600E0CA4E /* SecurityUtility.swift */; };
+		C64F51542447434100E0CA4E /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F51532447434100E0CA4E /* Future.swift */; };
 		C650E96B243C9CFF008793F2 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650E96A243C9CFF008793F2 /* APIController.swift */; };
 		C6A180AB24324309001B36D2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A180AA24324309001B36D2 /* Node.swift */; };
 		C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C759D32431FF61002C4C5C /* LocationService.swift */; };
@@ -65,6 +67,8 @@
 		C60AE9F5243863450041B871 /* PermissionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionModalViewController.swift; sourceTree = "<group>"; };
 		C60AE9F7243864B50041B871 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		C64F514F2447319500E0CA4E /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C64F51512447373600E0CA4E /* SecurityUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityUtility.swift; sourceTree = "<group>"; };
+		C64F51532447434100E0CA4E /* Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		C650E96A243C9CFF008793F2 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		C6A180A82432423B001B36D2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C6A180AA24324309001B36D2 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 		C60AE9F12438626D0041B871 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				C64F51512447373600E0CA4E /* SecurityUtility.swift */,
+				C64F51532447434100E0CA4E /* Future.swift */,
 				C6A180A82432423B001B36D2 /* Extensions.swift */,
 				C60AE9F7243864B50041B871 /* DefaultsKeys.swift */,
 			);
@@ -372,9 +378,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */,
+				C64F51542447434100E0CA4E /* Future.swift in Sources */,
 				C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */,
 				0AE8F8DC243062DE004FFFE9 /* ViewController.swift in Sources */,
 				0AE8F8D8243062DE004FFFE9 /* AppDelegate.swift in Sources */,
+				C64F51522447373600E0CA4E /* SecurityUtility.swift in Sources */,
 				C650E96B243C9CFF008793F2 /* APIController.swift in Sources */,
 				C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
