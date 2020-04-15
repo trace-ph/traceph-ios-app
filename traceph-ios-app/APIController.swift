@@ -55,8 +55,9 @@ struct Contact {
 
 struct APIController {
     struct Constants {
-        static let CONTACTS_POST_URL = "https://api.traceph.org/api/node_contacts"
-        static let NODE_URL = "https://api.traceph.org/api/node"
+        static let ROOT_URL = "https://api.traceph.org/api"
+        static let CONTACTS_POST_URL = "\(Constants.ROOT_URL)/node_contacts"
+        static let NODE_URL = "\(Constants.ROOT_URL)/node"
         static let CONTACTS_KEY = "contacts"
         static let DEVICE_ID_KEY = "device_id"
         static let NODE_ID_KEY = "node_id"
@@ -77,11 +78,8 @@ struct APIController {
             return identifier ?? UUID()
         }()
         let promise = fetchNodeID(deviceID: deviceID.uuidString)
-        promise.observe { result in
-            guard case .success(let value) = result else {
-                return
-            }
-            DefaultsKeys.myNodeID.setValue(value)
+        promise.onSucceed { nodeID in
+            DefaultsKeys.myNodeID.setValue(nodeID)
         }
         return promise
     }()
