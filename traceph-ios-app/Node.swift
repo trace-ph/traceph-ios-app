@@ -10,6 +10,7 @@ import Foundation
 struct node_data {
     let name: String
     let rssi: NSNumber
+    let txPower: NSNumber
     let timestamp: Double
     let deviceIdentifier: String
     let peripheralIdentifier: UUID
@@ -25,6 +26,7 @@ struct node_data {
         return node_data(
             name: name,
             rssi: rssi,
+            txPower: txPower,
             timestamp: timestamp,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheralIdentifier,
