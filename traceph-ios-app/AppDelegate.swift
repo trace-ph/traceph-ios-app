@@ -11,7 +11,7 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if (DefaultsKeys.failedContactRecordPost.dictArrayValue?.count ?? 0) > 0 {
@@ -42,42 +42,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func registerLocalNotif() {
         if #available(iOS 10.0, *) {
-              let notifCenter = UNUserNotificationCenter.current()
-              
-              notifCenter.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-                  
-                  if let error = error {
-                      print("Notification center request error: \(String(describing: error))")
-                  }
-                  
-                  
-                  if granted {
-                      print("Notifications authorized")
-                  }
-                      
-                  else {
-                      print("Notifications not authorized")
-                  }
-                  
-              }
-          } else {
-              // Fallback on earlier versions
-          }
+            let notifCenter = UNUserNotificationCenter.current()
+            
+            notifCenter.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                
+                if let error = error {
+                    print("Notification center request error: \(String(describing: error))")
+                }
+                
+                
+                if granted {
+                    print("Notifications authorized")
+                }
+                    
+                else {
+                    print("Notifications not authorized")
+                }
+                
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     
     
     
-
+    
     // MARK: UISceneSession Lifecycle
-
+    
     @available(iOS 13.0, *)
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     @available(iOS 13.0, *)
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler:
-                     @escaping (UIBackgroundFetchResult) -> Void) {
+        @escaping (UIBackgroundFetchResult) -> Void) {
         APIController().send(item: nil) { result in
             switch result {
             case .success(let pairdIDs):
@@ -97,6 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
 }
 

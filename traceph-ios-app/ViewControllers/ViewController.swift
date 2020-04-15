@@ -49,6 +49,54 @@ class ViewController: UIViewController {
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
     @IBOutlet weak var qrTextView: UITextView!
+    @IBOutlet weak var headerImage: UIImageView!
+    @IBOutlet weak var qrImage: UIImageView!
+    @IBOutlet weak var copyButton: UIButton!
+    
+    
+    var isLowPower = false
+    
+    
+    @IBOutlet weak var lowPowerButton: UIButton!
+    
+    
+    
+    
+    @IBAction func lowPowerPress(_ sender: Any) {
+        
+        if !isLowPower {
+            self.view.backgroundColor = UIColor.black
+            
+            headerImage.isHidden = true
+            shareTextView?.isHidden = true
+            copyButton.isHidden = true
+            qrTextView?.isHidden = true
+            qrImage.isHidden = true
+            
+            lowPowerButton.setTitle("TURN OFF", for: .normal)
+            lowPowerButton.backgroundColor = UIColor.black
+            
+            isLowPower = true
+            
+        }
+        
+        else {
+            self.view.backgroundColor = UIColor.white
+            
+            headerImage.isHidden = false
+            shareTextView?.isHidden = false
+            copyButton.isHidden = false
+            qrTextView?.isHidden = false
+            qrImage.isHidden = false
+            
+            lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
+            lowPowerButton.backgroundColor = UIColor.systemGreen
+            
+            isLowPower = false
+            
+        }
+        
+    }
     
     @IBAction func detectPress(_ sender: UIButton?) {
         bluetoothManager.detect()
@@ -104,10 +152,6 @@ class ViewController: UIViewController {
         
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
- 
-        
-        
         
     }
     
