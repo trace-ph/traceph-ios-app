@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     enum Segues: String {
         case intro = "intro"
         case authorize = "authorize"
-        
+
         func perform(controller: UIViewController, sender: Any?) {
             controller.performSegue(withIdentifier: self.rawValue, sender: sender)
         }

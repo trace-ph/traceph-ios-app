@@ -33,7 +33,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLc-xP-ste">
-                            <rect key="frame" x="20" y="511" width="374" height="60"/>
+                            <rect key="frame" x="20" y="461" width="374" height="60"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="09x-68-d4D"/>
@@ -42,7 +42,7 @@
                                 <fragment content="or you can let your friends or family scan the QR code below">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <font key="NSFont" size="18" name="Tahoma"/>
+                                        <font key="NSFont" size="15" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -50,7 +50,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-Qc-Bam">
-                            <rect key="frame" x="20" y="470.5" width="374" height="38"/>
+                            <rect key="frame" x="20" y="420.5" width="374" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="YUF-Kl-8qD"/>
@@ -70,10 +70,10 @@
                             </constraints>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TgF-UG-kol">
-                            <rect key="frame" x="20" y="213" width="374" height="249"/>
+                            <rect key="frame" x="20" y="213" width="374" height="200"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="249" id="oZr-Mi-2Ss"/>
+                                <constraint firstAttribute="height" constant="200" id="oZr-Mi-2Ss"/>
                             </constraints>
                             <attributedString key="attributedText">
                                 <fragment>
@@ -84,7 +84,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
 You may also get COVID-19 updates through:</string>
                                     <attributes>
                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="18" name="Tahoma"/>
+                                        <font key="NSFont" size="16" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -92,9 +92,6 @@ You may also get COVID-19 updates through:</string>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                         </textView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
-                            <rect key="frame" x="82" y="612" width="250" height="250"/>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-Ip-Glv">
                             <rect key="frame" x="20" y="44" width="374" height="38"/>
                             <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -106,6 +103,9 @@ You may also get COVID-19 updates through:</string>
                                 <action selector="lowPowerPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Sv-QO-DX2"/>
                             </connections>
                         </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
+                            <rect key="frame" x="32" y="521" width="350" height="350"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -113,17 +113,17 @@ You may also get COVID-19 updates through:</string>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="2cs-Xd-j3a"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="FTA-Ls-TP2"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="JvW-B0-byI"/>
-                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="0w6-4y-vLM" secondAttribute="trailing" constant="82" id="LOr-WW-OsJ"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="0w6-4y-vLM" secondAttribute="trailing" constant="32" id="LOr-WW-OsJ"/>
                         <constraint firstItem="iTT-Qc-Bam" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="MoK-MG-3s8"/>
                         <constraint firstItem="fLc-xP-ste" firstAttribute="top" secondItem="iTT-Qc-Bam" secondAttribute="bottom" constant="2.5" id="Nrp-CD-wjj"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="top" secondItem="fLc-xP-ste" secondAttribute="bottom" constant="41" id="XtC-Xt-ugu"/>
+                        <constraint firstItem="0w6-4y-vLM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fLc-xP-ste" secondAttribute="bottom" id="XtC-Xt-ugu"/>
                         <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="65" id="YP5-5X-kCe"/>
-                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="bottom" secondItem="0w6-4y-vLM" secondAttribute="bottom" id="ZMY-Dp-BeM"/>
+                        <constraint firstAttribute="bottom" secondItem="0w6-4y-vLM" secondAttribute="bottom" constant="25" id="ZMY-Dp-BeM"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="top" secondItem="Eqg-dj-kgn" secondAttribute="top" constant="44" id="eZ6-aB-0tX"/>
                         <constraint firstItem="iTT-Qc-Bam" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="iMf-9i-gK0"/>
                         <constraint firstItem="iTj-Pm-rhA" firstAttribute="centerX" secondItem="Eqg-dj-kgn" secondAttribute="centerX" id="o5M-V3-rWt"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="82" id="oxz-Hs-KnF"/>
-                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="8.5" id="pbi-gY-PQ2"/>
+                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="32" id="oxz-Hs-KnF"/>
+                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="7.5" id="pbi-gY-PQ2"/>
                         <constraint firstItem="fLc-xP-ste" firstAttribute="leading" secondItem="iTT-Qc-Bam" secondAttribute="leading" id="uVe-nc-9DT"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="wxg-fm-Y6s"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="16" id="xvx-oB-a8m"/>
