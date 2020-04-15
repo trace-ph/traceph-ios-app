@@ -107,6 +107,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
             rssi: RSSI,
+            txPower: advertisementData[CBAdvertisementDataTxPowerLevelKey] as? NSNumber,
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheral.identifier,
