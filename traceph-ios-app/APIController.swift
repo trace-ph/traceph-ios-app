@@ -119,11 +119,6 @@ struct APIController {
             let message = item.message else {
                 return contacts
         }
-        guard UUID(uuidString: message) != nil else {
-            // TODO: Turn this into an assertion
-            print("\(message) should be a UUID")
-            return contacts
-        }
         let contact = Contact(
             type: .directBluetooth,
             timestamp: item.timestamp,
