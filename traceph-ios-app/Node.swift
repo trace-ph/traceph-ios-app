@@ -10,7 +10,7 @@ import Foundation
 struct node_data {
     let name: String
     let rssi: NSNumber
-    let txPower: NSNumber
+    let txPower: NSNumber?
     let timestamp: Double
     let deviceIdentifier: String
     let peripheralIdentifier: UUID

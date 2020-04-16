@@ -35,6 +35,7 @@ struct Contact {
     let lon: Double
     let lat: Double
     let rssi: NSNumber
+    let txPower: NSNumber?
     
     var dict: [String:Any] {
         let formatter = DateFormatter()
@@ -47,15 +48,16 @@ struct Contact {
             Keys.nodePair: nodePairs,
             Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]],
             Keys.rssi: rssi,
-            Keys.txPower: 0
+            Keys.txPower: txPower ?? 0
         ]
     }
 }
 
 struct APIController {
     struct Constants {
-        static let CONTACTS_POST_URL = "https://api.traceph.org/api/node_contacts"
-        static let NODE_URL = "https://api.traceph.org/api/node"
+        static let ROOT_URL = "https://api.traceph.org/api"
+        static let CONTACTS_POST_URL = "\(Constants.ROOT_URL)/node_contacts"
+        static let NODE_URL = "\(Constants.ROOT_URL)/node"
         static let CONTACTS_KEY = "contacts"
         static let DEVICE_ID_KEY = "device_id"
         static let NODE_ID_KEY = "node_id"
@@ -76,11 +78,8 @@ struct APIController {
             return identifier ?? UUID()
         }()
         let promise = fetchNodeID(deviceID: deviceID.uuidString)
-        promise.observe { result in
-            guard case .success(let value) = result else {
-                return
-            }
-            DefaultsKeys.myNodeID.setValue(value)
+        promise.onSucceed { nodeID in
+            DefaultsKeys.myNodeID.setValue(nodeID)
         }
         return promise
     }()
@@ -102,6 +101,7 @@ struct APIController {
                             promise.reject(with: ContactsError.nonExistentNode)
                         return
                     }
+                    assert(node[Constants.DEVICE_ID_KEY]?.string == deviceID, "response deviceID: \(node[Constants.DEVICE_ID_KEY]?.string ?? "") != \(deviceID)")
                     promise.resolve(with: nodeID)
                 case .failure(let error):
                     promise.reject(with: error)
@@ -118,11 +118,6 @@ struct APIController {
             let message = item.message else {
                 return contacts
         }
-        guard UUID(uuidString: message) != nil else {
-            // TODO: Turn this into an assertion
-            print("\(message) should be a UUID")
-            return contacts
-        }
         let contact = Contact(
             type: .directBluetooth,
             timestamp: item.timestamp,
@@ -130,7 +125,8 @@ struct APIController {
             nodePairs: [message],
             lon: item.coordinates.lon,
             lat: item.coordinates.lat,
-            rssi: item.rssi
+            rssi: item.rssi,
+            txPower: item.txPower
         )
         contacts.append(contact.dict)
         return contacts

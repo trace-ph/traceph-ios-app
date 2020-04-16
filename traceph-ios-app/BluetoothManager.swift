@@ -34,7 +34,6 @@ class BluetoothManager: NSObject {
     weak var waiterDelegate: AdvertismentWaiter?
     
     lazy var locationService = LocationService()
-    lazy var apiController = APIController()
     init(inputs: ViewControllerInputs?) {
         self.viewController = inputs
         super.init()
@@ -107,7 +106,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
             rssi: RSSI,
-            txPower: advertisementData["CBAdvertisementDataTxPowerLevelKey"] as! NSNumber,
+            txPower: advertisementData[CBAdvertisementDataTxPowerLevelKey] as? NSNumber,
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheral.identifier,
@@ -308,13 +307,13 @@ extension BluetoothManager: CBPeripheralDelegate {
         let recvMSG = String(decoding:data, as: UTF8.self)
         let item = items[itemIndex].newWithMessage(recvMSG)
         items[itemIndex] = item
-        APIController.sourceNodeID.onSucceed { [weak self] value in
-            self?.apiController.send(item: item, sourceNodeID: value) { result in
+        APIController.sourceNodeID.onSucceed { value in
+            APIController().send(item: item, sourceNodeID: value) { result in
                 switch result {
                 case .success(let pairedIDs):
                     print("Sent: \(pairedIDs) to server")
-                case .failure(_):
-                    break
+                case .failure(let error):
+                    print(error)
                 }
             }
         }
