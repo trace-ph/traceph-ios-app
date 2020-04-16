@@ -156,7 +156,7 @@ class ViewController: UIViewController {
     }
     
     @objc func didEnterBackground() {
-        print("App entered background")
+//        print("App entered background")
         
         if #available(iOS 10.0, *) {
             
@@ -179,7 +179,7 @@ class ViewController: UIViewController {
                 }
             }
             
-            print("notification added")
+//            print("notification added")
             
         } else {
             // Fallback on earlier versions

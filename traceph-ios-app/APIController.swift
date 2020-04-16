@@ -31,7 +31,7 @@ struct Contact {
     let type: ContactType
     let timestamp: Double
     let sourceNodeID: String
-    let nodePairs: [String]
+    let nodePairs: String
     let lon: Double
     let lat: Double
     let rssi: NSNumber
@@ -94,6 +94,9 @@ struct APIController {
         )
             .validate()
             .responseJSON { response in
+                
+                print("fetchNodeID response: \(response)")
+                
                 switch response.result{
                 case .success(let value):
                     guard let node = JSON(value).dictionary,
@@ -122,7 +125,7 @@ struct APIController {
             type: .directBluetooth,
             timestamp: item.timestamp,
             sourceNodeID: sourceNodeID,
-            nodePairs: [message],
+            nodePairs: message,
             lon: item.coordinates.lon,
             lat: item.coordinates.lat,
             rssi: item.rssi,
@@ -135,6 +138,7 @@ struct APIController {
     func send(item: node_data?, sourceNodeID: String, handler: @escaping (Result<[String]>) -> Void) {
         // TODO: Create function for multiple send that ignores ones already sent
         let contacts = compose(item: item, sourceNodeID: sourceNodeID)
+            
         guard contacts.count > 0 else {
             handler(.failure(ContactsError.invalidNode))
             return
@@ -147,6 +151,9 @@ struct APIController {
         )
 //            .validate()
             .responseJSON { response in
+                
+                print("send response: \(response)")
+                
                 switch response.result {
                 case .success(let value):
                     // REVIEW: This will still empty out the array even if the server responds a false positive
@@ -162,7 +169,9 @@ struct APIController {
                     var pairedIDs = [String]()
                     contacts.forEach { contact in
                         assert(contact[Contact.Keys.sourceNodeID].string == sourceNodeID, "These contacts do not belong to this device")
-                        pairedIDs.append(contentsOf: contact[Contact.Keys.nodePair]
+                        
+                        //REVIEW: Changed key so it works properly
+                        pairedIDs.append(contentsOf: contact["node_pairs"]
                             .arrayValue
                             .compactMap {$0.string} )
                     }
