@@ -24,7 +24,7 @@ struct Contact {
         static let sourceNodeID = "source_node_id"
         static let nodePair = "node_pair"
         static let location = "location"
-        static let coordinates = "coordinates"
+//        static let coordinates = "coordinates"
         static let rssi = "rssi"
         static let txPower = "txPower"
     }
@@ -32,8 +32,8 @@ struct Contact {
     let timestamp: Double
     let sourceNodeID: String
     let nodePairs: String
-    let lon: Double
-    let lat: Double
+//    let lon: Double
+//    let lat: Double
     let rssi: NSNumber
     let txPower: NSNumber?
     
@@ -46,7 +46,7 @@ struct Contact {
             Keys.timestamp: formatter.string(from: date),
             Keys.sourceNodeID: sourceNodeID,
             Keys.nodePair: nodePairs,
-            Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]],
+//            Keys.location: [Keys.type: "Point", Keys.coordinates: [lon, lat]],
             Keys.rssi: rssi,
             Keys.txPower: txPower ?? 0
         ]
@@ -60,6 +60,7 @@ struct APIController {
         static let NODE_URL = "\(Constants.ROOT_URL)/node"
         static let CONTACTS_KEY = "contacts"
         static let DEVICE_ID_KEY = "device_id"
+        static let DEVICE_MODEL_KEY = "device_model"
         static let NODE_ID_KEY = "node_id"
     }
     
@@ -77,19 +78,23 @@ struct APIController {
             assert(identifier != nil, "Device Identifier must exist")
             return identifier ?? UUID()
         }()
-        let promise = fetchNodeID(deviceID: deviceID.uuidString)
+        let deviceModel: String = {
+            let model = UIDevice.current.model
+            return model
+        }()
+        let promise = fetchNodeID(deviceID: deviceID.uuidString, deviceModel: deviceModel)
         promise.onSucceed { nodeID in
             DefaultsKeys.myNodeID.setValue(nodeID)
         }
         return promise
     }()
     
-    static func fetchNodeID(deviceID: String) -> Promise<String> {
+    static func fetchNodeID(deviceID: String, deviceModel: String) -> Promise<String> {
         let promise = Promise<String>()
         Alamofire.request(
             Constants.NODE_URL,
             method: .post,
-            parameters: [Constants.DEVICE_ID_KEY: deviceID],
+            parameters: [Constants.DEVICE_ID_KEY: deviceID, Constants.DEVICE_MODEL_KEY: deviceModel],
             encoding: JSONEncoding.default
         )
             .validate()
@@ -126,8 +131,8 @@ struct APIController {
             timestamp: item.timestamp,
             sourceNodeID: sourceNodeID,
             nodePairs: message,
-            lon: item.coordinates.lon,
-            lat: item.coordinates.lat,
+//            lon: item.coordinates.lon,
+//            lat: item.coordinates.lat,
             rssi: item.rssi,
             txPower: item.txPower
         )

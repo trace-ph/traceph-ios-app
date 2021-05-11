@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 import Foundation
-import CoreLocation
+//import CoreLocation
 import UserNotifications
 
 protocol ViewControllerInputs {
@@ -271,12 +271,13 @@ extension ViewController: UITableViewDataSource {
         } else {
             cell.textLabel?.text = node.name
         }
-        let coordinates = bluetoothManager.locationService.currentCoords
-        let currentLat = String(format: "%.6f", coordinates.lat)
-        let currentLon = String(format: "%.6f", coordinates.lon)
+//        let coordinates = bluetoothManager.locationService.currentCoords
+//        let currentLat = String(format: "%.6f", coordinates.lat)
+//        let currentLon = String(format: "%.6f", coordinates.lon)
         
         //REVIEW: Create UITableViewCell depending on needed information
-        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t-\t[\(currentLat), \(currentLon)]"
+//        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t-\t[\(currentLat), \(currentLon)]"
+        cell.detailTextLabel?.text = "\(node.rssi)\t-\t\(node.dateString(formatter: dateFormatter))\t"
         
         return cell
     }

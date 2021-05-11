@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 
-protocol AdvertismentWaiter: class {
+protocol AdvertismentWaiter: AnyObject {
     var bluetoothManager: BluetoothManager? { get set }
     func bluetoothManager(_ manager: BluetoothManager, didStartAdvertising: Bool)
 }

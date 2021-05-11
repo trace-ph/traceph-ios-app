@@ -14,7 +14,7 @@ struct node_data {
     let timestamp: Double
     let deviceIdentifier: String
     let peripheralIdentifier: UUID
-    let coordinates: SimpleCoordinates
+//    let coordinates: SimpleCoordinates
     let message: String? // maybe convert to a bool `didConnect`
     
     func dateString(formatter: DateFormatter) -> String {
@@ -30,7 +30,7 @@ struct node_data {
             timestamp: timestamp,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheralIdentifier,
-            coordinates: coordinates,
+//            coordinates: coordinates,
             message: message)
     }
 }

@@ -110,13 +110,15 @@ extension BluetoothManager: CBCentralManagerDelegate {
             timestamp: Date().timeIntervalSince1970,
             deviceIdentifier: deviceIdentifier,
             peripheralIdentifier: peripheral.identifier,
-            coordinates: locationService.currentCoords,
+//            coordinates: locationService.currentCoords,
             message: nil
         )
         
         //CBPeripheralManager advertises again when app enters background
         //Do not append if detected name and corresponding GPS is duplicate
-        if !(items.contains {$0.name == peripheral.name} && items.contains {$0.coordinates.lat == locationService.currentCoords.lat} && items.contains {$0.coordinates.lon == locationService.currentCoords.lon}) {
+//        if !(items.contains {$0.name == peripheral.name} && items.contains {$0.coordinates.lat == locationService.currentCoords.lat} && items.contains {$0.coordinates.lon == locationService.currentCoords.lon}) {
+        
+        if !(items.contains {$0.name == peripheral.name}) {
             items.append(detected_node)
             //delegate for handshake procedure
             currentPeripheral = peripheral
