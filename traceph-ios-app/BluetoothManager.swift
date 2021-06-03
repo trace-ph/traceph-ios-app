@@ -29,7 +29,7 @@ class BluetoothManager: NSObject {
     var peripheralManager: CBPeripheralManager!
     var currentPeripheral: CBPeripheral!
     
-    var items = [node_data]()
+    var discoveryLog = [node_data]()
     var recognizedDevice = [device_data]()
     let viewController: ViewControllerInputs?
     weak var waiterDelegate: AdvertismentWaiter?
@@ -48,7 +48,7 @@ class BluetoothManager: NSObject {
     }
     
     func detect() {
-        items.removeAll()
+        discoveryLog.removeAll()
         stopScan = false
         viewController?.reloadTable(indexPath: nil)
         guard centralManager.state == .poweredOn else {
@@ -57,7 +57,7 @@ class BluetoothManager: NSObject {
         }
         
         //add interval after first peripheral detection
-        if (items.count > 0) {
+        if (discoveryLog.count > 0) {
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) {
                 print("Calling scan for peripherals (detect)...")
                 self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
@@ -65,7 +65,7 @@ class BluetoothManager: NSObject {
         }
             
         else {
-            print("Calling scan for peripherals (items 0)...")
+            print("Calling scan for peripherals (discoveryLog 0)...")
             self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         }
         
@@ -117,7 +117,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //REVIEW: Either Android can't advertise or iOS can't read this specific data
         let deviceIdentifier = ""
-        //        guard !items.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
+        //        guard !discoveryLog.contains(where: {$0.peripheralIdentifier == peripheral.identifier}),
         //
         //            let deviceIdentifier = advertisementData[CBAdvertisementDataLocalNameKey] as? String
         //
@@ -138,8 +138,8 @@ extension BluetoothManager: CBCentralManagerDelegate {
         )
         
         // CBPeripheralManager advertises again when app enters background
-        if !(items.contains {$0.name == peripheral.name} && items.contains {$0.timestamp + 3 >= detected_node.timestamp}){
-            items.append(detected_node)
+        if !(discoveryLog.contains {$0.name == peripheral.name} && discoveryLog.contains {$0.timestamp + 3 >= detected_node.timestamp}){
+            discoveryLog.append(detected_node)
             //delegate for handshake procedure
             currentPeripheral = peripheral
             currentPeripheral.delegate = self
@@ -183,14 +183,14 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
         //REVIEW: Implementation can be changed
         //check if node message is unset (handshake fail)
-        if let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier && $0.message == nil }) {
+        if let itemIndex = discoveryLog.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier && $0.message == nil }) {
             // Check if it's already recognized
             if let recogDevIndex = recognizedDevice.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }){
-                items[itemIndex] = items[itemIndex].newWithMessage(recognizedDevice[recogDevIndex].node_id);
+                discoveryLog[itemIndex] = discoveryLog[itemIndex].newWithMessage(recognizedDevice[recogDevIndex].node_id);
                 
             } else {
                 //indicate handshake fail
-                items[itemIndex] = items[itemIndex].newWithMessage("Handshake fail")
+                discoveryLog[itemIndex] = discoveryLog[itemIndex].newWithMessage("Handshake fail")
             }
         }
         
@@ -328,18 +328,18 @@ extension BluetoothManager: CBPeripheralDelegate {
         // REVIEW: Changed identifier to peripheral.identifier instead of name because name is not unique
         // Since we only plan on connecting to one, why use item array at all?
         
-        guard let itemIndex = items.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }) else {
-            assertionFailure("items does not contain: \(peripheral.identifier)")
+        guard let itemIndex = discoveryLog.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }) else {
+            assertionFailure("discoveryLog does not contain: \(peripheral.identifier)")
             return
         }
         
         //TODO: Process received data from peripheral to server
         let recvMSG = String(decoding:data, as: UTF8.self)
-        let item = items[itemIndex].newWithMessage(recvMSG)
+        let item = discoveryLog[itemIndex].newWithMessage(recvMSG)
         recognizedDevice.append(device_data(
             peripheralIdentifier: peripheral.identifier, node_id: recvMSG
         ))
-        items[itemIndex] = item
+        discoveryLog[itemIndex] = item
         APIController.sourceNodeID.onSucceed { value in
             APIController().send(item: item, sourceNodeID: value) { result in
                 switch result {
