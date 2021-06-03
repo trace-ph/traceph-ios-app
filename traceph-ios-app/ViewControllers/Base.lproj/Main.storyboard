@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,7 +35,7 @@
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLc-xP-ste">
                             <rect key="frame" x="20" y="461" width="374" height="60"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="09x-68-d4D"/>
                             </constraints>
@@ -49,7 +50,7 @@
                             </attributedString>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-Qc-Bam">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-Qc-Bam">
                             <rect key="frame" x="20" y="420.5" width="374" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
@@ -71,7 +72,7 @@
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TgF-UG-kol">
                             <rect key="frame" x="20" y="213" width="374" height="200"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="oZr-Mi-2Ss"/>
                             </constraints>
@@ -92,9 +93,9 @@ You may also get COVID-19 updates through:</string>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                         </textView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-Ip-Glv">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-Ip-Glv">
                             <rect key="frame" x="20" y="44" width="374" height="38"/>
-                            <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" systemColor="systemGreenColor"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                             <state key="normal" title="LOW-POWER MODE">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,7 +108,8 @@ You may also get COVID-19 updates through:</string>
                             <rect key="frame" x="32" y="521" width="350" height="350"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <viewLayoutGuide key="safeArea" id="SjZ-hJ-2Az"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="fLc-xP-ste" firstAttribute="trailing" secondItem="iTT-Qc-Bam" secondAttribute="trailing" id="26g-px-PSr"/>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="2cs-Xd-j3a"/>
@@ -128,7 +130,6 @@ You may also get COVID-19 updates through:</string>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="wxg-fm-Y6s"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="16" id="xvx-oB-a8m"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="SjZ-hJ-2Az"/>
                 </view>
                 <view contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="DebugView">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -137,22 +138,22 @@ You may also get COVID-19 updates through:</string>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IZA-jP-AuW">
                             <rect key="frame" x="0.0" y="91" width="414" height="719"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <view key="tableFooterView" contentMode="scaleToFill" id="fQS-Vg-6a0">
-                                <rect key="frame" x="0.0" y="111.5" width="414" height="0.0"/>
+                                <rect key="frame" x="0.0" y="104.50000034679067" width="414" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <prototypes>
                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="discoveredNodeCell" textLabel="uEx-US-qYD" detailTextLabel="QAc-Hw-HDI" style="IBUITableViewCellStyleSubtitle" id="8ce-7S-wHy">
-                                    <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                    <rect key="frame" x="0.0" y="24.5" width="414" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8ce-7S-wHy" id="hJK-DW-rS8">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uEx-US-qYD">
-                                                <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                                <rect key="frame" x="20" y="10" width="33" height="20.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -183,7 +184,7 @@ You may also get COVID-19 updates through:</string>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-DF-xyj">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-DF-xyj">
                             <rect key="frame" x="0.0" y="44" width="414" height="48"/>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -197,7 +198,8 @@ You may also get COVID-19 updates through:</string>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jYC-DF-xyj" secondAttribute="top" id="2tX-0A-3ig"/>
                         <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tos-4a-cam" secondAttribute="trailing" id="EBV-xf-iJC"/>
@@ -206,7 +208,6 @@ You may also get COVID-19 updates through:</string>
                         <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tos-4a-cam" secondAttribute="bottom" id="obE-z4-GDD"/>
                         <constraint firstItem="jYC-DF-xyj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zoo-VJ-ago"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                 </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -225,7 +226,7 @@ You may also get COVID-19 updates through:</string>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-3d-pUa">
                                 <rect key="frame" x="29" y="274" width="356" height="480"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
@@ -267,7 +268,8 @@ Please allow the app to send you notifications and use the low-power mode to ens
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="L0s-zN-7yX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ZJd-3d-pUa" firstAttribute="top" secondItem="6pQ-0E-VfG" secondAttribute="bottom" constant="35" id="21A-z9-E4k"/>
                             <constraint firstItem="ZJd-3d-pUa" firstAttribute="leading" secondItem="L0s-zN-7yX" secondAttribute="leading" constant="29" id="AY3-yf-thN"/>
@@ -283,7 +285,6 @@ Please allow the app to send you notifications and use the low-power mode to ens
                             <constraint firstItem="6pQ-0E-VfG" firstAttribute="centerX" secondItem="ZJd-3d-pUa" secondAttribute="centerX" id="s4w-rh-Toc"/>
                             <constraint firstItem="Qqh-ds-Olx" firstAttribute="width" secondItem="ZJd-3d-pUa" secondAttribute="width" multiplier="0.988764" id="waT-ys-IyN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="L0s-zN-7yX"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ktg-DX-NOn"/>
                 </viewController>
@@ -301,7 +302,7 @@ Please allow the app to send you notifications and use the low-power mode to ens
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDM-Ky-Npo">
                                 <rect key="frame" x="29" y="212" width="356" height="500"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">We noticed that your bluetooth is off.
@@ -334,7 +335,8 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
                                 <rect key="frame" x="150.5" y="32" width="113" height="160"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5Y8-3f-xGo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="5Y8-3f-xGo" firstAttribute="bottom" secondItem="Par-WC-mPl" secondAttribute="bottom" constant="32" id="2E1-7d-omP"/>
                             <constraint firstItem="Par-WC-mPl" firstAttribute="width" secondItem="xDM-Ky-Npo" secondAttribute="width" multiplier="0.988764" id="Owe-gX-3bY"/>
@@ -346,7 +348,6 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
                             <constraint firstItem="5Y8-3f-xGo" firstAttribute="trailing" secondItem="xDM-Ky-Npo" secondAttribute="trailing" constant="29" id="wwa-GX-EKA"/>
                             <constraint firstItem="Par-WC-mPl" firstAttribute="centerX" secondItem="xDM-Ky-Npo" secondAttribute="centerX" id="wyx-vI-2kk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5Y8-3f-xGo"/>
                     </view>
                     <navigationItem key="navigationItem" id="Mth-zF-r4i"/>
                 </viewController>
@@ -360,5 +361,11 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="Mask Group 1" width="280" height="112"/>
         <image name="TracePH" width="113" height="160"/>
         <image name="endcov QR" width="1128.5" height="1128.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

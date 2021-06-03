@@ -98,8 +98,17 @@ class ViewController: UIViewController {
         
     }
     
+    var toggleDetect = true;
     @IBAction func detectPress(_ sender: UIButton?) {
-        bluetoothManager.detect()
+        if(toggleDetect) {
+            bluetoothManager.detect()
+            detectButton?.setTitle("Disable Contact-tracing", for: .normal)
+        } else {
+            bluetoothManager.stop()
+            detectButton?.setTitle("Enable Contact-tracing", for: .normal)
+        }
+
+        toggleDetect = !toggleDetect
     }
     
     @IBAction func copyAction(_ sender: UIButton?) {

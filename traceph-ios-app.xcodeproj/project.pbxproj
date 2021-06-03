@@ -15,6 +15,7 @@
 		0AE8F8E4243062E1004FFFE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8F8E2243062E1004FFFE9 /* LaunchScreen.storyboard */; };
 		0AE8F8EF243062E1004FFFE9 /* traceph_ios_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8EE243062E1004FFFE9 /* traceph_ios_appTests.swift */; };
 		0AE8F8FA243062E1004FFFE9 /* traceph_ios_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */; };
+		0B547EAD2668C0D20028337A /* recognizedDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B547EAC2668C0D10028337A /* recognizedDevices.swift */; };
 		541C9AE464AC82A6EF53B1A9 /* Pods_traceph_ios_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EAB5F429EB983931E209DAD /* Pods_traceph_ios_app.framework */; };
 		C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F3243863390041B871 /* IntroViewController.swift */; };
 		C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F5243863450041B871 /* PermissionModalViewController.swift */; };
@@ -61,6 +62,7 @@
 		0AE8F8F5243062E1004FFFE9 /* traceph-ios-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "traceph-ios-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = traceph_ios_appUITests.swift; sourceTree = "<group>"; };
 		0AE8F8FB243062E2004FFFE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B547EAC2668C0D10028337A /* recognizedDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recognizedDevices.swift; sourceTree = "<group>"; };
 		6EAB5F429EB983931E209DAD /* Pods_traceph_ios_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_traceph_ios_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E935EAB62D4CAAE6EE0353B /* Pods-traceph-ios-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traceph-ios-app.debug.xcconfig"; path = "Target Support Files/Pods-traceph-ios-app/Pods-traceph-ios-app.debug.xcconfig"; sourceTree = "<group>"; };
 		C60AE9F3243863390041B871 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
 				C650E96A243C9CFF008793F2 /* APIController.swift */,
 				C6A180AA24324309001B36D2 /* Node.swift */,
+				0B547EAC2668C0D10028337A /* recognizedDevices.swift */,
 				C6C759D32431FF61002C4C5C /* LocationService.swift */,
 				C64F514F2447319500E0CA4E /* Secrets.swift */,
 				C60AE9F12438626D0041B871 /* Tools */,
@@ -390,6 +393,7 @@
 				C6A180AB24324309001B36D2 /* Node.swift in Sources */,
 				C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */,
 				C64F51502447319500E0CA4E /* Secrets.swift in Sources */,
+				0B547EAD2668C0D20028337A /* recognizedDevices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
