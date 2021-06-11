@@ -118,31 +118,35 @@ struct APIController {
         return promise
     }
     
-    func compose(item: node_data?, sourceNodeID: String) -> [[String:Any]] {
+    func compose(items: [node_data], sourceNodeID: String) -> [[String:Any]] {
         // Includes failed posts
         var contacts = DefaultsKeys.failedContactRecordPost.dictArrayValue as? [[String:Any]] ?? [[String:Any]]()
         
-        guard let item = item,
-            let message = item.message else {
-                return contacts
+        for item in items {
+            guard let message = item.message else {
+                    continue
+            }
+            
+            let contact = Contact(
+                type: .directBluetooth,
+                timestamp: item.timestamp,
+                sourceNodeID: sourceNodeID,
+                nodePairs: message,
+    //            lon: item.coordinates.lon,
+    //            lat: item.coordinates.lat,
+                rssi: item.rssi,
+                txPower: item.txPower
+            )
+            contacts.append(contact.dict)
         }
-        let contact = Contact(
-            type: .directBluetooth,
-            timestamp: item.timestamp,
-            sourceNodeID: sourceNodeID,
-            nodePairs: message,
-//            lon: item.coordinates.lon,
-//            lat: item.coordinates.lat,
-            rssi: item.rssi,
-            txPower: item.txPower
-        )
-        contacts.append(contact.dict)
+        
         return contacts
     }
     
-    func send(item: node_data?, sourceNodeID: String, handler: @escaping (Result<[String]>) -> Void) {
+    // TODO: Send discoverylog array instead of one item at a time
+    func send(items: [node_data], sourceNodeID: String, handler: @escaping (Result<[String]>) -> Void) {
         // TODO: Create function for multiple send that ignores ones already sent
-        let contacts = compose(item: item, sourceNodeID: sourceNodeID)
+        let contacts = compose(items: items, sourceNodeID: sourceNodeID)
             
         guard contacts.count > 0 else {
             handler(.failure(ContactsError.invalidNode))

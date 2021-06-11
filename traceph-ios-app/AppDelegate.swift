@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //enable background fetch
             application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
             // send failed requests
-                APIController().send(item: nil, sourceNodeID: nodeID) { _ in
-                    
-                }
+            APIController().send(items: [], sourceNodeID: nodeID) { _ in
+                
+            }
             
         } else {
             //disable background fetch
@@ -34,11 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        print("TracePH entered background")
+        print("DetectPH entered background")
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        print("TracePH entered foreground")
+        print("DetectPH entered foreground")
     }
     
     
@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler(.failed)
             return
         }
-        APIController().send(item: nil, sourceNodeID: nodeID) { result in
+        APIController().send(items: [], sourceNodeID: nodeID) { result in
             switch result {
             case .success(let pairdIDs):
                 completionHandler(pairdIDs.count == 0 ? .noData : .newData)

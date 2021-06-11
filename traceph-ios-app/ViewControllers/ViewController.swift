@@ -265,7 +265,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bluetoothManager.items.count
+        return bluetoothManager.discoveryLog.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -274,7 +274,7 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let node = bluetoothManager.items[indexPath.row]
+        let node = bluetoothManager.discoveryLog[indexPath.row]
         if let message = node.message {
             cell.textLabel?.text = "\(node.name)\t-\t\(message)"
         } else {
