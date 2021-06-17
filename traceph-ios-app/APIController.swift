@@ -55,7 +55,7 @@ struct Contact {
 
 struct APIController {
     struct Constants {
-        static let ROOT_URL = "https://api.traceph.org/api"
+        static let ROOT_URL = "https://www.detectph.com/api"
         static let CONTACTS_POST_URL = "\(Constants.ROOT_URL)/node_contacts"
         static let NODE_URL = "\(Constants.ROOT_URL)/node"
         static let CONTACTS_KEY = "contacts"
