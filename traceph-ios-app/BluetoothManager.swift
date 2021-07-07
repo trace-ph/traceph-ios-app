@@ -30,6 +30,7 @@ class BluetoothManager: NSObject {
     var currentPeripheral: CBPeripheral!
     
     var discoveryLog = [node_data]()
+    var toConnect = [CBPeripheral]()
     var recognizedDevice = [device_data]()
     let viewController: ViewControllerInputs?
     weak var waiterDelegate: AdvertismentWaiter?
@@ -56,7 +57,7 @@ class BluetoothManager: NSObject {
             return
         }
         
-        sendData()
+        startTimer()
     }
     
     // Stops scanning
@@ -71,38 +72,78 @@ class BluetoothManager: NSObject {
         }
     }
     
-    func sendData(){
+    func startTimer(){
         if(stopBluetooth){
             return
         }
         
-        //scan for devices
-        print("Calling scan for peripherals (sendData)...")
+        // Start advertising if previously closed
+        if(!peripheralManager.isAdvertising){
+            peripheralManager.startAdvertising([
+                CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
+                CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
+            ])
+        }
+        
+        print("Calling scan for peripherals (startTimer)...")
         self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
+        self.perform(#selector(endScanning), with: self, afterDelay: 1);  // Stops scanning after 1 second
+        
+        
+    }
+    
+    // What happens after
+    @objc func endScanning(_ central: CBCentralManager) {
+        self.centralManager.stopScan()
+        print("Scanning ended")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) { [self] in
-            if(!centralManager.isScanning){
-                sendData()
-                return
-            }
-            
-            let currentDiscLog = discoveryLog
-            
-            // Send the info to server
-            APIController.sourceNodeID.onSucceed { value in
-                APIController().send(items: currentDiscLog, sourceNodeID: value) { result in
-                    switch result {
-                    case .success(let pairedIDs):
-                        print("Sent: \(pairedIDs) to server")
-                        discoveryLog.removeAll()
-                    case .failure(let error):
-                        print(error)
-                        discoveryLog.removeAll()
-                    }
+            startTimer()
+        }
+        
+        if(discoveryLog.isEmpty){
+            return
+        }
+        
+        var currentDiscLog = [node_data]()
+        for node in discoveryLog {
+            // Check if it's already recognized; No need to connect if so
+            // If the same device is detected within a certain time interval, don't append
+            if let recogDevIndex = recognizedDevice.firstIndex(where: {$0.peripheralIdentifier == node.peripheralIdentifier }){
+                if !(currentDiscLog.contains {$0.message == recognizedDevice[recogDevIndex].node_id && $0.timestamp + 2 >= node.timestamp}){
+                    print("NodeID: ", recognizedDevice[recogDevIndex].node_id)
+                    let newNode = node.newWithMessage(recognizedDevice[recogDevIndex].node_id);
+                    currentDiscLog.append(newNode)
                 }
             }
             
-            sendData()
+            // Connect to all unrecognized devices
+            else {
+                let peripheralIndex = toConnect.firstIndex(where: {$0.identifier == node.peripheralIdentifier})
+
+                
+                print("Connecting to: ", toConnect[peripheralIndex!])
+                //connect to device
+                centralManager.connect(toConnect[peripheralIndex!], options: nil)
+            }
+        }
+        
+        // Send info to server
+        print("Recognized devices: ", recognizedDevice)
+        print("Current Discovery Log: ", currentDiscLog)
+        APIController.sourceNodeID.onSucceed { value in
+            APIController().send(items: currentDiscLog, sourceNodeID: value) { [self] result in
+                switch result {
+                case .success(let pairedIDs):
+                    print("Sent: \(pairedIDs) to server")
+                    discoveryLog.removeAll()
+                    toConnect.removeAll()
+                case .failure(let error):
+                    print(error)
+                    discoveryLog.removeAll()
+                    toConnect.removeAll()
+                }
+            }
         }
     }
 }
@@ -149,7 +190,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //            return
         //        }
         //append node
-        var detected_node =  node_data(
+        let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
             rssi: RSSI,
             txPower: advertisementData[CBAdvertisementDataTxPowerLevelKey] as? NSNumber,
@@ -160,22 +201,14 @@ extension BluetoothManager: CBCentralManagerDelegate {
             message: nil
         )
         
-        // CBPeripheralManager advertises again when app enters background
-        // Check if it's already recognized; No need to connect if so
-        if let recogDevIndex = recognizedDevice.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }){
-            detected_node = detected_node.newWithMessage(recognizedDevice[recogDevIndex].node_id);
+        // To avoid detecting the same ID within scanning intervals
+        if !(discoveryLog.contains {$0.peripheralIdentifier == peripheral.identifier}){
             discoveryLog.append(detected_node)
-        } else {
-            discoveryLog.append(detected_node)
+            
             //delegate for handshake procedure
             currentPeripheral = peripheral
             currentPeripheral.delegate = self
-            
-            //limit discovered peripherals to one device at a time
-            central.stopScan()
-            
-            //connect to device
-            central.connect(currentPeripheral, options: nil)
+            toConnect.append(currentPeripheral!)
         }
         
         //reload table view
@@ -197,16 +230,12 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("Failed to connect to \(peripheral.name ?? "N/A"), waiting \(Constants.HANDSHAKE_TIMEOUT) seconds")
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_TIMEOUT) {
-            print("Calling scan for peripherals (failToConnect)...")
-            central.scanForPeripherals(withServices: [Constants.SERVICE_IDENTIFIER], options: nil)
-        }
+        print("Failed to connect to \(peripheral.name ?? "N/A")")
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         
-        print("\(peripheral.name ?? "N/A") disconnected, waiting \(Constants.HANDSHAKE_TIMEOUT) seconds")
+        print("\(peripheral.name ?? "N/A") disconnected")
         
         //REVIEW: Implementation can be changed
         //check if node message is unset (handshake fail)
@@ -223,12 +252,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //reload table view
         DispatchQueue.main.async {
             self.viewController?.reloadTable(indexPath: nil)
-        }
-        
-        //scan for devices again
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_TIMEOUT) {
-            print("Calling scan for peripherals (didDisconnect)...")
-            central.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         }
     }
     
@@ -350,28 +373,13 @@ extension BluetoothManager: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard let data = characteristic.value else { return }
-        // indicates successful handshakes in device table for now
-        // REVIEW: Changed identifier to peripheral.identifier instead of name because name is not unique
-        // Since we only plan on connecting to one, why use item array at all?
-        
-        guard let itemIndex = discoveryLog.firstIndex(where: {$0.peripheralIdentifier == peripheral.identifier }) else {
-             assertionFailure("discoveryLog does not contain: \(peripheral.identifier)")
-            return
-        }
-        
         // Process received data from peripheral to server
         let recvMSG = String(decoding:data, as: UTF8.self)
-        discoveryLog[itemIndex] = discoveryLog[itemIndex].newWithMessage(recvMSG)
         // Add unrecognized devices
         if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
             recognizedDevice.append(device_data(
                 peripheralIdentifier: peripheral.identifier, node_id: recvMSG
             ))
-        }
-        
-        //reload table view
-        DispatchQueue.main.async {
-            self.viewController?.reloadTable(indexPath: IndexPath(row: itemIndex, section: 0))
         }
         
         //disconnect
