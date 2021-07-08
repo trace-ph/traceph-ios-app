@@ -16,7 +16,7 @@
                     <connections>
                         <outlet property="copyButton" destination="iTT-Qc-Bam" id="UoV-Y5-Xac"/>
                         <outlet property="debugView" destination="8bC-Xf-vdC" id="sjI-OS-YIz"/>
-                        <outlet property="detectButton" destination="jYC-DF-xyj" id="Tmp-w7-VhH"/>
+                        <outlet property="detectButton" destination="qv9-Po-yNP" id="n6w-TV-YmO"/>
                         <outlet property="deviceTable" destination="IZA-jP-AuW" id="KmX-Kb-nEV"/>
                         <outlet property="headerImage" destination="iTj-Pm-rhA" id="bre-mH-4vv"/>
                         <outlet property="lowPowerButton" destination="Qpm-Ip-Glv" id="yNA-HL-jVO"/>
@@ -34,7 +34,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLc-xP-ste">
-                            <rect key="frame" x="20" y="461" width="374" height="60"/>
+                            <rect key="frame" x="20" y="563.5" width="374" height="60"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="09x-68-d4D"/>
@@ -51,7 +51,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-Qc-Bam">
-                            <rect key="frame" x="20" y="420.5" width="374" height="38"/>
+                            <rect key="frame" x="20" y="517.5" width="374" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="YUF-Kl-8qD"/>
@@ -65,13 +65,13 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="iTj-Pm-rhA">
-                            <rect key="frame" x="67" y="109" width="280" height="88"/>
+                            <rect key="frame" x="67" y="206" width="280" height="88"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="iTj-Pm-rhA" secondAttribute="height" multiplier="89:28" id="wOf-f3-0f1"/>
                             </constraints>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TgF-UG-kol">
-                            <rect key="frame" x="20" y="213" width="374" height="200"/>
+                            <rect key="frame" x="20" y="310" width="374" height="200"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="oZr-Mi-2Ss"/>
@@ -104,28 +104,42 @@ You may also get COVID-19 updates through:</string>
                                 <action selector="lowPowerPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Sv-QO-DX2"/>
                             </connections>
                         </button>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
-                            <rect key="frame" x="32" y="521" width="350" height="350"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
+                            <rect key="frame" x="92" y="632" width="230" height="230"/>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qv9-Po-yNP">
+                            <rect key="frame" x="20" y="93" width="374" height="38"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                            <state key="normal" title="DETECT">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qOf-02-Z7R"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="SjZ-hJ-2Az"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="fLc-xP-ste" firstAttribute="trailing" secondItem="iTT-Qc-Bam" secondAttribute="trailing" id="26g-px-PSr"/>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="2cs-Xd-j3a"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="top" secondItem="Qpm-Ip-Glv" secondAttribute="bottom" constant="11" id="8zv-FN-jtO"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="FTA-Ls-TP2"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="JvW-B0-byI"/>
-                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="0w6-4y-vLM" secondAttribute="trailing" constant="32" id="LOr-WW-OsJ"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="0w6-4y-vLM" secondAttribute="trailing" constant="92" id="LOr-WW-OsJ"/>
                         <constraint firstItem="iTT-Qc-Bam" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="MoK-MG-3s8"/>
-                        <constraint firstItem="fLc-xP-ste" firstAttribute="top" secondItem="iTT-Qc-Bam" secondAttribute="bottom" constant="2.5" id="Nrp-CD-wjj"/>
+                        <constraint firstItem="fLc-xP-ste" firstAttribute="top" secondItem="iTT-Qc-Bam" secondAttribute="bottom" constant="8" id="Nrp-CD-wjj"/>
                         <constraint firstItem="0w6-4y-vLM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fLc-xP-ste" secondAttribute="bottom" id="XtC-Xt-ugu"/>
-                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="65" id="YP5-5X-kCe"/>
-                        <constraint firstAttribute="bottom" secondItem="0w6-4y-vLM" secondAttribute="bottom" constant="25" id="ZMY-Dp-BeM"/>
+                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="162" id="YP5-5X-kCe"/>
+                        <constraint firstAttribute="bottom" secondItem="0w6-4y-vLM" secondAttribute="bottom" constant="34" id="ZMY-Dp-BeM"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="top" secondItem="Eqg-dj-kgn" secondAttribute="top" constant="44" id="eZ6-aB-0tX"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="trailing" secondItem="Qpm-Ip-Glv" secondAttribute="trailing" id="fIW-ej-ZOh"/>
                         <constraint firstItem="iTT-Qc-Bam" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="iMf-9i-gK0"/>
                         <constraint firstItem="iTj-Pm-rhA" firstAttribute="centerX" secondItem="Eqg-dj-kgn" secondAttribute="centerX" id="o5M-V3-rWt"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="32" id="oxz-Hs-KnF"/>
+                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="92" id="oxz-Hs-KnF"/>
                         <constraint firstItem="iTT-Qc-Bam" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="7.5" id="pbi-gY-PQ2"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="leading" secondItem="Qpm-Ip-Glv" secondAttribute="leading" id="qHx-6v-Ka4"/>
                         <constraint firstItem="fLc-xP-ste" firstAttribute="leading" secondItem="iTT-Qc-Bam" secondAttribute="leading" id="uVe-nc-9DT"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="wxg-fm-Y6s"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="16" id="xvx-oB-a8m"/>
@@ -363,6 +377,9 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="endcov QR" width="1128.5" height="1128.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

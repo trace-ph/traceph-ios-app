@@ -72,6 +72,7 @@ class ViewController: UIViewController {
             copyButton.isHidden = true
             qrTextView?.isHidden = true
             qrImage.isHidden = true
+            detectButton?.isHidden = true
             
             lowPowerButton.setTitle("TURN OFF", for: .normal)
             lowPowerButton.backgroundColor = UIColor.black
@@ -88,6 +89,7 @@ class ViewController: UIViewController {
             copyButton.isHidden = false
             qrTextView?.isHidden = false
             qrImage.isHidden = false
+            detectButton?.isHidden = false
             
             lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
             lowPowerButton.backgroundColor = UIColor.systemGreen
@@ -98,8 +100,10 @@ class ViewController: UIViewController {
         
     }
     
-    var toggleDetect = true;
+    var toggleDetect = false
     @IBAction func detectPress(_ sender: UIButton?) {
+        toggleDetect = !toggleDetect
+        
         if(toggleDetect) {
             bluetoothManager.detect()
             detectButton?.setTitle("Disable Contact-tracing", for: .normal)
@@ -107,8 +111,6 @@ class ViewController: UIViewController {
             bluetoothManager.stop()
             detectButton?.setTitle("Enable Contact-tracing", for: .normal)
         }
-
-        toggleDetect = !toggleDetect
     }
     
     @IBAction func copyAction(_ sender: UIButton?) {
@@ -143,13 +145,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
-        #if DEBUG
-        shareView = nil
-        view = debugView
-        #else
+//        #if DEBUG
+//        shareView = nil
+//        view = debugView
+//        #else
         debugView = nil
         view = shareView
-        bluetoothManager.detect()
+//        bluetoothManager.detect()
         shareTextView?.text += "\n\(Constants.downloadURL)"
         //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
@@ -157,7 +159,8 @@ class ViewController: UIViewController {
         //        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
         qrTextView?.sizeToFit()
         qrTextView?.isScrollEnabled = false
-        #endif
+        detectButton?.setTitle("Enable Contact-tracing", for: .normal)
+//        #endif
         
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)

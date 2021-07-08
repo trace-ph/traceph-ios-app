@@ -30,6 +30,7 @@ class BluetoothManager: NSObject {
     var currentPeripheral: CBPeripheral!
     
     var discoveryLog = [node_data]()
+    var localStorage = [node_data]()
     var toConnect = [CBPeripheral]()
     var recognizedDevice = [device_data]()
     let viewController: ViewControllerInputs?
@@ -105,15 +106,14 @@ class BluetoothManager: NSObject {
             return
         }
         
-        var currentDiscLog = [node_data]()
         for node in discoveryLog {
             // Check if it's already recognized; No need to connect if so
             // If the same device is detected within a certain time interval, don't append
             if let recogDevIndex = recognizedDevice.firstIndex(where: {$0.peripheralIdentifier == node.peripheralIdentifier }){
-                if !(currentDiscLog.contains {$0.message == recognizedDevice[recogDevIndex].node_id && $0.timestamp + 2 >= node.timestamp}){
-                    print("NodeID: ", recognizedDevice[recogDevIndex].node_id)
+                if !(localStorage.contains {$0.message == recognizedDevice[recogDevIndex].node_id && $0.timestamp + 2 >= node.timestamp}){
+//                    print("NodeID: ", recognizedDevice[recogDevIndex].node_id)
                     let newNode = node.newWithMessage(recognizedDevice[recogDevIndex].node_id);
-                    currentDiscLog.append(newNode)
+                    localStorage.append(newNode)
                 }
             }
             
@@ -121,27 +121,28 @@ class BluetoothManager: NSObject {
             else {
                 let peripheralIndex = toConnect.firstIndex(where: {$0.identifier == node.peripheralIdentifier})
 
-                
                 print("Connecting to: ", toConnect[peripheralIndex!])
-                //connect to device
                 centralManager.connect(toConnect[peripheralIndex!], options: nil)
             }
         }
         
         // Send info to server
         print("Recognized devices: ", recognizedDevice)
-        print("Current Discovery Log: ", currentDiscLog)
-        APIController.sourceNodeID.onSucceed { value in
-            APIController().send(items: currentDiscLog, sourceNodeID: value) { [self] result in
+        print("Discovery Log: ", discoveryLog)
+        print("Local Storage: ", localStorage)
+        APIController.sourceNodeID.onSucceed { [self] value in
+            APIController().send(items: localStorage, sourceNodeID: value) { [self] result in
                 switch result {
                 case .success(let pairedIDs):
                     print("Sent: \(pairedIDs) to server")
                     discoveryLog.removeAll()
                     toConnect.removeAll()
+                    localStorage.removeAll()
                 case .failure(let error):
                     print(error)
                     discoveryLog.removeAll()
                     toConnect.removeAll()
+                    localStorage.removeAll()
                 }
             }
         }
@@ -373,8 +374,14 @@ extension BluetoothManager: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard let data = characteristic.value else { return }
-        // Process received data from peripheral to server
+        
+        // Process received data from peripheral to server and save it to be sent to server
         let recvMSG = String(decoding:data, as: UTF8.self)
+        let discIndex = discoveryLog.firstIndex(where: { $0.peripheralIdentifier == peripheral.identifier })
+        if(discIndex != nil){
+            localStorage.append(discoveryLog[discIndex!].newWithMessage(recvMSG))
+        }
+        
         // Add unrecognized devices
         if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
             recognizedDevice.append(device_data(

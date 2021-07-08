@@ -21,19 +21,29 @@ class IntroViewController: UIViewController {
     }
     
     @IBAction func agreeAction(_ sender: UIButton?) {
+        // Should not push through if nodeID could not be get
+        APIController.sourceNodeID.onFail {_ in
+            let regErr = UIAlertController(title: "Register Error", message: "Could not register your device. Please check your internet connection and restart the app", preferredStyle: .alert)
+            self.present(regErr, animated: true, completion: nil)
+            return;
+        }
+        
+        // Checks if the Bluetooth permissions is OK + turned on
         bluetoothManager?.waiterDelegate = self
         switch bluetoothManager?.centralManager.state {
-        case .unsupported, .unauthorized, .poweredOff, .none:
-            let alert = UIAlertController(title: "Bluetooth Disabled", message: "Bluetooth is required", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        case .resetting, .poweredOn:
-            proceed()
-        default:
-            bluetoothManager?.restart()
+            case .unsupported, .unauthorized, .poweredOff, .none:
+                let alert = UIAlertController(title: "Bluetooth Disabled", message: "Bluetooth is required", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+                    UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
+                
+            case .resetting, .poweredOn:
+                proceed()
+                
+            default:
+                bluetoothManager?.restart()
         }
     }
     
