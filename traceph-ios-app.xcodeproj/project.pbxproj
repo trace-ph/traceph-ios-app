@@ -131,14 +131,9 @@
 			isa = PBXGroup;
 			children = (
 				0AACCB142447085800EDAF27 /* DetectPH.entitlements */,
-				0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */,
-				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
 				C60AE9F22438631A0041B871 /* ViewControllers */,
-				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
-				C650E96A243C9CFF008793F2 /* APIController.swift */,
-				C6A180AA24324309001B36D2 /* Node.swift */,
-				0B547EAC2668C0D10028337A /* recognizedDevices.swift */,
-				C6C759D32431FF61002C4C5C /* LocationService.swift */,
+				0B503A5C2698554C00CD93AC /* API */,
+				0B503A5D2698555800CD93AC /* Utilities */,
 				C64F514F2447319500E0CA4E /* Secrets.swift */,
 				C60AE9F12438626D0041B871 /* Tools */,
 				0AE8F8E0243062E1004FFFE9 /* Assets.xcassets */,
@@ -166,6 +161,33 @@
 			path = "traceph-ios-appUITests";
 			sourceTree = "<group>";
 		};
+		0B503A5C2698554C00CD93AC /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C650E96A243C9CFF008793F2 /* APIController.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		0B503A5D2698555800CD93AC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0B503A5E269855F100CD93AC /* Models */,
+				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
+				C6C759D32431FF61002C4C5C /* LocationService.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0B503A5E269855F100CD93AC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B547EAC2668C0D10028337A /* recognizedDevices.swift */,
+				C6A180AA24324309001B36D2 /* Node.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3C3C27DF97E2BAB2E4EE73EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +210,8 @@
 		C60AE9F22438631A0041B871 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0AE8F8D7243062DE004FFFE9 /* AppDelegate.swift */,
+				0AE8F8D9243062DE004FFFE9 /* SceneDelegate.swift */,
 				0AE8F8DD243062DE004FFFE9 /* Main.storyboard */,
 				0AE8F8DB243062DE004FFFE9 /* ViewController.swift */,
 				C60AE9F3243863390041B871 /* IntroViewController.swift */,

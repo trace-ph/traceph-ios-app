@@ -63,7 +63,7 @@ class BluetoothManager: NSObject {
     
     // Stops scanning
     func stop() {
-        print("Stopping scan and advertising...")
+        NSLog("Stopping scan and advertising...")
         stopBluetooth = true
         self.centralManager.stopScan()
         self.peripheralManager.stopAdvertising()
@@ -86,7 +86,7 @@ class BluetoothManager: NSObject {
             ])
         }
         
-        print("Calling scan for peripherals (startTimer)...")
+        NSLog("Calling scan for peripherals (startTimer)...")
         self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
         self.perform(#selector(endScanning), with: self, afterDelay: 1);  // Stops scanning after 1 second
         
@@ -96,7 +96,7 @@ class BluetoothManager: NSObject {
     // What happens after
     @objc func endScanning(_ central: CBCentralManager) {
         self.centralManager.stopScan()
-        print("Scanning ended")
+        NSLog("Scanning ended")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.HANDSHAKE_INTERVAL) { [self] in
             startTimer()
