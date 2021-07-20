@@ -50,7 +50,6 @@ class BluetoothManager: NSObject {
     }
     
     func detect() {
-        discoveryLog.removeAll()
         stopBluetooth = false
         viewController?.reloadTable(indexPath: nil)
         guard centralManager.state == .poweredOn else {
@@ -74,6 +73,7 @@ class BluetoothManager: NSObject {
     }
     
     func startTimer(){
+        discoveryLog.removeAll()
         if(stopBluetooth){
             return
         }
@@ -116,13 +116,16 @@ class BluetoothManager: NSObject {
                     localStorage.append(newNode)
                 }
             }
-            
+
             // Connect to all unrecognized devices
             else {
                 let peripheralIndex = toConnect.firstIndex(where: {$0.identifier == node.peripheralIdentifier})
-
-                print("Connecting to: ", toConnect[peripheralIndex!])
-                centralManager.connect(toConnect[peripheralIndex!], options: nil)
+                currentPeripheral = toConnect[peripheralIndex!]
+                currentPeripheral.delegate = self
+                
+                print("Connecting to: ", currentPeripheral!)
+                centralManager.connect(currentPeripheral, options: nil)
+                usleep(500)     // Delay before continuing on
             }
         }
         
@@ -135,12 +138,10 @@ class BluetoothManager: NSObject {
                 switch result {
                 case .success(let pairedIDs):
                     print("Sent: \(pairedIDs) to server")
-                    discoveryLog.removeAll()
                     toConnect.removeAll()
                     localStorage.removeAll()
                 case .failure(let error):
                     print(error)
-                    discoveryLog.removeAll()
                     toConnect.removeAll()
                     localStorage.removeAll()
                 }
@@ -376,11 +377,16 @@ extension BluetoothManager: CBPeripheralDelegate {
         guard let data = characteristic.value else { return }
         
         // Process received data from peripheral to server and save it to be sent to server
-        let recvMSG = String(decoding:data, as: UTF8.self)
-        let discIndex = discoveryLog.firstIndex(where: { $0.peripheralIdentifier == peripheral.identifier })
-        if(discIndex != nil){
-            localStorage.append(discoveryLog[discIndex!].newWithMessage(recvMSG))
+        guard let discIndex = discoveryLog.firstIndex(where: { $0.peripheralIdentifier == peripheral.identifier }) else {
+            centralManager.cancelPeripheralConnection(peripheral)
+            return
         }
+        let recvMSG = String(decoding:data, as: UTF8.self)
+        print(discIndex)
+        let item = discoveryLog[discIndex].newWithMessage(recvMSG)
+        discoveryLog[discIndex] = item
+        localStorage.append(item)
+        print(localStorage)
         
         // Add unrecognized devices
         if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
