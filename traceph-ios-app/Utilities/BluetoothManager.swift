@@ -73,10 +73,11 @@ class BluetoothManager: NSObject {
     }
     
     func startTimer(){
-        discoveryLog.removeAll()
         if(stopBluetooth){
             return
         }
+        discoveryLog.removeAll()
+        toConnect.removeAll()
         
         // Start advertising if previously closed
         if(!peripheralManager.isAdvertising){
@@ -123,10 +124,12 @@ class BluetoothManager: NSObject {
                 currentPeripheral = toConnect[peripheralIndex!]
                 currentPeripheral.delegate = self
                 
-                print("Connecting to: ", currentPeripheral!)
-                centralManager.connect(currentPeripheral, options: nil)
-                usleep(500)     // Delay before continuing on
-            }
+                // Add delay before continuing
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){ [self] in
+                    print("Connecting to: ", currentPeripheral!)
+                    centralManager.connect(currentPeripheral, options: nil)
+                }
+//            }
         }
         
         // Send info to server
@@ -138,11 +141,9 @@ class BluetoothManager: NSObject {
                 switch result {
                 case .success(let pairedIDs):
                     print("Sent: \(pairedIDs) to server")
-                    toConnect.removeAll()
                     localStorage.removeAll()
                 case .failure(let error):
                     print(error)
-                    toConnect.removeAll()
                     localStorage.removeAll()
                 }
             }
@@ -382,11 +383,10 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         let recvMSG = String(decoding:data, as: UTF8.self)
-        print(discIndex)
         let item = discoveryLog[discIndex].newWithMessage(recvMSG)
         discoveryLog[discIndex] = item
         localStorage.append(item)
-        print(localStorage)
+//        print(localStorage)
         
         // Add unrecognized devices
         if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
