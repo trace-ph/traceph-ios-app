@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BbG-81-M5F">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -13,6 +13,13 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wMm-Mo-ZI1">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" image="line.horizontal.3" catalog="system" id="XN9-Oj-Ko7">
+                            <connections>
+                                <action selector="menuButton" destination="BYZ-38-t0r" id="kfb-Xe-l3D"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="copyButton" destination="iTT-Qc-Bam" id="UoV-Y5-Xac"/>
                         <outlet property="debugView" destination="8bC-Xf-vdC" id="sjI-OS-YIz"/>
@@ -225,7 +232,7 @@ You may also get COVID-19 updates through:</string>
                 </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="583" y="128"/>
+            <point key="canvasLocation" x="1492.753623188406" y="127.90178571428571"/>
         </scene>
         <!--Intro View Controller-->
         <scene sceneID="MDE-Et-NEV">
@@ -369,12 +376,31 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
             </objects>
             <point key="canvasLocation" x="952" y="867"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Sgi-HD-YUz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BbG-81-M5F" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZuN-lP-1bT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5Yn-KF-nlZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2KI-Au-27K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="582.60869565217399" y="127.90178571428571"/>
+        </scene>
     </scenes>
     <resources>
         <image name="DESIGNED BY FREEPIK" width="280" height="112"/>
         <image name="Mask Group 1" width="280" height="112"/>
         <image name="TracePH" width="113" height="160"/>
         <image name="endcov QR" width="1128.5" height="1128.5"/>
+        <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

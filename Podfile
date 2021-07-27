@@ -6,4 +6,5 @@ inhibit_all_warnings!
 target 'traceph-ios-app' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'SideMenu'
 end

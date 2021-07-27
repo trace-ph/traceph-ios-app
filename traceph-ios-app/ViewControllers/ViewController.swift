@@ -11,6 +11,7 @@ import CoreBluetooth
 import Foundation
 //import CoreLocation
 import UserNotifications
+import SideMenu
 
 protocol ViewControllerInputs {
     func reloadTable(indexPath: IndexPath?)
@@ -142,6 +143,8 @@ class ViewController: UIViewController {
         }
     }
     
+    var menu: UISideMenuNavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
@@ -165,6 +168,18 @@ class ViewController: UIViewController {
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
+        // Menu code
+        menu = UISideMenuNavigationController(rootViewController: MenuListController())
+        menu?.leftSide = true
+        menu?.setNavigationBarHidden(true, animated: false)
+        
+        SideMenuManager.default.menuLeftNavigationController = menu
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
+        
+    }
+    
+    @IBAction func menuButton(){
+        present(menu!, animated: true)
     }
     
     @objc func didEnterBackground() {
@@ -230,6 +245,28 @@ class ViewController: UIViewController {
             return
         }
         controller.bluetoothManager = self.bluetoothManager
+    }
+}
+
+// Navigation drawer
+class MenuListController: UITableViewController {
+    let menuItems = ["Contact-tracing", "Report", "Received Notification", "What to do when exposed", "About Us"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.tableFooterView = UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuItems.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = menuItems[indexPath.row]
+        
+        return cell
     }
 }
 
