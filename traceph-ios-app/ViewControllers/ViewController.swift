@@ -20,7 +20,7 @@ protocol ViewControllerInputs {
 }
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MenuControllerDelegate {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
         static let downloadURL: String = "https://endcov.ph/dashboard/"
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
         }
     }
     
-    var menu: UISideMenuNavigationController?
+    private var menu: UISideMenuNavigationController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +169,9 @@ class ViewController: UIViewController {
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
         // Menu code
-        menu = UISideMenuNavigationController(rootViewController: MenuListController())
+        let currentMenu = MenuListController()
+        currentMenu.delegate = self
+        menu = UISideMenuNavigationController(rootViewController: currentMenu)
         menu?.leftSide = true
         menu?.setNavigationBarHidden(true, animated: false)
         
@@ -180,6 +182,25 @@ class ViewController: UIViewController {
     
     @IBAction func menuButton(){
         present(menu!, animated: true)
+    }
+    
+    func didSelectMenuItem(named: String) {
+        menu?.dismiss(animated: true, completion: { [weak self] in
+            switch(named){
+            case "Contact-tracing":
+                self?.view.backgroundColor = .white
+            case "Report":
+                self?.view.backgroundColor = .red
+            case "Received Notification":
+                self?.view.backgroundColor = .blue
+            case "What to do when exposed":
+                self?.view.backgroundColor = .green
+            case "About Us":
+                self?.view.backgroundColor = .yellow
+            default:
+                self?.view.backgroundColor = .white
+            }
+        })
     }
     
     @objc func didEnterBackground() {
@@ -249,7 +270,13 @@ class ViewController: UIViewController {
 }
 
 // Navigation drawer
+protocol MenuControllerDelegate {
+    func didSelectMenuItem(named: String)
+}
+
 class MenuListController: UITableViewController {
+    public var delegate: MenuControllerDelegate?
+    
     let menuItems = ["Contact-tracing", "Report", "Received Notification", "What to do when exposed", "About Us"]
     
     override func viewDidLoad() {
@@ -267,6 +294,12 @@ class MenuListController: UITableViewController {
         cell.textLabel?.text = menuItems[indexPath.row]
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedItem = menuItems[indexPath.row]
+        delegate?.didSelectMenuItem(named: selectedItem)
     }
 }
 
