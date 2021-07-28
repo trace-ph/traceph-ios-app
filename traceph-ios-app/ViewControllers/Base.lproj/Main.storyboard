@@ -234,6 +234,126 @@ You may also get COVID-19 updates through:</string>
             </objects>
             <point key="canvasLocation" x="1492.753623188406" y="127.90178571428571"/>
         </scene>
+        <!--Report View Controller-->
+        <scene sceneID="dgg-Ds-GeM">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPq-B8-ZkI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="ReportViewController" id="2J5-OE-X6J" customClass="ReportViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IJg-9x-RFT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="rjB-Yl-e0a">
+                                <rect key="frame" x="20" y="82" width="374" height="165"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="rjB-Yl-e0a" secondAttribute="height" multiplier="34:15" id="Dg9-UR-2Qc"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUM-9L-FV4">
+                                <rect key="frame" x="20" y="255" width="374" height="98"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Implications of reporting">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="34" name="Tahoma-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liu-2e-mNf">
+                                <rect key="frame" x="20" y="784" width="374" height="38"/>
+                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="eNP-MZ-GXn"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="voY-sj-AbG">
+                                <rect key="frame" x="30" y="361" width="354" height="171"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">To make a report, point the camera to the DetectPH QR code found in your lab results. The camera will scan the QR code and get a code for you to input. Once your report is authenticated, we will use the info you filled up to find your close contacts and notify them. You can only report successfully per day. </string>
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5F2-7w-Bk6">
+                                <rect key="frame" x="30" y="540" width="354" height="59"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Remember">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="16" name="Tahoma-Bold"/>
+                                            <font key="NSOriginalFont" size="16" name="Tahoma-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=": You're only reporting for yourself and ">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="not">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="16" name="Tahoma-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" on behalf of others">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ouF-YD-9wq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="trailing" secondItem="voY-sj-AbG" secondAttribute="trailing" constant="30" id="2ZV-9b-KqV"/>
+                            <constraint firstItem="rjB-Yl-e0a" firstAttribute="top" secondItem="ouF-YD-9wq" secondAttribute="top" constant="38" id="5MM-tq-rqy"/>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="trailing" secondItem="rjB-Yl-e0a" secondAttribute="trailing" constant="20" id="7df-69-ncf"/>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="trailing" secondItem="Liu-2e-mNf" secondAttribute="trailing" constant="20" id="Axz-9U-XvK"/>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="bottom" secondItem="Liu-2e-mNf" secondAttribute="bottom" constant="40" id="Dhk-xT-cRz"/>
+                            <constraint firstItem="ZUM-9L-FV4" firstAttribute="leading" secondItem="ouF-YD-9wq" secondAttribute="leading" constant="20" id="EGc-ya-qIy"/>
+                            <constraint firstItem="voY-sj-AbG" firstAttribute="leading" secondItem="ouF-YD-9wq" secondAttribute="leading" constant="30" id="HzI-LA-fus"/>
+                            <constraint firstItem="voY-sj-AbG" firstAttribute="top" secondItem="ZUM-9L-FV4" secondAttribute="bottom" constant="8" id="KcU-ku-1yh"/>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="trailing" secondItem="5F2-7w-Bk6" secondAttribute="trailing" constant="30" id="bf8-VT-dTY"/>
+                            <constraint firstItem="ouF-YD-9wq" firstAttribute="trailing" secondItem="ZUM-9L-FV4" secondAttribute="trailing" constant="20" id="gO0-IE-Gm9"/>
+                            <constraint firstItem="5F2-7w-Bk6" firstAttribute="top" secondItem="voY-sj-AbG" secondAttribute="bottom" constant="8" id="hKL-10-ktB"/>
+                            <constraint firstItem="ZUM-9L-FV4" firstAttribute="top" secondItem="rjB-Yl-e0a" secondAttribute="bottom" constant="8" id="lAC-F2-9bz"/>
+                            <constraint firstItem="Liu-2e-mNf" firstAttribute="leading" secondItem="ouF-YD-9wq" secondAttribute="leading" constant="20" id="qaU-R4-06K"/>
+                            <constraint firstItem="5F2-7w-Bk6" firstAttribute="leading" secondItem="ouF-YD-9wq" secondAttribute="leading" constant="30" id="tmA-dh-SWN"/>
+                            <constraint firstItem="rjB-Yl-e0a" firstAttribute="leading" secondItem="ouF-YD-9wq" secondAttribute="leading" constant="20" id="xMB-u6-Le4"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2263.768115942029" y="127.90178571428571"/>
+        </scene>
         <!--Intro View Controller-->
         <scene sceneID="MDE-Et-NEV">
             <objects>
@@ -401,6 +521,10 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="TracePH" width="113" height="160"/>
         <image name="endcov QR" width="1128.5" height="1128.5"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
+        <image name="reportHeader" width="4000" height="2250"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

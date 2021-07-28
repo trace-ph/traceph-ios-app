@@ -145,6 +145,11 @@ class ViewController: UIViewController, MenuControllerDelegate {
     
     private var menu: UISideMenuNavigationController?
     
+    private let ReportController = ReportViewController()
+    private let NotificationController = NotificationViewController()
+    private let ExposedController = ExposedViewController()
+    private let AboutUsController = AboutUsViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
@@ -169,7 +174,7 @@ class ViewController: UIViewController, MenuControllerDelegate {
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
         // Menu code
-        let currentMenu = MenuListController()
+        let currentMenu = MenuListController(with: menuComponent.allCases)
         currentMenu.delegate = self
         menu = UISideMenuNavigationController(rootViewController: currentMenu)
         menu?.leftSide = true
@@ -178,29 +183,70 @@ class ViewController: UIViewController, MenuControllerDelegate {
         SideMenuManager.default.menuLeftNavigationController = menu
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         
+        addChildControllers()
+    }
+    
+    private func addChildControllers() {
+        addChild(self.ReportController)
+        addChild(self.NotificationController)
+        addChild(self.ExposedController)
+        addChild(self.AboutUsController)
+        
+        view.addSubview(ReportController.view)
+        view.addSubview(NotificationController.view)
+        view.addSubview(ExposedController.view)
+        view.addSubview(AboutUsController.view)
+        
+        ReportController.view.frame = view.bounds
+        NotificationController.view.frame = view.bounds
+        ExposedController.view.frame = view.bounds
+        AboutUsController.view.frame = view.bounds
+        
+        ReportController.didMove(toParent: self)
+        NotificationController.didMove(toParent: self)
+        ExposedController.didMove(toParent: self)
+        AboutUsController.didMove(toParent: self)
+        
+        ReportController.view.isHidden = true
+        NotificationController.view.isHidden = true
+        ExposedController.view.isHidden = true
+        AboutUsController.view.isHidden = true
     }
     
     @IBAction func menuButton(){
         present(menu!, animated: true)
     }
     
-    func didSelectMenuItem(named: String) {
-        menu?.dismiss(animated: true, completion: { [weak self] in
-            switch(named){
-            case "Contact-tracing":
-                self?.view.backgroundColor = .white
-            case "Report":
-                self?.view.backgroundColor = .red
-            case "Received Notification":
-                self?.view.backgroundColor = .blue
-            case "What to do when exposed":
-                self?.view.backgroundColor = .green
-            case "About Us":
-                self?.view.backgroundColor = .yellow
-            default:
-                self?.view.backgroundColor = .white
-            }
-        })
+    func didSelectMenuItem(named: menuComponent) {
+        menu?.dismiss(animated: true, completion: nil)
+        
+        switch(named){
+        case .home:
+            ReportController.view.isHidden = true
+            NotificationController.view.isHidden = true
+            ExposedController.view.isHidden = true
+            AboutUsController.view.isHidden = true
+        case .report:
+            ReportController.view.isHidden = false
+            NotificationController.view.isHidden = true
+            ExposedController.view.isHidden = true
+            AboutUsController.view.isHidden = true
+        case .notif:
+            ReportController.view.isHidden = true
+            NotificationController.view.isHidden = false
+            ExposedController.view.isHidden = true
+            AboutUsController.view.isHidden = true
+        case .expose:
+            ReportController.view.isHidden = true
+            NotificationController.view.isHidden = true
+            ExposedController.view.isHidden = false
+            AboutUsController.view.isHidden = true
+        case .about:
+            ReportController.view.isHidden = true
+            NotificationController.view.isHidden = true
+            ExposedController.view.isHidden = true
+            AboutUsController.view.isHidden = false
+        }
     }
     
     @objc func didEnterBackground() {
@@ -266,40 +312,6 @@ class ViewController: UIViewController, MenuControllerDelegate {
             return
         }
         controller.bluetoothManager = self.bluetoothManager
-    }
-}
-
-// Navigation drawer
-protocol MenuControllerDelegate {
-    func didSelectMenuItem(named: String)
-}
-
-class MenuListController: UITableViewController {
-    public var delegate: MenuControllerDelegate?
-    
-    let menuItems = ["Contact-tracing", "Report", "Received Notification", "What to do when exposed", "About Us"]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.tableFooterView = UIView()
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuItems.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = menuItems[indexPath.row]
-        
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let selectedItem = menuItems[indexPath.row]
-        delegate?.didSelectMenuItem(named: selectedItem)
     }
 }
 
