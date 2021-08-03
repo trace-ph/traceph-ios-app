@@ -13,13 +13,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="wMm-Mo-ZI1">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" image="line.horizontal.3" catalog="system" id="XN9-Oj-Ko7">
-                            <connections>
-                                <action selector="menuButton" destination="BYZ-38-t0r" id="kfb-Xe-l3D"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="UoR-x6-pzL"/>
                     <connections>
                         <outlet property="copyButton" destination="iTT-Qc-Bam" id="UoV-Y5-Xac"/>
                         <outlet property="debugView" destination="8bC-Xf-vdC" id="sjI-OS-YIz"/>
@@ -237,6 +231,61 @@ You may also get COVID-19 updates through:</string>
             </objects>
             <point key="canvasLocation" x="1492.753623188406" y="127.90178571428571"/>
         </scene>
+        <!--Report View Controller-->
+        <scene sceneID="RMB-EZ-lKy">
+            <objects>
+                <viewController storyboardIdentifier="ReportViewController" id="EId-ea-Xke" customClass="ReportViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZQd-I7-URU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="nBq-f5-XRH">
+                                <rect key="frame" x="10" y="114" width="394" height="210"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nBq-f5-XRH" secondAttribute="height" multiplier="15:8" id="1ww-zy-6kB"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Qag-QU-mjQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nBq-f5-XRH" firstAttribute="leading" secondItem="Qag-QU-mjQ" secondAttribute="leading" constant="10" id="aa2-Ya-ZGr"/>
+                            <constraint firstItem="Qag-QU-mjQ" firstAttribute="trailing" secondItem="nBq-f5-XRH" secondAttribute="trailing" constant="10" id="uEh-QE-AGB"/>
+                            <constraint firstItem="nBq-f5-XRH" firstAttribute="top" secondItem="Qag-QU-mjQ" secondAttribute="top" constant="70" id="wZK-5V-l5c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="reportHeaderView" destination="nBq-f5-XRH" id="K1F-ar-UHd"/>
+                        <outlet property="startReportView" destination="ZQd-I7-URU" id="BwF-hr-eN0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aPq-kY-tZU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2352.1739130434785" y="127.90178571428571"/>
+        </scene>
+        <!--Master View Controller-->
+        <scene sceneID="grF-0A-BlC">
+            <objects>
+                <viewController storyboardIdentifier="MasterViewController" id="fXG-tq-emj" customClass="MasterViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="8eX-om-cIT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <connections>
+                            <segue destination="BYZ-38-t0r" kind="embed" id="K8w-dM-Hg0"/>
+                        </connections>
+                    </containerView>
+                    <navigationItem key="navigationItem" id="qob-pd-wDi">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" image="line.horizontal.3" catalog="system" id="LvI-hd-GOD">
+                            <connections>
+                                <action selector="menuButton:" destination="fXG-tq-emj" id="tnT-oI-Fy7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lJ0-SO-INN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="615.94202898550725" y="127.90178571428571"/>
+        </scene>
         <!--Intro View Controller-->
         <scene sceneID="MDE-Et-NEV">
             <objects>
@@ -390,12 +439,12 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5Yn-KF-nlZ"/>
+                        <segue destination="fXG-tq-emj" kind="relationship" relationship="rootViewController" id="9JX-dv-rt4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2KI-Au-27K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="582.60869565217399" y="127.90178571428571"/>
+            <point key="canvasLocation" x="-277" y="128"/>
         </scene>
     </scenes>
     <resources>
@@ -404,6 +453,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="TracePH" width="113" height="160"/>
         <image name="endcov QR" width="1128.5" height="1128.5"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
+        <image name="reportHeader" width="4000" height="2250"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

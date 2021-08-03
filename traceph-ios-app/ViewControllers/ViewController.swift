@@ -11,7 +11,6 @@ import CoreBluetooth
 import Foundation
 //import CoreLocation
 import UserNotifications
-import SideMenu
 
 protocol ViewControllerInputs {
     func reloadTable(indexPath: IndexPath?)
@@ -20,7 +19,7 @@ protocol ViewControllerInputs {
 }
 
 
-class ViewController: UIViewController, MenuControllerDelegate {
+class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
         static let downloadURL: String = "https://endcov.ph/dashboard/"
@@ -143,12 +142,6 @@ class ViewController: UIViewController, MenuControllerDelegate {
         }
     }
     
-    private var menu: UISideMenuNavigationController?
-    
-    private let ReportController = ReportViewController()
-    private let NotificationController = NotificationViewController()
-    private let ExposedController = ExposedViewController()
-    private let AboutUsController = AboutUsViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,80 +166,6 @@ class ViewController: UIViewController, MenuControllerDelegate {
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
-        // Menu code
-        let currentMenu = MenuListController(with: menuComponent.allCases)
-        currentMenu.delegate = self
-        menu = UISideMenuNavigationController(rootViewController: currentMenu)
-        menu?.leftSide = true
-        menu?.setNavigationBarHidden(true, animated: false)
-        
-        SideMenuManager.default.menuLeftNavigationController = menu
-        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
-        
-        addChildControllers()
-    }
-    
-    private func addChildControllers() {
-        addChild(self.ReportController)
-        addChild(self.NotificationController)
-        addChild(self.ExposedController)
-        addChild(self.AboutUsController)
-        
-        view.addSubview(ReportController.view)
-        view.addSubview(NotificationController.view)
-        view.addSubview(ExposedController.view)
-        view.addSubview(AboutUsController.view)
-        
-        ReportController.view.frame = view.bounds
-        NotificationController.view.frame = view.bounds
-        ExposedController.view.frame = view.bounds
-        AboutUsController.view.frame = view.bounds
-        
-        ReportController.didMove(toParent: self)
-        NotificationController.didMove(toParent: self)
-        ExposedController.didMove(toParent: self)
-        AboutUsController.didMove(toParent: self)
-        
-        ReportController.view.isHidden = true
-        NotificationController.view.isHidden = true
-        ExposedController.view.isHidden = true
-        AboutUsController.view.isHidden = true
-    }
-    
-    @IBAction func menuButton(){
-        present(menu!, animated: true)
-    }
-    
-    func didSelectMenuItem(named: menuComponent) {
-        menu?.dismiss(animated: true, completion: nil)
-        
-        switch(named){
-        case .home:
-            ReportController.view.isHidden = true
-            NotificationController.view.isHidden = true
-            ExposedController.view.isHidden = true
-            AboutUsController.view.isHidden = true
-        case .report:
-            ReportController.view.isHidden = false
-            NotificationController.view.isHidden = true
-            ExposedController.view.isHidden = true
-            AboutUsController.view.isHidden = true
-        case .notif:
-            ReportController.view.isHidden = true
-            NotificationController.view.isHidden = false
-            ExposedController.view.isHidden = true
-            AboutUsController.view.isHidden = true
-        case .expose:
-            ReportController.view.isHidden = true
-            NotificationController.view.isHidden = true
-            ExposedController.view.isHidden = false
-            AboutUsController.view.isHidden = true
-        case .about:
-            ReportController.view.isHidden = true
-            NotificationController.view.isHidden = true
-            ExposedController.view.isHidden = true
-            AboutUsController.view.isHidden = false
-        }
     }
     
     @objc func didEnterBackground() {
