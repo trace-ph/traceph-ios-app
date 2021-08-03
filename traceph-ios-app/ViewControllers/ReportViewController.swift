@@ -9,10 +9,18 @@
 import UIKit
 
 class ReportViewController: UIViewController {
-
+    
+    @IBOutlet weak var startReportView: UIView?
+    @IBOutlet weak var reportHeaderView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .red
+        
+        view = startReportView
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UoR-x6-pzL"/>
                     <connections>
                         <outlet property="copyButton" destination="iTT-Qc-Bam" id="UoV-Y5-Xac"/>
@@ -34,12 +34,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLc-xP-ste">
-                            <rect key="frame" x="20" y="563.5" width="374" height="60"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLc-xP-ste">
+                            <rect key="frame" x="20" y="569" width="374" height="60"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="09x-68-d4D"/>
-                            </constraints>
                             <attributedString key="attributedText">
                                 <fragment content="or you can let your friends or family scan the QR code below">
                                     <attributes>
@@ -52,10 +49,10 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-Qc-Bam">
-                            <rect key="frame" x="20" y="517.5" width="374" height="38"/>
+                            <rect key="frame" x="20" y="497" width="374" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="38" id="YUF-Kl-8qD"/>
+                                <constraint firstAttribute="height" constant="38" id="1Gw-Av-RME"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                             <state key="normal" title="Copy link to share">
@@ -66,17 +63,16 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Mask Group 1" translatesAutoresizingMaskIntoConstraints="NO" id="iTj-Pm-rhA">
-                            <rect key="frame" x="67" y="206" width="280" height="88"/>
+                            <rect key="frame" x="20" y="171" width="374" height="117"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="iTj-Pm-rhA" secondAttribute="height" multiplier="89:28" id="wOf-f3-0f1"/>
+                                <constraint firstAttribute="height" constant="117" id="L6K-EL-v0o"/>
+                                <constraint firstAttribute="width" constant="374" id="lsM-6A-nnj"/>
+                                <constraint firstAttribute="width" secondItem="iTj-Pm-rhA" secondAttribute="height" multiplier="374:117" id="qFh-Ug-Omj"/>
                             </constraints>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TgF-UG-kol">
-                            <rect key="frame" x="20" y="310" width="374" height="200"/>
+                            <rect key="frame" x="20" y="308" width="374" height="169"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="200" id="oZr-Mi-2Ss"/>
-                            </constraints>
                             <attributedString key="attributedText">
                                 <fragment>
                                     <string key="content">We want you to be informed.
@@ -94,15 +90,12 @@ You may also get COVID-19 updates through:</string>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                         </textView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
-                            <rect key="frame" x="92" y="632" width="230" height="230"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="230" id="be4-B1-98A"/>
-                            </constraints>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-Ip-Glv">
-                            <rect key="frame" x="20" y="97" width="374" height="38"/>
+                            <rect key="frame" x="20" y="64" width="374" height="38"/>
                             <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="npx-3l-UJy"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                             <state key="normal" title="LOW-POWER MODE">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,8 +105,12 @@ You may also get COVID-19 updates through:</string>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qv9-Po-yNP">
-                            <rect key="frame" x="20" y="146" width="374" height="38"/>
+                            <rect key="frame" x="20" y="113" width="374" height="38"/>
                             <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="mNa-sy-3jV"/>
+                                <constraint firstAttribute="height" constant="38" id="pRk-qH-04P"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                             <state key="normal" title="DETECT">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -122,31 +119,40 @@ You may also get COVID-19 updates through:</string>
                                 <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qOf-02-Z7R"/>
                             </connections>
                         </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="endcov QR" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-4y-vLM">
+                            <rect key="frame" x="92" y="637" width="230" height="230"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="230" id="0J8-U9-arl"/>
+                                <constraint firstAttribute="height" constant="230" id="2Cm-ZO-BCF"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="SjZ-hJ-2Az"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="fLc-xP-ste" firstAttribute="trailing" secondItem="iTT-Qc-Bam" secondAttribute="trailing" id="26g-px-PSr"/>
-                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="2cs-Xd-j3a"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="top" secondItem="fLc-xP-ste" secondAttribute="bottom" constant="8.5" id="6e5-4U-BOu"/>
-                        <constraint firstItem="qv9-Po-yNP" firstAttribute="top" secondItem="Qpm-Ip-Glv" secondAttribute="bottom" constant="11" id="8zv-FN-jtO"/>
-                        <constraint firstItem="Qpm-Ip-Glv" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="FTA-Ls-TP2"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="bottom" secondItem="SjZ-hJ-2Az" secondAttribute="bottom" id="IbK-h1-DPa"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="92" id="Jjj-f5-OO9"/>
-                        <constraint firstItem="Qpm-Ip-Glv" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="JvW-B0-byI"/>
-                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="leading" secondItem="TgF-UG-kol" secondAttribute="leading" id="MoK-MG-3s8"/>
-                        <constraint firstItem="fLc-xP-ste" firstAttribute="top" secondItem="iTT-Qc-Bam" secondAttribute="bottom" constant="8" id="Nrp-CD-wjj"/>
-                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="162" id="YP5-5X-kCe"/>
-                        <constraint firstItem="0w6-4y-vLM" firstAttribute="centerX" secondItem="fLc-xP-ste" secondAttribute="centerX" id="dhD-fD-oED"/>
-                        <constraint firstItem="Qpm-Ip-Glv" firstAttribute="top" secondItem="Eqg-dj-kgn" secondAttribute="top" constant="97" id="eZ6-aB-0tX"/>
-                        <constraint firstItem="qv9-Po-yNP" firstAttribute="trailing" secondItem="Qpm-Ip-Glv" secondAttribute="trailing" id="fIW-ej-ZOh"/>
-                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" id="iMf-9i-gK0"/>
-                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="centerX" secondItem="Eqg-dj-kgn" secondAttribute="centerX" id="o5M-V3-rWt"/>
-                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="7.5" id="pbi-gY-PQ2"/>
-                        <constraint firstItem="qv9-Po-yNP" firstAttribute="leading" secondItem="Qpm-Ip-Glv" secondAttribute="leading" id="qHx-6v-Ka4"/>
-                        <constraint firstItem="fLc-xP-ste" firstAttribute="leading" secondItem="iTT-Qc-Bam" secondAttribute="leading" id="uVe-nc-9DT"/>
-                        <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="wxg-fm-Y6s"/>
-                        <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="16" id="xvx-oB-a8m"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="qv9-Po-yNP" secondAttribute="trailing" constant="20" id="59x-Ya-oIp"/>
+                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="9nu-P8-ObN"/>
+                        <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="20" id="DLR-tU-YOJ"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="iTj-Pm-rhA" secondAttribute="trailing" constant="20" id="E84-M9-AwU"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="EzE-Xe-7Ey"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="Qpm-Ip-Glv" secondAttribute="trailing" constant="20" id="J3n-2K-B49"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="NWF-cy-Re8"/>
+                        <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="Os9-tn-Oqi"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="Qkl-Ym-yO5"/>
+                        <constraint firstItem="iTT-Qc-Bam" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="20" id="Scr-56-Zgw"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="0w6-4y-vLM" secondAttribute="trailing" constant="92" id="SrB-7p-9Qb"/>
+                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="qv9-Po-yNP" secondAttribute="bottom" constant="20" id="Vf9-IF-WI7"/>
+                        <constraint firstItem="fLc-xP-ste" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="W6f-lC-dMW"/>
+                        <constraint firstItem="Qpm-Ip-Glv" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="XOd-5Z-2fD"/>
+                        <constraint firstItem="iTj-Pm-rhA" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="b1d-hZ-1am"/>
+                        <constraint firstItem="0w6-4y-vLM" firstAttribute="top" secondItem="fLc-xP-ste" secondAttribute="bottom" constant="8" id="iWi-8C-26T"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="fLc-xP-ste" secondAttribute="trailing" constant="20" id="igx-7F-7jD"/>
+                        <constraint firstItem="0w6-4y-vLM" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="92" id="k54-yM-cLg"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="iTT-Qc-Bam" secondAttribute="trailing" constant="20" id="lRM-X7-uJe"/>
+                        <constraint firstItem="qv9-Po-yNP" firstAttribute="top" secondItem="Qpm-Ip-Glv" secondAttribute="bottom" constant="11" id="q9b-KL-tCh"/>
+                        <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="qv9-Po-yNP" secondAttribute="trailing" constant="20" id="sC2-OE-LBB"/>
+                        <constraint firstItem="fLc-xP-ste" firstAttribute="top" secondItem="iTT-Qc-Bam" secondAttribute="bottom" constant="20" id="shM-Cw-hwW"/>
+                        <constraint firstItem="Qpm-Ip-Glv" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="20" id="vqj-2U-gLu"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="DebugView">
@@ -235,45 +241,84 @@ You may also get COVID-19 updates through:</string>
         <scene sceneID="RMB-EZ-lKy">
             <objects>
                 <viewController storyboardIdentifier="ReportViewController" id="EId-ea-Xke" customClass="ReportViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZQd-I7-URU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="nBq-f5-XRH">
-                                <rect key="frame" x="10" y="114" width="394" height="210"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="nBq-f5-XRH" secondAttribute="height" multiplier="15:8" id="1ww-zy-6kB"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Qag-QU-mjQ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="nBq-f5-XRH" firstAttribute="leading" secondItem="Qag-QU-mjQ" secondAttribute="leading" constant="10" id="aa2-Ya-ZGr"/>
-                            <constraint firstItem="Qag-QU-mjQ" firstAttribute="trailing" secondItem="nBq-f5-XRH" secondAttribute="trailing" constant="10" id="uEh-QE-AGB"/>
-                            <constraint firstItem="nBq-f5-XRH" firstAttribute="top" secondItem="Qag-QU-mjQ" secondAttribute="top" constant="70" id="wZK-5V-l5c"/>
-                        </constraints>
-                    </view>
+                    <navigationItem key="navigationItem" id="c5w-vT-BdV"/>
                     <connections>
-                        <outlet property="reportHeaderView" destination="nBq-f5-XRH" id="K1F-ar-UHd"/>
-                        <outlet property="startReportView" destination="ZQd-I7-URU" id="BwF-hr-eN0"/>
+                        <outlet property="reportHeaderView" destination="nN7-Xa-uyT" id="70v-jb-n3t"/>
+                        <outlet property="startReportView" destination="Wht-fu-A54" id="s55-83-fU1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPq-kY-tZU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Wht-fu-A54">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="nN7-Xa-uyT">
+                            <rect key="frame" x="10" y="114" width="394" height="210"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="nN7-Xa-uyT" secondAttribute="height" multiplier="15:8" id="bK1-K0-xo9"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="xsh-oo-aDB"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="nN7-Xa-uyT" firstAttribute="top" secondItem="xsh-oo-aDB" secondAttribute="top" constant="70" id="CHe-YE-tY2"/>
+                        <constraint firstItem="xsh-oo-aDB" firstAttribute="trailing" secondItem="nN7-Xa-uyT" secondAttribute="trailing" constant="10" id="Rmk-OM-7im"/>
+                        <constraint firstItem="nN7-Xa-uyT" firstAttribute="leading" secondItem="xsh-oo-aDB" secondAttribute="leading" constant="10" id="nYt-YY-UQc"/>
+                    </constraints>
+                </view>
             </objects>
-            <point key="canvasLocation" x="2352.1739130434785" y="127.90178571428571"/>
+            <point key="canvasLocation" x="2342" y="129"/>
+        </scene>
+        <!--Notification View Controller-->
+        <scene sceneID="ndf-9E-jBn">
+            <objects>
+                <viewController storyboardIdentifier="NotificationViewController" id="DxH-27-HFd" customClass="NotificationViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aJQ-G6-bda">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dp4-Dn-vrk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Is-21-YnZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3184" y="128"/>
+        </scene>
+        <!--Exposed View Controller-->
+        <scene sceneID="3jM-cn-CmP">
+            <objects>
+                <viewController storyboardIdentifier="ExposedViewController" id="vkn-Ug-LUg" customClass="ExposedViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7MY-3E-GMi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="pYh-YG-6U3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lwy-8X-1NN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4042" y="128"/>
+        </scene>
+        <!--About Us View Controller-->
+        <scene sceneID="r2N-gZ-w12">
+            <objects>
+                <viewController storyboardIdentifier="AboutUsViewController" id="aPy-SR-Scq" customClass="AboutUsViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="URJ-ug-hrw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IB4-by-JYj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="geW-fE-Fh8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4936" y="129"/>
         </scene>
         <!--Master View Controller-->
         <scene sceneID="grF-0A-BlC">
             <objects>
                 <viewController storyboardIdentifier="MasterViewController" id="fXG-tq-emj" customClass="MasterViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="8eX-om-cIT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <connections>
-                            <segue destination="BYZ-38-t0r" kind="embed" id="K8w-dM-Hg0"/>
-                        </connections>
-                    </containerView>
                     <navigationItem key="navigationItem" id="qob-pd-wDi">
                         <barButtonItem key="leftBarButtonItem" title="Menu" image="line.horizontal.3" catalog="system" id="LvI-hd-GOD">
                             <connections>

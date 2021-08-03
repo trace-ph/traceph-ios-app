@@ -10,15 +10,41 @@ import UIKit
 import SideMenu
 
 // Controls the menu
+@available(iOS 13.0, *)
 class MasterViewController: UIViewController, MenuControllerDelegate {
     
     private var menu: UISideMenuNavigationController?
     
-    private let ContactController = ViewController()
-    private let ReportController = ReportViewController()
-    private let NotificationController = NotificationViewController()
-    private let ExposedController = ExposedViewController()
-    private let AboutUsController = AboutUsViewController()
+    private lazy var ContactController: ViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var VC = storyboard.instantiateViewController(identifier: "ContactViewController") as! ViewController
+        self.addController(controller: VC)
+        return VC
+    }()
+    private lazy var ReportController: ReportViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var VC = storyboard.instantiateViewController(identifier: "ReportViewController") as! ReportViewController
+        self.addController(controller: VC)
+        return VC
+    }()
+    private lazy var NotificationController: NotificationViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var VC = storyboard.instantiateViewController(identifier: "NotificationViewController") as! NotificationViewController
+        self.addController(controller: VC)
+        return VC
+    }()
+    private lazy var ExposedController: ExposedViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var VC = storyboard.instantiateViewController(identifier: "ExposedViewController") as! ExposedViewController
+        self.addController(controller: VC)
+        return VC
+    }()
+    private lazy var AboutUsController: AboutUsViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var VC = storyboard.instantiateViewController(identifier: "AboutUsViewController") as! AboutUsViewController
+        self.addController(controller: VC)
+        return VC
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +59,16 @@ class MasterViewController: UIViewController, MenuControllerDelegate {
         SideMenuManager.default.menuLeftNavigationController = menu
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         
-        addChildControllers()
-//        ContactController.view.isHidden = false
+        addChildrenController()
+        ContactController.view.isHidden = false
     }
     
-    private func addChildControllers() {
-//        addController(controller: self.ContactController)
-        addController(controller: self.ReportController)
-        addController(controller: self.NotificationController)
-        addController(controller: self.ExposedController)
-        addController(controller: self.AboutUsController)
+    private func addChildrenController(){
+        addController(controller: ContactController)
+        addController(controller: ReportController)
+        addController(controller: NotificationController)
+        addController(controller: ExposedController)
+        addController(controller: AboutUsController)
     }
     
     private func addController(controller: UIViewController) {
@@ -51,6 +77,12 @@ class MasterViewController: UIViewController, MenuControllerDelegate {
         controller.view.frame = view.bounds
         controller.didMove(toParent: self)
         controller.view.isHidden = true
+    }
+    
+    private func removeController(controller: UIViewController) {
+        controller.willMove(toParent: nil)
+        controller.view.removeFromSuperview()
+        controller.removeFromParent()
     }
     
     @IBAction func menuButton(_ sender: UIBarButtonItem) {
@@ -62,31 +94,31 @@ class MasterViewController: UIViewController, MenuControllerDelegate {
         
         switch(named){
         case .home:
-//            ContactController.view.isHidden = false
+            ContactController.view.isHidden = false
             ReportController.view.isHidden = true
             NotificationController.view.isHidden = true
             ExposedController.view.isHidden = true
             AboutUsController.view.isHidden = true
         case .report:
-//            ContactController.view.isHidden = true
+            ContactController.view.isHidden = true
             ReportController.view.isHidden = false
             NotificationController.view.isHidden = true
             ExposedController.view.isHidden = true
             AboutUsController.view.isHidden = true
         case .notif:
-//            ContactController.view.isHidden = true
+            ContactController.view.isHidden = true
             ReportController.view.isHidden = true
             NotificationController.view.isHidden = false
             ExposedController.view.isHidden = true
             AboutUsController.view.isHidden = true
         case .expose:
-//            ContactController.view.isHidden = true
+            ContactController.view.isHidden = true
             ReportController.view.isHidden = true
             NotificationController.view.isHidden = true
             ExposedController.view.isHidden = false
             AboutUsController.view.isHidden = true
         case .about:
-//            ContactController.view.isHidden = true
+            ContactController.view.isHidden = true
             ReportController.view.isHidden = true
             NotificationController.view.isHidden = true
             ExposedController.view.isHidden = true
