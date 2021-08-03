@@ -107,6 +107,7 @@ class BluetoothManager: NSObject {
             return
         }
         
+        var ctr = 0.0;
         for node in discoveryLog {
             // Check if it's already recognized; No need to connect if so
             // If the same device is detected within a certain time interval, don't append
@@ -120,16 +121,17 @@ class BluetoothManager: NSObject {
 
             // Connect to all unrecognized devices
             else {
+                ctr = ctr + 1
                 let peripheralIndex = toConnect.firstIndex(where: {$0.identifier == node.peripheralIdentifier})
                 currentPeripheral = toConnect[peripheralIndex!]
                 currentPeripheral.delegate = self
                 
                 // Add delay before continuing
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){ [self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + (0.5 * ctr)){ [self] in
                     print("Connecting to: ", currentPeripheral!)
                     centralManager.connect(currentPeripheral, options: nil)
                 }
-//            }
+            }
         }
         
         // Send info to server
