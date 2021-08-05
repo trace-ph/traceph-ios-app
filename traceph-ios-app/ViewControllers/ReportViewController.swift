@@ -23,4 +23,9 @@ class ReportViewController: UIViewController {
         super.viewWillDisappear(animated)
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func startReportBtn() {
+        // Goes to different view
+        print("User understood report implication")
+    }
 }
