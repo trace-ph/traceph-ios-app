@@ -9,10 +9,18 @@
 import UIKit
 
 class AboutUsViewController: UIViewController {
-
+    struct Constants {
+        static let email = "detectph.updsc@gmail.com"
+        static let privacy = "https://www.detectph.com/privacy.html"
+    }
+    
+    @IBOutlet weak var AboutTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .red
+        
+        AboutTextView?.text += "(\(Constants.privacy)), please email us through \(Constants.email) with the subject \"DetectPH Concern\""
+        AboutTextView?.sizeToFit()
+        AboutTextView?.isScrollEnabled = false
     }
 }

@@ -394,13 +394,97 @@ You may also get COVID-19 updates through:</string>
                     <view key="view" contentMode="scaleToFill" id="URJ-ug-hrw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TracePH" translatesAutoresizingMaskIntoConstraints="NO" id="YL2-E3-h2T">
+                                <rect key="frame" x="150.5" y="64" width="113" height="110"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="Jfz-0s-lqo"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="DetectPH" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tS-O2-iKj">
+                                <rect key="frame" x="20" y="194" width="374" height="59"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Early Detection, Better Protection" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaj-35-l2T">
+                                <rect key="frame" x="20" y="263" width="374" height="35.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nl1-oV-h6v">
+                                <rect key="frame" x="30" y="301.5" width="354" height="169"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">DetectPH is a mobile app that automates the contact-tracing process. Our goal is to inform people of their exposure as quickly as possible. Using your phone's Bluetooth, it keeps records of DetectPH users near you. Whenever you're connected to the internet, these records will be uploaded to out database as your possible contacts.</string>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Received a positive COVID result?" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26W-sO-enP">
+                                <rect key="frame" x="30" y="478.5" width="354" height="35.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kl8-Ku-E4H">
+                                <rect key="frame" x="30" y="517" width="354" height="92.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Report it in-app and we'll notify those we determined as your close contacts for you. We'll keep your identity a secret; Your close contacts will only know they're exposed.</string>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdw-bS-yPA">
+                                <rect key="frame" x="30" y="617.5" width="354" height="54.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="If you have any concerns with the app or our privacy policy ">
+                                        <attributes>
+                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="IB4-by-JYj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="26W-sO-enP" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="30" id="0Tn-nh-CTe"/>
+                            <constraint firstItem="nl1-oV-h6v" firstAttribute="top" secondItem="iaj-35-l2T" secondAttribute="bottom" constant="3" id="52l-lW-px4"/>
+                            <constraint firstItem="8tS-O2-iKj" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="20" id="6FZ-Z7-zQl"/>
+                            <constraint firstItem="tdw-bS-yPA" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="30" id="9ed-wn-FcY"/>
+                            <constraint firstItem="Kl8-Ku-E4H" firstAttribute="top" secondItem="26W-sO-enP" secondAttribute="bottom" constant="3" id="Eye-sq-fNY"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="nl1-oV-h6v" secondAttribute="trailing" constant="30" id="GBa-0e-tHH"/>
+                            <constraint firstItem="26W-sO-enP" firstAttribute="top" secondItem="nl1-oV-h6v" secondAttribute="bottom" constant="8" id="Idj-8J-QdH"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="Kl8-Ku-E4H" secondAttribute="trailing" constant="30" id="LGT-a2-wqN"/>
+                            <constraint firstItem="tdw-bS-yPA" firstAttribute="top" secondItem="Kl8-Ku-E4H" secondAttribute="bottom" constant="8" id="RI7-Xt-d2q"/>
+                            <constraint firstItem="Kl8-Ku-E4H" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="30" id="SKZ-4U-NtQ"/>
+                            <constraint firstItem="YL2-E3-h2T" firstAttribute="centerX" secondItem="URJ-ug-hrw" secondAttribute="centerX" id="WWK-Lw-QhD"/>
+                            <constraint firstItem="8tS-O2-iKj" firstAttribute="top" secondItem="YL2-E3-h2T" secondAttribute="bottom" constant="20" id="eXQ-gr-ng2"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="26W-sO-enP" secondAttribute="trailing" constant="30" id="h6v-r5-bGC"/>
+                            <constraint firstItem="iaj-35-l2T" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="20" id="hTo-wC-9e2"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="tdw-bS-yPA" secondAttribute="trailing" constant="30" id="jJe-M6-zwF"/>
+                            <constraint firstItem="nl1-oV-h6v" firstAttribute="leading" secondItem="IB4-by-JYj" secondAttribute="leading" constant="30" id="keQ-aV-3yF"/>
+                            <constraint firstItem="YL2-E3-h2T" firstAttribute="top" secondItem="IB4-by-JYj" secondAttribute="top" constant="20" id="mJd-dO-XYR"/>
+                            <constraint firstItem="iaj-35-l2T" firstAttribute="top" secondItem="8tS-O2-iKj" secondAttribute="bottom" constant="10" id="rii-ro-7C8"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="8tS-O2-iKj" secondAttribute="trailing" constant="20" id="u7p-rN-Cq5"/>
+                            <constraint firstItem="IB4-by-JYj" firstAttribute="trailing" secondItem="iaj-35-l2T" secondAttribute="trailing" constant="20" id="yWR-hI-Mn5"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="AboutTextView" destination="tdw-bS-yPA" id="pDv-gg-MQO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geW-fE-Fh8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4936" y="129"/>
+            <point key="canvasLocation" x="4934.7826086956529" y="128.57142857142856"/>
         </scene>
         <!--Master View Controller-->
         <scene sceneID="grF-0A-BlC">
