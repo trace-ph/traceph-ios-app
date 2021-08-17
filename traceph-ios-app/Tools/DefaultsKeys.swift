@@ -13,6 +13,10 @@ enum DefaultsKeys: String {
     case failedContactRecordPost = "UDFailedContactRecordPost"
     case myNodeID = "UDMyNodeID"
     
+    // Notification cases
+    case notifLabel = "UDNotifLabel"
+    case notifDesc = "UDNotifDesc"
+    
     var boolValue: Bool {
         return UserDefaults.standard.bool(forKey: self.rawValue)
     }

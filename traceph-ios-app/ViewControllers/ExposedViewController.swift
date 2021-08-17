@@ -9,10 +9,11 @@
 import UIKit
 
 class ExposedViewController: UIViewController {
-
+    @IBOutlet weak var closeContacts: UIScrollView!
+    @IBOutlet weak var referenceTableView: UITableView?
+    @IBOutlet weak var hospitalTableView: UITableView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .green
     }
 }

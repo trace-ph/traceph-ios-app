@@ -16,6 +16,8 @@
 		0AE8F8EF243062E1004FFFE9 /* traceph_ios_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8EE243062E1004FFFE9 /* traceph_ios_appTests.swift */; };
 		0AE8F8FA243062E1004FFFE9 /* traceph_ios_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */; };
 		0B05AB6126B91B9B00CF4575 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B05AB6026B91B9B00CF4575 /* MasterViewController.swift */; };
+		0B05ABBB26CB7F0200CF4575 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B05ABB926CB7F0200CF4575 /* CardTableViewCell.swift */; };
+		0B05ABBC26CB7F0200CF4575 /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B05ABBA26CB7F0200CF4575 /* CardTableViewCell.xib */; };
 		0B547EAD2668C0D20028337A /* recognizedDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B547EAC2668C0D10028337A /* recognizedDevices.swift */; };
 		0BA1EE8F26B00DD00003FB1A /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE8E26B00DD00003FB1A /* Menu.swift */; };
 		0BA1EE9126B00E5C0003FB1A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9026B00E5C0003FB1A /* ReportViewController.swift */; };
@@ -52,6 +54,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0B05ABB326C2657700CF4575 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0AACCB142447085800EDAF27 /* DetectPH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DetectPH.entitlements; sourceTree = "<group>"; };
 		0AE8F8D4243062DE004FFFE9 /* DetectPH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DetectPH.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +84,8 @@
 		0AE8F8F9243062E1004FFFE9 /* traceph_ios_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = traceph_ios_appUITests.swift; sourceTree = "<group>"; };
 		0AE8F8FB243062E2004FFFE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B05AB6026B91B9B00CF4575 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		0B05ABB926CB7F0200CF4575 /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		0B05ABBA26CB7F0200CF4575 /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		0B547EAC2668C0D10028337A /* recognizedDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recognizedDevices.swift; sourceTree = "<group>"; };
 		0BA1EE8E26B00DD00003FB1A /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		0BA1EE9026B00E5C0003FB1A /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +251,8 @@
 				0BA1EE9426B00EF80003FB1A /* ExposedViewController.swift */,
 				0BA1EE9626B00F2C0003FB1A /* AboutUsViewController.swift */,
 				0B05AB6026B91B9B00CF4575 /* MasterViewController.swift */,
+				0B05ABB926CB7F0200CF4575 /* CardTableViewCell.swift */,
+				0B05ABBA26CB7F0200CF4575 /* CardTableViewCell.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -259,6 +278,7 @@
 				0AE8F8D1243062DE004FFFE9 /* Frameworks */,
 				0AE8F8D2243062DE004FFFE9 /* Resources */,
 				76BEE64F159B7E3936E59ADA /* [CP] Embed Pods Frameworks */,
+				0B05ABB326C2657700CF4575 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -356,6 +376,7 @@
 				0AE8F8E4243062E1004FFFE9 /* LaunchScreen.storyboard in Resources */,
 				0AE8F8E1243062E1004FFFE9 /* Assets.xcassets in Resources */,
 				0AE8F8DF243062DE004FFFE9 /* Main.storyboard in Resources */,
+				0B05ABBC26CB7F0200CF4575 /* CardTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +456,7 @@
 				C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
 				0BA1EE8F26B00DD00003FB1A /* Menu.swift in Sources */,
+				0B05ABBB26CB7F0200CF4575 /* CardTableViewCell.swift in Sources */,
 				C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */,
 				0BA1EE9326B00ED10003FB1A /* NotificationViewController.swift in Sources */,
 				C6A180AB24324309001B36D2 /* Node.swift in Sources */,
