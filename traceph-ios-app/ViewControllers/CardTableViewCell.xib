@@ -18,14 +18,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRi-HO-Asw">
-                        <rect key="frame" x="20" y="10" width="47" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRi-HO-Asw">
+                        <rect key="frame" x="20" y="10" width="353" height="21.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Desc" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xbn-Lh-wic">
-                        <rect key="frame" x="20" y="36" width="353" height="54"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Desc" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xbn-Lh-wic">
+                        <rect key="frame" x="20" y="36.5" width="353" height="53.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="textColor" systemColor="labelColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -40,6 +40,7 @@
                     <constraint firstAttribute="trailing" secondItem="xbn-Lh-wic" secondAttribute="trailing" constant="20" id="G6n-gY-Nr4"/>
                     <constraint firstAttribute="bottom" secondItem="xbn-Lh-wic" secondAttribute="bottom" constant="10" id="tt8-iJ-9dT"/>
                     <constraint firstItem="xbn-Lh-wic" firstAttribute="top" secondItem="IRi-HO-Asw" secondAttribute="bottom" constant="5" id="wcC-dr-fmv"/>
+                    <constraint firstAttribute="trailing" secondItem="IRi-HO-Asw" secondAttribute="trailing" constant="20" symbolic="YES" id="xRH-a4-Vit"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
