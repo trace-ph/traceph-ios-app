@@ -48,10 +48,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareTextView: UITextView?
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
-    @IBOutlet weak var qrTextView: UITextView!
     @IBOutlet weak var headerImage: UIImageView!
-    @IBOutlet weak var qrImage: UIImageView!
-    @IBOutlet weak var copyButton: UIButton!
     
     
     var isLowPower = false
@@ -69,9 +66,6 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = true
             shareTextView?.isHidden = true
-            copyButton.isHidden = true
-            qrTextView?.isHidden = true
-            qrImage.isHidden = true
             detectButton?.isHidden = true
             
             lowPowerButton.setTitle("TURN OFF", for: .normal)
@@ -86,9 +80,6 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = false
             shareTextView?.isHidden = false
-            copyButton.isHidden = false
-            qrTextView?.isHidden = false
-            qrImage.isHidden = false
             detectButton?.isHidden = false
             
             lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
@@ -101,7 +92,7 @@ class ViewController: UIViewController {
     }
     
     var toggleDetect = false
-    @IBAction func detectPress(_ sender: UIButton?) {
+    @IBAction func detectPress(_ sender: UISwitch?) {
         toggleDetect = !toggleDetect
         
         if(toggleDetect) {
@@ -158,9 +149,6 @@ class ViewController: UIViewController {
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false
         //        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
-        qrTextView?.sizeToFit()
-        qrTextView?.isScrollEnabled = false
-        detectButton?.setTitle("Enable Contact-tracing", for: .normal)
 //        #endif
         
         let backgroundNotifCenter = NotificationCenter.default

@@ -1,24 +1,32 @@
 PODS:
   - Alamofire (4.9.1)
+  - DatePicker (1.3.1):
+    - Extended
+  - Extended (1.0.5)
   - SideMenu (5.0.1)
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
+  - DatePicker (~> 1.3.0)
   - SideMenu
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - DatePicker
+    - Extended
     - SideMenu
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
+  Extended: c463225e0c29b2823847866c1b106827772ac678
   SideMenu: 87efd943737bb83aedf0358884d09fcf5576636d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: ab157cec0b2046398102e2b66f684519ea69069f
+PODFILE CHECKSUM: 9ebc4205fc2cfb7a59051fabf6994eca331fac72
 
 COCOAPODS: 1.10.1
