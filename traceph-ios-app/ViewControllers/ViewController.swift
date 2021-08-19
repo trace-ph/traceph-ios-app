@@ -22,7 +22,6 @@ protocol ViewControllerInputs {
 class ViewController: UIViewController {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
-        static let downloadURL: String = "https://endcov.ph/dashboard/"
     }
     
     enum Segues: String {
@@ -49,6 +48,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
     @IBOutlet weak var headerImage: UIImageView!
+    @IBOutlet weak var contactTracingLabel: UILabel?
+    @IBOutlet weak var contactTracingSwitch: UISwitch?
     
     
     var isLowPower = false
@@ -67,6 +68,8 @@ class ViewController: UIViewController {
             headerImage.isHidden = true
             shareTextView?.isHidden = true
             detectButton?.isHidden = true
+            contactTracingLabel?.isHidden = true
+            contactTracingSwitch?.isHidden = true
             
             lowPowerButton.setTitle("TURN OFF", for: .normal)
             lowPowerButton.backgroundColor = UIColor.black
@@ -81,6 +84,8 @@ class ViewController: UIViewController {
             headerImage.isHidden = false
             shareTextView?.isHidden = false
             detectButton?.isHidden = false
+            contactTracingLabel?.isHidden = false
+            contactTracingSwitch?.isHidden = false
             
             lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
             lowPowerButton.backgroundColor = UIColor.systemGreen
@@ -102,10 +107,6 @@ class ViewController: UIViewController {
             bluetoothManager.stop()
             detectButton?.setTitle("Enable Contact-tracing", for: .normal)
         }
-    }
-    
-    @IBAction func copyAction(_ sender: UIButton?) {
-        UIPasteboard.general.string = Constants.downloadURL
     }
     
     func updateTextFont(textView: UITextView) {
@@ -144,7 +145,6 @@ class ViewController: UIViewController {
         debugView = nil
         view = shareView
 //        bluetoothManager.detect()
-        shareTextView?.text += "\n\(Constants.downloadURL)"
         //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false

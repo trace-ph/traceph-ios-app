@@ -15,6 +15,8 @@
                 <viewController storyboardIdentifier="ContactViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UoR-x6-pzL"/>
                     <connections>
+                        <outlet property="contactTracingLabel" destination="VsU-zM-dEr" id="8V9-AD-6Ru"/>
+                        <outlet property="contactTracingSwitch" destination="zxB-BB-BsH" id="ZaQ-im-FhC"/>
                         <outlet property="debugView" destination="8bC-Xf-vdC" id="sjI-OS-YIz"/>
                         <outlet property="detectButton" destination="Z46-zP-CrU" id="b9w-69-loV"/>
                         <outlet property="deviceTable" destination="IZA-jP-AuW" id="KmX-Kb-nEV"/>
@@ -218,39 +220,18 @@ Let this app run in the background. Whenever we confirm that someone you have en
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48f-k9-z4y">
-                            <rect key="frame" x="30" y="133" width="354" height="36.5"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Input the needed information." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48f-k9-z4y">
+                            <rect key="frame" x="20" y="133" width="374" height="36.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <attributedString key="attributedText">
-                                <fragment content="Input the needed information">
-                                    <attributes>
-                                        <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="17" name="Tahoma-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                                <fragment content=".">
-                                    <attributes>
-                                        <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
+                            <color key="textColor" systemColor="labelColor"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNs-6y-8eG">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lab test results" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNs-6y-8eG">
                             <rect key="frame" x="20" y="64" width="374" height="59"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <attributedString key="attributedText">
-                                <fragment content="Lab test results">
-                                    <attributes>
-                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="36" name="Tahoma-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sqG-fP-PqF">
@@ -289,8 +270,8 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="covidResult" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdF-Sb-apu">
-                            <rect key="frame" x="40" y="360" width="285" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="40" y="360" width="285" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -324,18 +305,18 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <constraint firstItem="fdF-Sb-apu" firstAttribute="top" secondItem="O0Z-z3-lxf" secondAttribute="bottom" constant="7.5" id="Vaw-vW-mbB"/>
                         <constraint firstItem="48f-k9-z4y" firstAttribute="top" secondItem="pNs-6y-8eG" secondAttribute="bottom" constant="10" id="ZlD-OB-h1k"/>
                         <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="Q9u-qE-0rA" secondAttribute="trailing" constant="10" id="cQn-RV-PIG"/>
-                        <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="48f-k9-z4y" secondAttribute="trailing" constant="30" id="e3V-b1-5oD"/>
                         <constraint firstItem="Xan-Ed-fyW" firstAttribute="top" secondItem="Tlu-Xr-21Y" secondAttribute="bottom" constant="20" id="eLY-zQ-QFL"/>
                         <constraint firstItem="Q9u-qE-0rA" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="10" id="ewh-AP-hw5"/>
                         <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="V13-Y6-dLe" secondAttribute="trailing" constant="30" id="gVK-vU-GG3"/>
-                        <constraint firstItem="48f-k9-z4y" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="30" id="get-rt-Deh"/>
                         <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="sqG-fP-PqF" secondAttribute="trailing" constant="30" id="giN-d7-yxS"/>
+                        <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="48f-k9-z4y" secondAttribute="trailing" constant="20" id="hiA-EF-8FG"/>
                         <constraint firstItem="sqG-fP-PqF" firstAttribute="leading" secondItem="fdF-Sb-apu" secondAttribute="trailing" constant="10" id="kmA-NU-VZV"/>
                         <constraint firstItem="mCB-vL-zGY" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="30" id="maU-zj-Dd3"/>
                         <constraint firstItem="O0Z-z3-lxf" firstAttribute="top" secondItem="V13-Y6-dLe" secondAttribute="bottom" constant="20" id="n77-xq-dVg"/>
                         <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="mCB-vL-zGY" secondAttribute="trailing" constant="30" id="ri3-5C-2hq"/>
                         <constraint firstItem="mCB-vL-zGY" firstAttribute="top" secondItem="48f-k9-z4y" secondAttribute="bottom" constant="10" id="rvW-1I-KeG"/>
                         <constraint firstItem="Tlu-Xr-21Y" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="30" id="sl5-DA-KmV"/>
+                        <constraint firstItem="48f-k9-z4y" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="20" id="vmp-IX-o37"/>
                         <constraint firstItem="O0Z-z3-lxf" firstAttribute="leading" secondItem="mLd-aE-TaZ" secondAttribute="leading" constant="30" id="vwf-Ej-bRe"/>
                         <constraint firstItem="mLd-aE-TaZ" firstAttribute="trailing" secondItem="O0Z-z3-lxf" secondAttribute="trailing" constant="30" id="zhP-5n-fcc"/>
                     </constraints>
@@ -347,28 +328,22 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="nN7-Xa-uyT">
                             <rect key="frame" x="10" y="64" width="394" height="192"/>
                         </imageView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="002-2g-RTv">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Implications of reporting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="002-2g-RTv">
                             <rect key="frame" x="20" y="264" width="374" height="102"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <attributedString key="attributedText">
-                                <fragment content="Implications of reporting">
-                                    <attributes>
-                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="36" name="Tahoma-Bold"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGK-Mx-9r2">
-                            <rect key="frame" x="30" y="374" width="354" height="150"/>
+                            <rect key="frame" x="30" y="374" width="354" height="188"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <attributedString key="attributedText">
                                 <fragment>
                                     <string key="content">To make a report, point the camera to the DetectPH QR code found in your lab test result. The camera will scan the QR code and get a code for you to input. Once your report is authenticated, we will use the info you filled up to find your close contacts and notify them. You can only report successfully once per day.</string>
                                     <attributes>
-                                        <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma"/>
+                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="18" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -376,35 +351,43 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcL-ER-0fW">
-                            <rect key="frame" x="30" y="532" width="354" height="54.5"/>
+                            <rect key="frame" x="30" y="570" width="354" height="57"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <attributedString key="attributedText">
                                 <fragment content="Remember">
                                     <attributes>
                                         <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma-Bold"/>
+                                        <font key="NSFont" size="17" name="Tahoma-Bold"/>
                                         <font key="NSOriginalFont" size="16" name="Tahoma-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
-                                <fragment content=": You're only reporting for yourself and ">
+                                <fragment content=": ">
                                     <attributes>
                                         <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma"/>
+                                        <font key="NSFont" size="17" name="Tahoma-Bold"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="You're only reporting for yourself and ">
+                                    <attributes>
+                                        <color key="NSColor" systemColor="labelColor"/>
+                                        <font key="NSFont" size="17" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
                                 <fragment content="not">
                                     <attributes>
                                         <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma-Bold"/>
+                                        <font key="NSFont" size="17" name="Tahoma-Bold"/>
+                                        <font key="NSOriginalFont" size="17" name="Tahoma-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
                                 <fragment content=" on behalf of others.">
                                     <attributes>
                                         <color key="NSColor" systemColor="labelColor"/>
-                                        <font key="NSFont" size="16" name="Tahoma"/>
+                                        <font key="NSFont" size="17" name="Tahoma"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -412,7 +395,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0Q-VZ-0ES">
-                            <rect key="frame" x="10" y="606.5" width="394" height="38"/>
+                            <rect key="frame" x="10" y="647" width="394" height="38"/>
                             <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                             <state key="normal" title="I understand!">
@@ -465,14 +448,14 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Your 3 latest received notifications can be viewed here:" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iza-Ju-gfy">
-                                <rect key="frame" x="30" y="131" width="354" height="54.5"/>
+                                <rect key="frame" x="30" y="131" width="354" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iBU-Mf-GYG">
-                                <rect key="frame" x="0.0" y="193.5" width="414" height="702.5"/>
+                                <rect key="frame" x="20" y="196" width="374" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -483,11 +466,11 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <constraint firstItem="dp4-Dn-vrk" firstAttribute="trailing" secondItem="Iza-Ju-gfy" secondAttribute="trailing" constant="30" id="7H5-8c-ceI"/>
                             <constraint firstItem="Iza-Ju-gfy" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="30" id="Aw7-xO-zdQ"/>
                             <constraint firstAttribute="bottom" secondItem="iBU-Mf-GYG" secondAttribute="bottom" id="Nck-ZY-oSx"/>
+                            <constraint firstItem="iBU-Mf-GYG" firstAttribute="trailing" secondItem="dp4-Dn-vrk" secondAttribute="trailing" constant="-20" id="XfV-ya-KQL"/>
                             <constraint firstItem="iBU-Mf-GYG" firstAttribute="top" secondItem="Iza-Ju-gfy" secondAttribute="bottom" constant="8" id="Y94-Ke-FGr"/>
+                            <constraint firstItem="iBU-Mf-GYG" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="20" id="f2M-b7-wFB"/>
                             <constraint firstItem="p8P-sY-Ywi" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="20" id="glI-WA-WSw"/>
                             <constraint firstItem="p8P-sY-Ywi" firstAttribute="top" secondItem="dp4-Dn-vrk" secondAttribute="top" constant="20" id="iug-8L-kva"/>
-                            <constraint firstItem="iBU-Mf-GYG" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" id="nrX-hl-BXd"/>
-                            <constraint firstItem="iBU-Mf-GYG" firstAttribute="trailing" secondItem="dp4-Dn-vrk" secondAttribute="trailing" id="whl-Wx-OA5"/>
                             <constraint firstItem="Iza-Ju-gfy" firstAttribute="top" secondItem="p8P-sY-Ywi" secondAttribute="bottom" constant="8" id="zI0-s3-RPe"/>
                         </constraints>
                     </view>
@@ -511,7 +494,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9S-yK-QFF">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2038"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2101.5"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="What to do when exposed" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXi-Mr-szZ">
                                                 <rect key="frame" x="20" y="20" width="374" height="102"/>
@@ -521,75 +504,23 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Definition of close contacts" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Do-lr-CkT">
-                                                <rect key="frame" x="30" y="130" width="354" height="35.5"/>
+                                                <rect key="frame" x="30" y="130" width="354" height="41.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cf-hE-eUY">
-                                                <rect key="frame" x="30" y="167.5" width="354" height="302.5"/>
+                                                <rect key="frame" x="30" y="173.5" width="354" height="340.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="Close contacts are defined as direct contacts and proximal contacts. You are a ">
-                                                        <attributes>
-                                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="16" name="Tahoma"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                <tabStops/>
-                                                            </paragraphStyle>
-                                                            <color key="NSStrokeColor" red="0.14118" green="0.16078000000000001" blue="0.18038999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="direct contact">
-                                                        <attributes>
-                                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma-Bold"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="16" name="Tahoma"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                <tabStops/>
-                                                            </paragraphStyle>
-                                                            <color key="NSStrokeColor" red="0.14118" green="0.16078000000000001" blue="0.18038999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" if you were within 2 meters of the confirmed COVID-positive case. You are a ">
-                                                        <attributes>
-                                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="16" name="Tahoma"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                <tabStops/>
-                                                            </paragraphStyle>
-                                                            <color key="NSStrokeColor" red="0.14118" green="0.16078000000000001" blue="0.18038999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="proximal contact">
-                                                        <attributes>
-                                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma-Bold"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="16" name="Tahoma"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                <tabStops/>
-                                                            </paragraphStyle>
-                                                            <color key="NSStrokeColor" red="0.14118" green="0.16078000000000001" blue="0.18038999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </attributes>
-                                                    </fragment>
                                                     <fragment>
-                                                        <string key="content"> if you were within 3 meters and were in proximity for more than 15 minutes with the confirmed  COVID-positive case. We set these distances with the assumption that users are not wearing proper PPE and face masks. The increase of 1 meter from the stated conditions of WHO, CDC, and DOH is to ensure that you'll be included as exposed if you're using mass transportations. We assume that all mass transportation you use are enclosed spaces.
-</string>
+                                                        <mutableString key="content">Close contacts are defined as direct contacts and proximal contacts. You are a direct contact if you were within 2 meters of the confirmed COVID-positive case. You are a proximal contact if you were within 3 meters and were in proximity for more than 15 minutes with the confirmed  COVID-positive case. We set these distances with the assumption that users are not wearing proper PPE and face masks. The increase of 1 meter from the stated conditions of WHO, CDC, and DOH is to ensure that you'll be included as exposed if you're using mass transportations. We assume that all mass transportation you use are enclosed spaces.
+</mutableString>
                                                         <attributes>
                                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                                            <font key="NSFont" size="17" name="Tahoma"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <font key="NSOriginalFont" size="16" name="Tahoma"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -602,21 +533,21 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Guidelines" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1g-BL-KSt">
-                                                <rect key="frame" x="30" y="478" width="354" height="35.5"/>
+                                                <rect key="frame" x="30" y="522" width="354" height="41.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhz-nG-cIT">
-                                                <rect key="frame" x="30" y="515.5" width="354" height="54.5"/>
+                                                <rect key="frame" x="30" y="565.5" width="354" height="57"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="When you received an exposed notification, do follow these guidelines:">
                                                         <attributes>
                                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                                            <font key="NSFont" size="17" name="Tahoma"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                                 <tabStops/>
@@ -628,33 +559,33 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HQ_Infographic" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-gT-W7S">
-                                                <rect key="frame" x="10" y="578" width="394" height="280.5"/>
+                                                <rect key="frame" x="10" y="630.5" width="394" height="280.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="2Pp-gT-W7S" secondAttribute="height" multiplier="336:239" id="F39-2W-mPp"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CP_Infographic" translatesAutoresizingMaskIntoConstraints="NO" id="4Ta-Vm-fZE">
-                                                <rect key="frame" x="10" y="860.5" width="394" height="394"/>
+                                                <rect key="frame" x="10" y="913" width="394" height="394"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4Ta-Vm-fZE" secondAttribute="height" id="SJT-wF-nDh"/>
                                                 </constraints>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Outsource and References" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWf-aa-gCJ">
-                                                <rect key="frame" x="30" y="1264.5" width="354" height="35.5"/>
+                                                <rect key="frame" x="30" y="1317" width="354" height="41.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypd-6N-aZe">
-                                                <rect key="frame" x="30" y="1302" width="354" height="54.5"/>
+                                                <rect key="frame" x="30" y="1360.5" width="354" height="57"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="You may also go to the following sites for more information about COVID-19:">
                                                         <attributes>
                                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                                            <font key="NSFont" size="17" name="Tahoma"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                                 <tabStops/>
@@ -666,28 +597,28 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-Yz-0hb">
-                                                <rect key="frame" x="30" y="1366.5" width="354" height="200"/>
+                                                <rect key="frame" x="30" y="1427.5" width="354" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="MAT-8E-aG7"/>
                                                 </constraints>
                                             </tableView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="What to do when exposed" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xc3-Ut-qAh">
-                                                <rect key="frame" x="20" y="1576.5" width="374" height="102"/>
+                                                <rect key="frame" x="20" y="1637.5" width="374" height="102"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNa-s2-97J">
-                                                <rect key="frame" x="30" y="1680.5" width="354" height="54.5"/>
+                                                <rect key="frame" x="30" y="1741.5" width="354" height="57"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="You may also go to the following sites for more information about COVID-19:">
                                                         <attributes>
                                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                                            <font key="NSFont" size="17" name="Tahoma"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                                 <tabStops/>
@@ -699,7 +630,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EU1-IX-KTe">
-                                                <rect key="frame" x="30" y="1745" width="354" height="200"/>
+                                                <rect key="frame" x="30" y="1808.5" width="354" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="2pF-Xl-ADS"/>
@@ -805,42 +736,42 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Early Detection, Better Protection" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaj-35-l2T">
-                                <rect key="frame" x="20" y="263" width="374" height="35.5"/>
+                                <rect key="frame" x="20" y="263" width="374" height="41.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nl1-oV-h6v">
-                                <rect key="frame" x="30" y="301.5" width="354" height="169"/>
+                                <rect key="frame" x="30" y="307.5" width="354" height="178.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">DetectPH is a mobile app that automates the contact-tracing process. Our goal is to inform people of their exposure as quickly as possible. Using your phone's Bluetooth, it keeps records of DetectPH users near you. Whenever you're connected to the internet, these records will be uploaded to out database as your possible contacts.</string>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Received a positive COVID result?" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26W-sO-enP">
-                                <rect key="frame" x="30" y="478.5" width="354" height="35.5"/>
+                                <rect key="frame" x="30" y="494" width="354" height="36.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kl8-Ku-E4H">
-                                <rect key="frame" x="30" y="517" width="354" height="92.5"/>
+                                <rect key="frame" x="30" y="533.5" width="354" height="97.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Report it in-app and we'll notify those we determined as your close contacts for you. We'll keep your identity a secret; Your close contacts will only know they're exposed.</string>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdw-bS-yPA">
-                                <rect key="frame" x="30" y="617.5" width="354" height="54.5"/>
+                                <rect key="frame" x="30" y="639" width="354" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <attributedString key="attributedText">
                                     <fragment content="If you have any concerns with the app or our privacy policy ">
                                         <attributes>
-                                            <font key="NSFont" size="16" name="Tahoma"/>
+                                            <font key="NSFont" size="17" name="Tahoma"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -910,12 +841,10 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DESIGNED BY FREEPIK" translatesAutoresizingMaskIntoConstraints="NO" id="6pQ-0E-VfG">
                                 <rect key="frame" x="29" y="127" width="356" height="112"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-3d-pUa">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-3d-pUa">
                                 <rect key="frame" x="29" y="274" width="356" height="480"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
+                                <string key="text">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive or PUI (Person Under Investigation) of COVID-19.
 
 To do this, we will need your help to turn on your device bluetooth.
 
@@ -924,13 +853,8 @@ DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the sa
 The iOS Application is required to run in the foreground to be able to scan other devices properly.
 
 Please allow the app to send you notifications and use the low-power mode to ensure that the application is running properly when you're in high-risk environments.</string>
-                                        <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="16" name="Tahoma"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhs-wX-j4I">
@@ -986,21 +910,14 @@ Please allow the app to send you notifications and use the low-power mode to ens
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDM-Ky-Npo">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDM-Ky-Npo">
                                 <rect key="frame" x="29" y="212" width="356" height="500"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">We noticed that your bluetooth is off.
+                                <string key="text">We noticed that your bluetooth is off.
 
 Please turn on your bluetooth from your settings to start using DetectPH app.</string>
-                                        <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Par-WC-mPl">
