@@ -33,6 +33,8 @@ class ExposedViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var closeContacts: UIScrollView!
     @IBOutlet weak var referenceTableView: UITableView?
     @IBOutlet weak var hospitalTableView: UITableView?
+    @IBOutlet weak var referenceTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var hospitalTableHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,13 @@ class ExposedViewController: UIViewController, UITableViewDelegate, UITableViewD
         hospitalTableView?.delegate = self
         hospitalTableView?.dataSource = self
         hospitalTableView?.tableFooterView = UIView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        referenceTableHeight.constant = (referenceTableView?.contentSize.height)!
+        hospitalTableHeight.constant = (hospitalTableView?.contentSize.height)!
     }
     
     // Notification Table functions
