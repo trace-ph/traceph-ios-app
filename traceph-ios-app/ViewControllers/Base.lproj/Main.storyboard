@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vkn-Ug-LUg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BbG-81-M5F">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -18,7 +18,6 @@
                         <outlet property="contactTracingLabel" destination="VsU-zM-dEr" id="8V9-AD-6Ru"/>
                         <outlet property="contactTracingSwitch" destination="zxB-BB-BsH" id="ZaQ-im-FhC"/>
                         <outlet property="debugView" destination="8bC-Xf-vdC" id="sjI-OS-YIz"/>
-                        <outlet property="detectButton" destination="Z46-zP-CrU" id="b9w-69-loV"/>
                         <outlet property="deviceTable" destination="IZA-jP-AuW" id="KmX-Kb-nEV"/>
                         <outlet property="headerImage" destination="iTj-Pm-rhA" id="bre-mH-4vv"/>
                         <outlet property="lowPowerButton" destination="Qpm-Ip-Glv" id="yNA-HL-jVO"/>
@@ -76,7 +75,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-BB-BsH">
                             <rect key="frame" x="345" y="122" width="51" height="31"/>
                             <connections>
-                                <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchDown" id="kBg-dF-k4m"/>
+                                <action selector="toggleContact:" destination="BYZ-38-t0r" eventType="valueChanged" id="Lji-J6-a05"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact-tracing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsU-zM-dEr">
@@ -85,20 +84,6 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z46-zP-CrU">
-                            <rect key="frame" x="10" y="491" width="394" height="38"/>
-                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="38" id="75V-MD-iyZ"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                            <state key="normal" title="DETECT">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchDown" id="RrM-4e-hod"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="SjZ-hJ-2Az"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -108,17 +93,14 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="zxB-BB-BsH" secondAttribute="trailing" constant="20" id="3ka-6i-W9c"/>
                         <constraint firstItem="iTj-Pm-rhA" firstAttribute="top" secondItem="zxB-BB-BsH" secondAttribute="bottom" constant="20" id="49G-ac-tBs"/>
                         <constraint firstItem="VsU-zM-dEr" firstAttribute="top" secondItem="Qpm-Ip-Glv" secondAttribute="bottom" constant="20" id="68K-d5-VwM"/>
-                        <constraint firstItem="Z46-zP-CrU" firstAttribute="top" secondItem="TgF-UG-kol" secondAttribute="bottom" constant="50" id="9Rk-CF-HKK"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="top" secondItem="iTj-Pm-rhA" secondAttribute="bottom" constant="20" id="DLR-tU-YOJ"/>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="iTj-Pm-rhA" secondAttribute="trailing" constant="20" id="E84-M9-AwU"/>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="Qpm-Ip-Glv" secondAttribute="trailing" constant="20" id="J3n-2K-B49"/>
-                        <constraint firstAttribute="trailing" secondItem="Z46-zP-CrU" secondAttribute="trailing" constant="10" id="MNR-EZ-JUr"/>
                         <constraint firstItem="TgF-UG-kol" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="Os9-tn-Oqi"/>
                         <constraint firstItem="SjZ-hJ-2Az" firstAttribute="trailing" secondItem="TgF-UG-kol" secondAttribute="trailing" constant="20" id="Qkl-Ym-yO5"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="XOd-5Z-2fD"/>
                         <constraint firstItem="iTj-Pm-rhA" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="20" id="b1d-hZ-1am"/>
                         <constraint firstItem="zxB-BB-BsH" firstAttribute="leading" secondItem="VsU-zM-dEr" secondAttribute="trailing" constant="20" id="ea1-h9-bRc"/>
-                        <constraint firstItem="Z46-zP-CrU" firstAttribute="leading" secondItem="SjZ-hJ-2Az" secondAttribute="leading" constant="10" id="owB-oc-wz2"/>
                         <constraint firstItem="Qpm-Ip-Glv" firstAttribute="top" secondItem="SjZ-hJ-2Az" secondAttribute="top" constant="20" id="vqj-2U-gLu"/>
                     </constraints>
                 </view>
@@ -184,6 +166,9 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <state key="normal" title="DETECT">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="detectPress:" destination="BYZ-38-t0r" eventType="touchDown" id="dtD-Ep-OtB"/>
+                            </connections>
                         </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -208,6 +193,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                     <navigationItem key="navigationItem" id="c5w-vT-BdV"/>
                     <connections>
                         <outlet property="covidResult" destination="sqG-fP-PqF" id="dbX-1g-3Oa"/>
+                        <outlet property="covidResultText" destination="fdF-Sb-apu" id="4s7-hb-o8o"/>
                         <outlet property="inputResultsView" destination="YyN-GG-9tt" id="CCV-dD-oP5"/>
                         <outlet property="recvDateBtn" destination="V13-Y6-dLe" id="gGk-Rm-QF9"/>
                         <outlet property="reportHeaderView" destination="nN7-Xa-uyT" id="70v-jb-n3t"/>
@@ -236,6 +222,9 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         </textView>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sqG-fP-PqF">
                             <rect key="frame" x="335" y="360" width="51" height="31"/>
+                            <connections>
+                                <action selector="covidResultSwitch:" destination="EId-ea-Xke" eventType="valueChanged" id="TVS-gb-iZw"/>
+                            </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When did you get tested?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCB-vL-zGY">
                             <rect key="frame" x="30" y="179.5" width="354" height="21"/>

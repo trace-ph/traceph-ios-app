@@ -67,7 +67,6 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = true
             shareTextView?.isHidden = true
-            detectButton?.isHidden = true
             contactTracingLabel?.isHidden = true
             contactTracingSwitch?.isHidden = true
             
@@ -83,7 +82,6 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = false
             shareTextView?.isHidden = false
-            detectButton?.isHidden = false
             contactTracingLabel?.isHidden = false
             contactTracingSwitch?.isHidden = false
             
@@ -97,7 +95,7 @@ class ViewController: UIViewController {
     }
     
     var toggleDetect = false
-    @IBAction func detectPress(_ sender: UISwitch?) {
+    @IBAction func detectPress(_ sender: UIButton?) {
         toggleDetect = !toggleDetect
         
         if(toggleDetect) {
@@ -106,6 +104,13 @@ class ViewController: UIViewController {
         } else {
             bluetoothManager.stop()
             detectButton?.setTitle("Enable Contact-tracing", for: .normal)
+        }
+    }
+    @IBAction func toggleContact(_ sender: UISwitch) {
+        if sender.isOn {
+            bluetoothManager.detect()
+        } else {
+            bluetoothManager.stop()
         }
     }
     

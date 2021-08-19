@@ -18,6 +18,7 @@ class ReportViewController: UIViewController {
     @IBOutlet weak var testDateBtn: UIButton?
     @IBOutlet weak var recvDateBtn: UIButton?
     @IBOutlet weak var covidResult: UISwitch?
+    @IBOutlet weak var covidResultText: UILabel?
     var testDate: Date!
     var recvDate: Date!
     
@@ -37,10 +38,19 @@ class ReportViewController: UIViewController {
         // Goes to different view
         print("User understood report implication")
         view = inputResultsView
-        testDateBtn?.setTitle(Date().string(), for: .normal)
-        recvDateBtn?.setTitle(Date().string(), for: .normal)
         testDate = Date()
         recvDate = Date()
+        testDateBtn?.setTitle(testDate.string(), for: .normal)
+        recvDateBtn?.setTitle(recvDate.string(), for: .normal)
+        covidResultText?.text = "No"
+    }
+    
+    @IBAction func covidResultSwitch(_ sender: UISwitch){
+        if sender.isOn {
+            covidResultText?.text = "Yes"
+        } else {
+            covidResultText?.text = "No"
+        }
     }
     
     @IBAction func submitBtn(){
@@ -50,6 +60,9 @@ class ReportViewController: UIViewController {
         }
         
         print("User inputs the following")
+        print("Test date: " + testDate.string())
+        print("Received date: " + recvDate.string())
+        print("Covid-positive: " + (covidResultText?.text)!)
         // Show confirm results prompt
     }
     
