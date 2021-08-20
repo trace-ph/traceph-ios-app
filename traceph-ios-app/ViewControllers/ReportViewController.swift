@@ -48,7 +48,7 @@ class ReportViewController: UIViewController {
         testDateBtn?.setTitle(testDate.string(), for: .normal)
         recvDateBtn?.setTitle(recvDate.string(), for: .normal)
         covidResultText?.text = "No"
-        UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight], completion: nil)
+        UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight], completion: { [self] _ in view = inputResultsView })
     }
     
     

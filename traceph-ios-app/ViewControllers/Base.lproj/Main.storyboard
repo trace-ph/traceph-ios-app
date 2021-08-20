@@ -252,14 +252,14 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <rect key="frame" x="30" y="205.5" width="354" height="30"/>
                             <state key="normal" title="testDate"/>
                             <connections>
-                                <action selector="DateButton:" destination="EId-ea-Xke" eventType="touchDown" id="DfN-FI-iKn"/>
+                                <action selector="DateButton:" destination="EId-ea-Xke" eventType="touchDown" id="amf-2h-Gj0"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V13-Y6-dLe">
                             <rect key="frame" x="30" y="281.5" width="354" height="30"/>
                             <state key="normal" title="recvDate"/>
                             <connections>
-                                <action selector="DateButton:" destination="EId-ea-Xke" eventType="touchDown" id="Mof-ae-2DY"/>
+                                <action selector="DateButton:" destination="EId-ea-Xke" eventType="touchDown" id="CYB-zm-P1R"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9u-qE-0rA">
