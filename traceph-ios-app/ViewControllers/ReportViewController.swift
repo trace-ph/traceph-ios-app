@@ -41,7 +41,6 @@ class ReportViewController: UIViewController {
     
     // Start report view functions
     @IBAction func startReportBtn() {
-        // Goes to different view
         print("User understood report implication")
         testDate = Date()
         recvDate = Date()
@@ -63,7 +62,9 @@ class ReportViewController: UIViewController {
     
     @IBAction func submitBtn(){
         if testDate > recvDate {
-            print("User test date is later than received date")
+            let dateAlert = UIAlertController(title: "Test date error", message: "Your test date is later than when you receive the test results. Please input the correct dates.", preferredStyle: .alert)
+            dateAlert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(dateAlert, animated: true, completion: nil)
             return
         }
         
@@ -111,16 +112,6 @@ class ReportViewController: UIViewController {
         if sender == confirmBtn {
             print("User confirms details")
             // Goes to camera
-        }
-    }
-}
-
-extension CALayer {
-    var borderColorFromUIColor: UIColor {
-        get {
-            return UIColor(cgColor: self.borderColor!)
-        } set {
-            self.borderColor = newValue.cgColor
         }
     }
 }
