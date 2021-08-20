@@ -22,6 +22,11 @@ class ReportViewController: UIViewController {
     var testDate: Date!
     var recvDate: Date!
     
+    @IBOutlet weak var confirmResultsModal: UIView?
+    @IBOutlet weak var confirmResultsTextView: UITextView?
+    @IBOutlet weak var confirmBtn: UIButton?
+    @IBOutlet weak var backConfirmBtn: UIButton?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +39,20 @@ class ReportViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // Start report view functions
     @IBAction func startReportBtn() {
         // Goes to different view
         print("User understood report implication")
-        view = inputResultsView
         testDate = Date()
         recvDate = Date()
         testDateBtn?.setTitle(testDate.string(), for: .normal)
         recvDateBtn?.setTitle(recvDate.string(), for: .normal)
         covidResultText?.text = "No"
+        UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight], completion: nil)
     }
     
+    
+    // Input results view functions
     @IBAction func covidResultSwitch(_ sender: UISwitch){
         if sender.isOn {
             covidResultText?.text = "Yes"
@@ -59,11 +67,11 @@ class ReportViewController: UIViewController {
             return
         }
         
-        print("User inputs the following")
-        print("Test date: " + testDate.string())
-        print("Received date: " + recvDate.string())
-        print("Covid-positive: " + (covidResultText?.text)!)
         // Show confirm results prompt
+        UIView.transition(with: confirmResultsModal!, duration: 0.5, options: [.transitionCrossDissolve], animations: { self.confirmResultsModal?.isHidden = false }, completion: nil)
+        confirmResultsTextView?.text = "Test date: " + testDate.string()
+        confirmResultsTextView?.text += "\nReceived date: " + recvDate.string()
+        confirmResultsTextView?.text += "\nCovid-positive: " + (covidResultText?.text)!
     }
     
     @IBAction func DateButton(_ sender: UIButton) {
@@ -93,5 +101,26 @@ class ReportViewController: UIViewController {
         
         // Display
         datePicker.show(in: self, on: sender)
+    }
+    
+    
+    // Confirm results modal view functions
+    @IBAction func confirmResultBtn(_ sender: UIButton){
+        confirmResultsModal?.isHidden = true
+        
+        if sender == confirmBtn {
+            print("User confirms details")
+            // Goes to camera
+        }
+    }
+}
+
+extension CALayer {
+    var borderColorFromUIColor: UIColor {
+        get {
+            return UIColor(cgColor: self.borderColor!)
+        } set {
+            self.borderColor = newValue.cgColor
+        }
     }
 }
