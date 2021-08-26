@@ -24,6 +24,7 @@
 		0BA1EE9326B00ED10003FB1A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9226B00ED10003FB1A /* NotificationViewController.swift */; };
 		0BA1EE9526B00EF80003FB1A /* ExposedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9426B00EF80003FB1A /* ExposedViewController.swift */; };
 		0BA1EE9726B00F2C0003FB1A /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9626B00F2C0003FB1A /* AboutUsViewController.swift */; };
+		0BF3F29D26D7575500D39CAF /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF3F29C26D7575500D39CAF /* QRScannerViewController.swift */; };
 		541C9AE464AC82A6EF53B1A9 /* Pods_traceph_ios_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EAB5F429EB983931E209DAD /* Pods_traceph_ios_app.framework */; };
 		C60AE9F4243863390041B871 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F3243863390041B871 /* IntroViewController.swift */; };
 		C60AE9F6243863450041B871 /* PermissionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9F5243863450041B871 /* PermissionModalViewController.swift */; };
@@ -92,6 +93,7 @@
 		0BA1EE9226B00ED10003FB1A /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		0BA1EE9426B00EF80003FB1A /* ExposedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposedViewController.swift; sourceTree = "<group>"; };
 		0BA1EE9626B00F2C0003FB1A /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		0BF3F29C26D7575500D39CAF /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		6EAB5F429EB983931E209DAD /* Pods_traceph_ios_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_traceph_ios_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E935EAB62D4CAAE6EE0353B /* Pods-traceph-ios-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traceph-ios-app.debug.xcconfig"; path = "Target Support Files/Pods-traceph-ios-app/Pods-traceph-ios-app.debug.xcconfig"; sourceTree = "<group>"; };
 		C60AE9F3243863390041B871 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				0B05AB6026B91B9B00CF4575 /* MasterViewController.swift */,
 				0B05ABB926CB7F0200CF4575 /* CardTableViewCell.swift */,
 				0B05ABBA26CB7F0200CF4575 /* CardTableViewCell.xib */,
+				0BF3F29C26D7575500D39CAF /* QRScannerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				C650E96B243C9CFF008793F2 /* APIController.swift in Sources */,
 				C6C759D42431FF61002C4C5C /* LocationService.swift in Sources */,
 				0AE8F8DA243062DE004FFFE9 /* SceneDelegate.swift in Sources */,
+				0BF3F29D26D7575500D39CAF /* QRScannerViewController.swift in Sources */,
 				0BA1EE8F26B00DD00003FB1A /* Menu.swift in Sources */,
 				0B05ABBB26CB7F0200CF4575 /* CardTableViewCell.swift in Sources */,
 				C6C759D6243200FD002C4C5C /* BluetoothManager.swift in Sources */,

@@ -8,24 +8,35 @@
 
 import UIKit
 import DatePicker
+import AVFoundation
 
 class ReportViewController: UIViewController {
+    // Data to be sent to server
+    var testDate: Date!
+    var recvDate: Date!
+    var covidResult: Bool!
+    var qrCode: String!
     
+    // Start report view (Implication of report) Outlet
     @IBOutlet weak var startReportView: UIView?
     @IBOutlet weak var reportHeaderView: UIImageView!
     
+    // Input results view Outlets
     @IBOutlet weak var inputResultsView: UIView?
     @IBOutlet weak var testDateBtn: UIButton?
     @IBOutlet weak var recvDateBtn: UIButton?
-    @IBOutlet weak var covidResult: UISwitch?
+    @IBOutlet weak var covidResultSwitch: UISwitch?
     @IBOutlet weak var covidResultText: UILabel?
-    var testDate: Date!
-    var recvDate: Date!
     
+    // Confirm results modal Outlets
     @IBOutlet weak var confirmResultsModal: UIView?
     @IBOutlet weak var confirmResultsTextView: UITextView?
     @IBOutlet weak var confirmBtn: UIButton?
     @IBOutlet weak var backConfirmBtn: UIButton?
+    
+    // QR scanner view Outlets
+    @IBOutlet weak var qrScanView: UIView?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
     
     override func viewDidLoad() {
@@ -42,21 +53,26 @@ class ReportViewController: UIViewController {
     // Start report view functions
     @IBAction func startReportBtn() {
         print("User understood report implication")
+        
+        // Initialize variables
         testDate = Date()
         recvDate = Date()
         testDateBtn?.setTitle(testDate.string(), for: .normal)
         recvDateBtn?.setTitle(recvDate.string(), for: .normal)
         covidResultText?.text = "No"
+        covidResult = false
         UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight], completion: { [self] _ in view = inputResultsView })
     }
     
     
     // Input results view functions
-    @IBAction func covidResultSwitch(_ sender: UISwitch){
+    @IBAction func covidResultSwitchPress(_ sender: UISwitch){
         if sender.isOn {
             covidResultText?.text = "Yes"
+            covidResult = true
         } else {
             covidResultText?.text = "No"
+            covidResult = false
         }
     }
     
@@ -111,7 +127,28 @@ class ReportViewController: UIViewController {
         
         if sender == confirmBtn {
             print("User confirms details")
-            // Goes to camera
+            
+            // Get camera permission access
+            AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
+                if response {
+                    print("Camera access accepted")
+                } else {
+                    print("Camera access declined")
+                }
+            }
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(didGetQRCode(_:)), name: Notification.Name("QRcode"), object: nil)
         }
+    }
+    
+    @objc func didGetQRCode(_ notification: Notification){
+        qrCode = notification.object as! String?
+//        print(qrCode!)
+        
+        view = qrScanView
+        activityIndicator?.startAnimating()
+        
+        // Get authentication code
+        // Once auth code is fetched, open modal for auth code and auth code view
     }
 }

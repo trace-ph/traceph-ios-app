@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EId-ea-Xke">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BbG-81-M5F">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -192,13 +192,15 @@ Let this app run in the background. Whenever we confirm that someone you have en
                 <viewController storyboardIdentifier="ReportViewController" id="EId-ea-Xke" customClass="ReportViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="c5w-vT-BdV"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="voV-Zx-leV" id="LTv-l7-uMA"/>
                         <outlet property="backConfirmBtn" destination="i82-hF-CWa" id="3VM-iU-q1Y"/>
                         <outlet property="confirmBtn" destination="YCb-kF-7DH" id="xo5-Fr-MQq"/>
                         <outlet property="confirmResultsModal" destination="BNL-zX-zpu" id="qMN-3R-33o"/>
                         <outlet property="confirmResultsTextView" destination="mW7-82-bzz" id="BC3-D9-hK1"/>
-                        <outlet property="covidResult" destination="sqG-fP-PqF" id="dbX-1g-3Oa"/>
+                        <outlet property="covidResultSwitch" destination="sqG-fP-PqF" id="ebX-sJ-VIu"/>
                         <outlet property="covidResultText" destination="fdF-Sb-apu" id="4s7-hb-o8o"/>
                         <outlet property="inputResultsView" destination="YyN-GG-9tt" id="CCV-dD-oP5"/>
+                        <outlet property="qrScanView" destination="esU-QM-6Ox" id="dqa-OO-kHh"/>
                         <outlet property="recvDateBtn" destination="V13-Y6-dLe" id="gGk-Rm-QF9"/>
                         <outlet property="reportHeaderView" destination="nN7-Xa-uyT" id="70v-jb-n3t"/>
                         <outlet property="startReportView" destination="Wht-fu-A54" id="s55-83-fU1"/>
@@ -206,6 +208,30 @@ Let this app run in the background. Whenever we confirm that someone you have en
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPq-kY-tZU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="esU-QM-6Ox" userLabel="QRScanView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checking your QR code..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edx-kD-Lho">
+                            <rect key="frame" x="91.5" y="435.5" width="231.5" height="25.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="voV-Zx-leV">
+                            <rect key="frame" x="188.5" y="471" width="37" height="37"/>
+                            <color key="color" red="0.20450231429999999" green="0.51321405170000001" blue="0.85580605269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="UTD-en-ESy"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Edx-kD-Lho" firstAttribute="centerX" secondItem="esU-QM-6Ox" secondAttribute="centerX" id="Stm-Tv-GKo"/>
+                        <constraint firstItem="voV-Zx-leV" firstAttribute="top" secondItem="Edx-kD-Lho" secondAttribute="bottom" constant="10" id="WrL-kN-6qN"/>
+                        <constraint firstItem="Edx-kD-Lho" firstAttribute="centerY" secondItem="esU-QM-6Ox" secondAttribute="centerY" id="XWb-xp-Zpz"/>
+                        <constraint firstItem="voV-Zx-leV" firstAttribute="centerX" secondItem="esU-QM-6Ox" secondAttribute="centerX" id="i4M-e1-bAg"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" id="YyN-GG-9tt" userLabel="inputResultsView">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -227,7 +253,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sqG-fP-PqF">
                             <rect key="frame" x="335" y="360" width="51" height="31"/>
                             <connections>
-                                <action selector="covidResultSwitch:" destination="EId-ea-Xke" eventType="valueChanged" id="TVS-gb-iZw"/>
+                                <action selector="covidResultSwitchPress:" destination="EId-ea-Xke" eventType="touchUpInside" id="4h5-Al-omE"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When did you get tested?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCB-vL-zGY">
@@ -282,17 +308,17 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNL-zX-zpu">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvA-ad-wjC">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvA-ad-wjC">
                                     <rect key="frame" x="47" y="323" width="320" height="250"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Test Results" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mW7-82-bzz">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="Test Results" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mW7-82-bzz">
                                             <rect key="frame" x="20" y="81" width="280" height="79"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i82-hF-CWa">
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i82-hF-CWa">
                                             <rect key="frame" x="20" y="192" width="100" height="38"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -306,15 +332,19 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <action selector="confirmResultBtn:" destination="EId-ea-Xke" eventType="touchDown" id="ead-15-ICn"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCb-kF-7DH">
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCb-kF-7DH">
                                             <rect key="frame" x="200" y="192" width="100" height="38"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.0" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="HRB-Eb-E4e"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <state key="normal" title="Confirm">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>
                                                 <action selector="confirmResultBtn:" destination="EId-ea-Xke" eventType="touchDown" id="PFB-kk-PXs"/>
+                                                <segue destination="NLQ-th-y3S" kind="presentation" id="x8g-ry-HIG"/>
                                             </connections>
                                         </button>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Are these correct?" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEu-Ge-gPU">
@@ -330,11 +360,13 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="i82-hF-CWa" firstAttribute="leading" secondItem="jvA-ad-wjC" secondAttribute="leading" constant="20" symbolic="YES" id="2S9-vK-2wR"/>
                                         <constraint firstItem="i82-hF-CWa" firstAttribute="top" secondItem="mW7-82-bzz" secondAttribute="bottom" constant="32" id="3RT-wf-QUW"/>
                                         <constraint firstItem="mW7-82-bzz" firstAttribute="leading" secondItem="jvA-ad-wjC" secondAttribute="leading" constant="20" id="MPh-ng-qGS"/>
                                         <constraint firstItem="i82-hF-CWa" firstAttribute="baseline" secondItem="YCb-kF-7DH" secondAttribute="baseline" id="O8J-QN-id7"/>
                                         <constraint firstItem="QEu-Ge-gPU" firstAttribute="centerX" secondItem="mW7-82-bzz" secondAttribute="centerX" id="Scl-e0-JeR"/>
                                         <constraint firstItem="QEu-Ge-gPU" firstAttribute="top" secondItem="jvA-ad-wjC" secondAttribute="top" constant="20" id="ZAF-F1-JuT"/>
+                                        <constraint firstAttribute="trailing" secondItem="YCb-kF-7DH" secondAttribute="trailing" constant="20" symbolic="YES" id="cMZ-Wc-jj1"/>
                                         <constraint firstItem="mW7-82-bzz" firstAttribute="leading" secondItem="i82-hF-CWa" secondAttribute="leading" id="czJ-2K-ZLA"/>
                                         <constraint firstItem="QEu-Ge-gPU" firstAttribute="leading" secondItem="jvA-ad-wjC" secondAttribute="leading" constant="10" id="fIT-y4-O9a"/>
                                         <constraint firstItem="QEu-Ge-gPU" firstAttribute="centerX" secondItem="jvA-ad-wjC" secondAttribute="centerX" id="hoc-eQ-8IG"/>
@@ -358,9 +390,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="jvA-ad-wjC" firstAttribute="top" secondItem="BNL-zX-zpu" secondAttribute="top" constant="323" id="AbK-jJ-51l"/>
                                 <constraint firstItem="jvA-ad-wjC" firstAttribute="centerY" secondItem="BNL-zX-zpu" secondAttribute="centerY" id="ZCQ-pf-gua"/>
-                                <constraint firstItem="jvA-ad-wjC" firstAttribute="leading" secondItem="BNL-zX-zpu" secondAttribute="leading" constant="47" id="dm3-Rn-KrC"/>
                                 <constraint firstItem="jvA-ad-wjC" firstAttribute="centerX" secondItem="BNL-zX-zpu" secondAttribute="centerX" id="x1T-vT-WHh"/>
                             </constraints>
                         </view>
@@ -514,6 +544,63 @@ Let this app run in the background. Whenever we confirm that someone you have en
             </objects>
             <point key="canvasLocation" x="2342" y="129"/>
         </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="TYJ-g0-BeG">
+            <objects>
+                <viewController storyboardIdentifier="QRScannerViewController" id="NLQ-th-y3S" customClass="QRScannerViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BAg-Lh-aVE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwf-lq-C2f">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N32-aA-qFb">
+                                        <rect key="frame" x="185" y="38" width="44" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbt-FV-bUH">
+                                        <rect key="frame" x="15" y="39" width="18" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="18" id="22Q-X1-629"/>
+                                            <constraint firstAttribute="height" constant="18" id="F5P-jX-FKc"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="18" id="Izf-mX-YTA"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="unwindToHomeScreenWithSegue:" destination="NLQ-th-y3S" eventType="touchDown" id="pt2-xR-2Yg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="lbt-FV-bUH" secondAttribute="bottom" constant="13" id="78O-oV-VGS"/>
+                                    <constraint firstAttribute="bottom" secondItem="N32-aA-qFb" secondAttribute="bottom" constant="8" id="Ddh-Ue-H08"/>
+                                    <constraint firstAttribute="height" constant="70" id="PFO-To-JoY"/>
+                                    <constraint firstItem="lbt-FV-bUH" firstAttribute="leading" secondItem="cwf-lq-C2f" secondAttribute="leading" constant="15" id="QiL-92-HoX"/>
+                                    <constraint firstItem="N32-aA-qFb" firstAttribute="centerX" secondItem="cwf-lq-C2f" secondAttribute="centerX" id="prt-mi-aIR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RXm-vZ-CYk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RXm-vZ-CYk" firstAttribute="trailing" secondItem="cwf-lq-C2f" secondAttribute="trailing" id="E3J-te-EtF"/>
+                            <constraint firstItem="cwf-lq-C2f" firstAttribute="top" secondItem="RXm-vZ-CYk" secondAttribute="top" id="kxJ-M0-ksn"/>
+                            <constraint firstItem="cwf-lq-C2f" firstAttribute="leading" secondItem="RXm-vZ-CYk" secondAttribute="leading" id="xvY-ga-38j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="topBar" destination="cwf-lq-C2f" id="hPM-hn-mTw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VIc-eo-2tf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2341" y="826"/>
+        </scene>
         <!--Notification View Controller-->
         <scene sceneID="ndf-9E-jBn">
             <objects>
@@ -530,14 +617,14 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Your 3 latest received notifications can be viewed here:" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iza-Ju-gfy">
-                                <rect key="frame" x="30" y="131" width="354" height="57"/>
+                                <rect key="frame" x="30" y="131" width="354" height="36.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iBU-Mf-GYG">
-                                <rect key="frame" x="20" y="196" width="374" height="700"/>
+                                <rect key="frame" x="20" y="175.5" width="374" height="720.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -576,7 +663,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9S-yK-QFF">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2101.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2040"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="What to do when exposed" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXi-Mr-szZ">
                                                 <rect key="frame" x="20" y="20" width="374" height="102"/>
@@ -597,8 +684,8 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment>
-                                                        <mutableString key="content">Close contacts are defined as direct contacts and proximal contacts. You are a direct contact if you were within 2 meters of the confirmed COVID-positive case. You are a proximal contact if you were within 3 meters and were in proximity for more than 15 minutes with the confirmed  COVID-positive case. We set these distances with the assumption that users are not wearing proper PPE and face masks. The increase of 1 meter from the stated conditions of WHO, CDC, and DOH is to ensure that you'll be included as exposed if you're using mass transportations. We assume that all mass transportation you use are enclosed spaces.
-</mutableString>
+                                                        <string key="content">Close contacts are defined as direct contacts and proximal contacts. You are a direct contact if you were within 2 meters of the confirmed COVID-positive case. You are a proximal contact if you were within 3 meters and were in proximity for more than 15 minutes with the confirmed  COVID-positive case. We set these distances with the assumption that users are not wearing proper PPE and face masks. The increase of 1 meter from the stated conditions of WHO, CDC, and DOH is to ensure that you'll be included as exposed if you're using mass transportations. We assume that all mass transportation you use are enclosed spaces.
+</string>
                                                         <attributes>
                                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -622,7 +709,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhz-nG-cIT">
-                                                <rect key="frame" x="30" y="565.5" width="354" height="57"/>
+                                                <rect key="frame" x="30" y="565.5" width="354" height="36.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="When you received an exposed notification, do follow these guidelines:">
@@ -641,26 +728,26 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HQ_Infographic" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-gT-W7S">
-                                                <rect key="frame" x="10" y="630.5" width="394" height="280.5"/>
+                                                <rect key="frame" x="10" y="610" width="394" height="280.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="2Pp-gT-W7S" secondAttribute="height" multiplier="336:239" id="F39-2W-mPp"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CP_Infographic" translatesAutoresizingMaskIntoConstraints="NO" id="4Ta-Vm-fZE">
-                                                <rect key="frame" x="10" y="913" width="394" height="394"/>
+                                                <rect key="frame" x="10" y="892.5" width="394" height="394"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4Ta-Vm-fZE" secondAttribute="height" id="SJT-wF-nDh"/>
                                                 </constraints>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Outsource and References" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWf-aa-gCJ">
-                                                <rect key="frame" x="30" y="1317" width="354" height="41.5"/>
+                                                <rect key="frame" x="30" y="1296.5" width="354" height="41.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypd-6N-aZe">
-                                                <rect key="frame" x="30" y="1360.5" width="354" height="57"/>
+                                                <rect key="frame" x="30" y="1340" width="354" height="36.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="You may also go to the following sites for more information about COVID-19:">
@@ -679,21 +766,21 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-Yz-0hb">
-                                                <rect key="frame" x="30" y="1427.5" width="354" height="200"/>
+                                                <rect key="frame" x="30" y="1386.5" width="354" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="MAT-8E-aG7"/>
                                                 </constraints>
                                             </tableView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="What to do when exposed" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xc3-Ut-qAh">
-                                                <rect key="frame" x="20" y="1637.5" width="374" height="102"/>
+                                                <rect key="frame" x="20" y="1596.5" width="374" height="102"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNa-s2-97J">
-                                                <rect key="frame" x="30" y="1741.5" width="354" height="57"/>
+                                                <rect key="frame" x="30" y="1700.5" width="354" height="36.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="You may also go to the following sites for more information about COVID-19:">
@@ -712,7 +799,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EU1-IX-KTe">
-                                                <rect key="frame" x="30" y="1808.5" width="354" height="200"/>
+                                                <rect key="frame" x="30" y="1747" width="354" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="s9e-7Z-a3Z"/>
@@ -849,7 +936,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdw-bS-yPA">
-                                <rect key="frame" x="30" y="639" width="354" height="57"/>
+                                <rect key="frame" x="30" y="639" width="354" height="36.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <attributedString key="attributedText">
                                     <fragment content="If you have any concerns with the app or our privacy policy ">
@@ -930,7 +1017,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <constraints>
                                     <constraint firstAttribute="height" constant="412" id="6mt-tB-WZF"/>
                                 </constraints>
-                                <mutableString key="text">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive of COVID-19.
+                                <string key="text">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive of COVID-19.
 
 To do this, we will need your help by turning on your device bluetooth and location and disabling your battery optimizations for this app. DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the same app. These signal will serve as records of your contacts. The records are made as long as the app is open, even in the background. You may opt-out from being traced by disabling contact-tracing. We DO NOT access your location. We're only using the location access to ensure Bluetooth is working.
 
@@ -940,7 +1027,7 @@ Do turn on your internet or mobile data every few hours to receive notifications
 
 Please allow the app to send you notifications and use the low-power mode to ensure that the application is running properly when you're in high-risk environments.
 
-Let's help each other in these times. Early detection, better protection.</mutableString>
+Let's help each other in these times. Early detection, better protection.</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1109,6 +1196,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <image name="reportHeader" width="8000" height="4500"/>
         <image name="square" catalog="system" width="128" height="114"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
