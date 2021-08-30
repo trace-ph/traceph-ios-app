@@ -38,6 +38,16 @@ class ReportViewController: UIViewController {
     @IBOutlet weak var qrScanView: UIView?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
+    // Auth code view Outlets
+    @IBOutlet weak var inputTokenView: UIView?
+    @IBOutlet weak var authCodeModalView: UIView?
+    @IBOutlet weak var authCodeTextView: UITextView?
+    @IBOutlet weak var authCodeBtn: UIButton?
+    
+    // Verdict view Outlets
+    @IBOutlet weak var verdictView: UIView?
+    @IBOutlet weak var verdictTextView: UITextView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +71,11 @@ class ReportViewController: UIViewController {
         recvDateBtn?.setTitle(recvDate.string(), for: .normal)
         covidResultText?.text = "No"
         covidResult = false
-        UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight], completion: { [self] _ in view = inputResultsView })
+        
+        // Change views and disables menu button
+        // Disabling the menu button means the user has no choice but to finish the report
+        // They can go back by pressing the back button
+        UIView.transition(from: startReportView!, to: inputResultsView!, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in inputResultsView?.isHidden = false; view = inputResultsView; navigationController?.navigationBar.isHidden = true })
     }
     
     
@@ -120,6 +134,10 @@ class ReportViewController: UIViewController {
         datePicker.show(in: self, on: sender)
     }
     
+    @IBAction func inputBackBtn(){
+        UIView.transition(from: inputResultsView!, to: startReportView!, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in inputResultsView?.isHidden = true; view = startReportView; navigationController?.navigationBar.isHidden = false })
+    }
+    
     
     // Confirm results modal view functions
     @IBAction func confirmResultBtn(_ sender: UIButton){
@@ -145,10 +163,29 @@ class ReportViewController: UIViewController {
         qrCode = notification.object as! String?
 //        print(qrCode!)
         
+        qrScanView?.isHidden = false
         view = qrScanView
         activityIndicator?.startAnimating()
         
         // Get authentication code
         // Once auth code is fetched, open modal for auth code and auth code view
+    }
+    
+    
+    // Authentication code view functions
+    @IBAction func authCodeBtnPress(){
+        UIView.transition(with: authCodeModalView!, duration: 0.5, options: [.transitionCrossDissolve], animations: { self.authCodeModalView?.isHidden = true }, completion: nil)
+    }
+    
+    @IBAction func authCodeConfirm(){
+        // Check if auth input = 6 numbers
+        // Send to API for auth code checking
+        // If okay, go to verdict screen and updated verdict text
+    }
+    
+    
+    // Report verdict view functions
+    @IBAction func verdictOkPress(){        // Comes full circle
+        UIView.transition(from: verdictView!, to: startReportView!, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in verdictView?.isHidden = true; view = startReportView; navigationController?.navigationBar.isHidden = false })
     }
 }

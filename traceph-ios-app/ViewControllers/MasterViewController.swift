@@ -100,7 +100,6 @@ class MasterViewController: UIViewController, MenuControllerDelegate {
             ExposedController.view.isHidden = true
             AboutUsController.view.isHidden = true
         case .report:
-            ReportController.view = ReportController.startReportView
             ContactController.view.isHidden = true
             ReportController.view.isHidden = false
             NotificationController.view.isHidden = true
