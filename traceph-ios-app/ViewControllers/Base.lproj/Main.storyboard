@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BbG-81-M5F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EId-ea-Xke">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -195,6 +195,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                         <outlet property="activityIndicator" destination="voV-Zx-leV" id="LTv-l7-uMA"/>
                         <outlet property="authCodeBtn" destination="efx-Cf-bmS" id="q3Z-3k-Kcv"/>
                         <outlet property="authCodeModalView" destination="TPT-x7-j6Z" id="JwN-N2-k7x"/>
+                        <outlet property="authCodeTextField" destination="a0r-gj-gxd" id="Ta2-Qr-Vkz"/>
                         <outlet property="authCodeTextView" destination="4oC-4j-wL7" id="35j-II-WRg"/>
                         <outlet property="backConfirmBtn" destination="i82-hF-CWa" id="3VM-iU-q1Y"/>
                         <outlet property="confirmBtn" destination="YCb-kF-7DH" id="xo5-Fr-MQq"/>
@@ -272,9 +273,9 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0r-gj-gxd" userLabel="Auth code field">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a0r-gj-gxd" userLabel="Auth code field">
                             <rect key="frame" x="20" y="125.5" width="374" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cj5-5W-ua1">
@@ -291,24 +292,24 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <action selector="authCodeConfirm" destination="EId-ea-Xke" eventType="touchDown" id="aHd-3H-uEl"/>
                             </connections>
                         </button>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPT-x7-j6Z">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPT-x7-j6Z">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIq-eV-9gJ">
-                                    <rect key="frame" x="47" y="354" width="320" height="188"/>
+                                    <rect key="frame" x="47" y="349" width="320" height="198"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Auth code" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oC-4j-wL7">
-                                            <rect key="frame" x="20" y="80" width="280" height="20"/>
+                                            <rect key="frame" x="20" y="80" width="280" height="30"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="tvc-36-7vm"/>
+                                                <constraint firstAttribute="height" constant="30" id="tvc-36-7vm"/>
                                             </constraints>
                                             <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efx-Cf-bmS">
-                                            <rect key="frame" x="20" y="130" width="280" height="38"/>
+                                            <rect key="frame" x="20" y="140" width="280" height="38"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.0" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <state key="normal" title="OK">

@@ -42,6 +42,7 @@ class ReportViewController: UIViewController {
     @IBOutlet weak var inputTokenView: UIView?
     @IBOutlet weak var authCodeModalView: UIView?
     @IBOutlet weak var authCodeTextView: UITextView?
+    @IBOutlet weak var authCodeTextField: UITextField?
     @IBOutlet weak var authCodeBtn: UIButton?
     
     // Verdict view Outlets
@@ -168,7 +169,21 @@ class ReportViewController: UIViewController {
         activityIndicator?.startAnimating()
         
         // Get authentication code
-        // Once auth code is fetched, open modal for auth code and auth code view
+        APIController.sourceNodeID.onSucceed(){ [self] nodeID in
+            ReportAPI().getToken(nodeID: nodeID, data: qrCode)
+            .onSucceed { [self] result in
+                print(result)
+                authCodeTextView?.text = result
+                counterTimer = 30
+                countDown()
+                UIView.transition(from: qrScanView!, to: inputTokenView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; view = inputTokenView })
+            }
+            
+            // Status code 400:
+            // Either caused by broken QR or scanning of non-DetectPH QR
+            verdictTextView?.text = "Sorry but your report could not be made. It's possible that you may have reported before or your QR code is broken."
+            UIView.transition(from: qrScanView!, to: verdictView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; view = verdictView })
+        }
     }
     
     
@@ -177,10 +192,60 @@ class ReportViewController: UIViewController {
         UIView.transition(with: authCodeModalView!, duration: 0.5, options: [.transitionCrossDissolve], animations: { self.authCodeModalView?.isHidden = true }, completion: nil)
     }
     
+    // Starts countdown timer of auth code button
+    var counterTimer: Int!
+    func countDown(){
+//        print("Current count: \(counterTimer ?? 30)")
+        if authCodeModalView?.isHidden == true {
+            return
+        }
+        
+        if counterTimer < 0 {
+            UIView.transition(with: authCodeModalView!, duration: 0.5, options: [.transitionCrossDissolve], animations: { self.authCodeModalView?.isHidden = true }, completion: nil)
+        } else {
+            authCodeBtn?.setTitle("Ok (\(counterTimer ?? 30))", for: .normal)
+            counterTimer = counterTimer - 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { self.countDown() })
+        }
+        
+        return
+    }
+    
+    // Send to API for auth code checking
+    // If okay, go to verdict screen and updated verdict text
     @IBAction func authCodeConfirm(){
-        // Check if auth input = 6 numbers
-        // Send to API for auth code checking
-        // If okay, go to verdict screen and updated verdict text
+        let code = (authCodeTextField?.text)!
+        // Shows error prompt if auth code is not 6 numbers
+        if code.count != 6 || !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: code)){
+            print("Auth code is not 6 numbers")
+            return
+        }
+        
+        APIController.sourceNodeID.onSucceed(){ [self] nodeID in
+            ReportAPI().sendReport(
+                nodeID: nodeID,
+                authCode: code,
+                data: qrCode,
+                info: ReportAPI.patient_info(
+                    test_result: covidResult, test_result_date: recvDate, reference_date: testDate))
+            .onSucceed { [self] result in
+                switch result {
+                    case "wrong":
+                        verdictTextView?.text = "Wrong input code."
+                    case "expired":
+                        verdictTextView?.text = "Sorry but your report could not be made. Your QR code is expired."
+                    case "denied":
+                        verdictTextView?.text = "Sorry but your report could not be made. This QR code has already been reported."
+                    case "accepted":
+                        verdictTextView?.text = "Report accepted."
+                    default:
+                        verdictTextView?.text = "Sorry but your report could not be made. It's possible that you may have reported before or your QR code is broken."
+                }
+                
+                
+                UIView.transition(from: inputTokenView!, to: verdictView!, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in inputTokenView?.isHidden = true; view = verdictView })
+            }
+        }
     }
     
     
