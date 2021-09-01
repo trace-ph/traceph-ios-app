@@ -23,7 +23,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     
     // Notification Table functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3;
+        return 4;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -32,8 +32,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         // Get the saved notification
         let notifLabel = DefaultsKeys.notifLabel.dictArrayValue as? [String]
         let notifDesc = DefaultsKeys.notifDesc.dictArrayValue as? [String]
-        cell.cardLabel?.text = notifLabel?[indexPath.row] ?? "Date received"
-        cell.cardDesc?.text = notifDesc?[indexPath.row] ?? "Notification details"
+        cell.cardLabel?.text = notifLabel?[indexPath.row + 1] ?? "Date received"
+        cell.cardDesc?.text = notifDesc?[indexPath.row + 1] ?? "Notification details"
         
         return cell
     }
