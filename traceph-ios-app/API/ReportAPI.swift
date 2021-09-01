@@ -13,8 +13,7 @@ import SwiftyJSON
 
 struct ReportAPI {
     struct Constants {
-//        static let ROOT_URL = "https://www.detectph.com/api"
-        static let ROOT_URL = "http://192.168.15.54:3000/api"
+        static let ROOT_URL = "https://www.detectph.com/api"
         static let REPORT_URL = "\(Constants.ROOT_URL)/report"
         static let AUTH_URL = "\(Constants.REPORT_URL)/auth"
         
