@@ -159,6 +159,9 @@ class ViewController: UIViewController {
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
+        // Call notification function
+        NotificationAPI().getNotification()
+        
     }
     
     @objc func didEnterBackground() {

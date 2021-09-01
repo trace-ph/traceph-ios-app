@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NotificationViewInputs {
+    func reloadNotif()
+}
+
 class NotificationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var notifTableView: UITableView!
     
@@ -30,10 +34,15 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         let cell = notifTableView.dequeueReusableCell(withIdentifier: "CardTableViewCell", for: indexPath) as! CardTableViewCell
         
         // Get the saved notification
-        let notifLabel = DefaultsKeys.notifLabel.dictArrayValue as? [String]
-        let notifDesc = DefaultsKeys.notifDesc.dictArrayValue as? [String]
-        cell.cardLabel?.text = notifLabel?[indexPath.row + 1] ?? "Date received"
-        cell.cardDesc?.text = notifDesc?[indexPath.row + 1] ?? "Notification details"
+        let notifLabel = DefaultsKeys.notifLabel.dictArrayValue as? [String] ?? [String]()
+        let notifDesc = DefaultsKeys.notifDesc.dictArrayValue as? [String] ?? [String]()
+        if notifLabel.count - 1 >= indexPath.row {
+            cell.cardLabel?.text = notifLabel[indexPath.row]
+            cell.cardDesc?.text = notifDesc[indexPath.row]
+        } else {
+            cell.cardLabel?.text = "Date received"
+            cell.cardDesc?.text = "Notification details"
+        }
         
         return cell
     }
@@ -46,4 +55,14 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         cell.contentView.layer.masksToBounds = true
     }
     
+    
+    @IBAction func refreshBtn(){
+        reloadNotif()
+    }
+}
+
+extension NotificationViewController : NotificationViewInputs {
+    func reloadNotif() {
+        notifTableView?.reloadData()
+    }
 }

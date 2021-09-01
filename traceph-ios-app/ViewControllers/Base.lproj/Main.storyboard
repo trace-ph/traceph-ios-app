@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EId-ea-Xke">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BbG-81-M5F">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -822,6 +822,22 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <rect key="frame" x="20" y="175.5" width="374" height="720.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFU-sX-htF">
+                                <rect key="frame" x="284" y="804" width="110" height="38"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.0" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="F3E-VV-Koz"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="H1C-Kd-MtM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Refresh" image="arrow.clockwise" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshBtn" destination="DxH-27-HFd" eventType="touchUpInside" id="uA6-tP-f0r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dp4-Dn-vrk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -829,9 +845,11 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <constraint firstItem="dp4-Dn-vrk" firstAttribute="trailing" secondItem="p8P-sY-Ywi" secondAttribute="trailing" constant="20" id="4Ww-K3-Fhm"/>
                             <constraint firstItem="dp4-Dn-vrk" firstAttribute="trailing" secondItem="Iza-Ju-gfy" secondAttribute="trailing" constant="30" id="7H5-8c-ceI"/>
                             <constraint firstItem="Iza-Ju-gfy" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="30" id="Aw7-xO-zdQ"/>
+                            <constraint firstItem="dp4-Dn-vrk" firstAttribute="bottom" secondItem="wFU-sX-htF" secondAttribute="bottom" constant="20" id="CpJ-1Z-qdR"/>
                             <constraint firstAttribute="bottom" secondItem="iBU-Mf-GYG" secondAttribute="bottom" id="Nck-ZY-oSx"/>
                             <constraint firstItem="iBU-Mf-GYG" firstAttribute="trailing" secondItem="dp4-Dn-vrk" secondAttribute="trailing" constant="-20" id="XfV-ya-KQL"/>
                             <constraint firstItem="iBU-Mf-GYG" firstAttribute="top" secondItem="Iza-Ju-gfy" secondAttribute="bottom" constant="8" id="Y94-Ke-FGr"/>
+                            <constraint firstItem="dp4-Dn-vrk" firstAttribute="trailing" secondItem="wFU-sX-htF" secondAttribute="trailing" constant="20" id="YDY-iY-fbX"/>
                             <constraint firstItem="iBU-Mf-GYG" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="20" id="f2M-b7-wFB"/>
                             <constraint firstItem="p8P-sY-Ywi" firstAttribute="leading" secondItem="dp4-Dn-vrk" secondAttribute="leading" constant="20" id="glI-WA-WSw"/>
                             <constraint firstItem="p8P-sY-Ywi" firstAttribute="top" secondItem="dp4-Dn-vrk" secondAttribute="top" constant="20" id="iug-8L-kva"/>
@@ -1263,7 +1281,7 @@ Let's help each other in these times. Early detection, better protection.</strin
                                             <attributes>
                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" metaFont="system" size="14"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -1387,6 +1405,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="HQ_Infographic" width="2048" height="1769"/>
         <image name="Mask Group 1" width="280" height="112"/>
         <image name="TracePH" width="113" height="160"/>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <image name="reportHeader" width="8000" height="4500"/>
