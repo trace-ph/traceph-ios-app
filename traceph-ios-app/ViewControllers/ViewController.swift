@@ -19,7 +19,7 @@ protocol ViewControllerInputs {
 }
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
     }
@@ -112,7 +112,40 @@ class ViewController: UIViewController {
         } else {
             bluetoothManager.stop()
         }
+        
+        // Trigger notification behavior
+        NotificationCenter.default.post(name: Notification.Name("isContactTracing"), object: sender.isOn)
     }
+    
+    // Shows/Removes notification that the app is creating records of contacts
+    @objc func isContactTracing(_ notification: Notification){
+        let isOn = notification.object as! Bool
+        let notifCenter = UNUserNotificationCenter.current()
+        notifCenter.delegate = self
+        let requestIdentifier = "is.contact.tracing"
+        
+        if isOn {
+            let notifContent = UNMutableNotificationContent()
+            notifContent.title = "Recording contacts..."
+            notifContent.body = "DetectPH is creating records of your contacts"
+            
+            let date = Date().addingTimeInterval(1)
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            
+            let notifRequest = UNNotificationRequest(identifier: requestIdentifier, content: notifContent, trigger: notifTrigger)
+            
+            notifCenter.add(notifRequest) { (error) in
+                if error != nil {
+                    print("Notification center add error: \(String(describing: error))")
+                }
+            }
+        
+        } else {
+            notifCenter.removeDeliveredNotifications(withIdentifiers: [requestIdentifier])
+        }
+    }
+    
     
     func updateTextFont(textView: UITextView) {
         if (textView.text.isEmpty || textView.bounds.size.equalTo(CGSize.zero)) {
@@ -158,41 +191,36 @@ class ViewController: UIViewController {
         
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        backgroundNotifCenter.addObserver(self, selector: #selector(isContactTracing), name: Notification.Name("isContactTracing"), object: nil)
         
         // Call notification function
-        NotificationAPI().getNotification()
+        NotificationAPI().setupNotification()
         
     }
     
     @objc func didEnterBackground() {
 //        print("App entered background")
+            
+        let notifCenter = UNUserNotificationCenter.current()
         
-        if #available(iOS 10.0, *) {
-            
-            let notifCenter = UNUserNotificationCenter.current()
-            
-            let notifContent = UNMutableNotificationContent()
-            notifContent.title = "DetectPH is running in the background"
-            notifContent.body = "Please keep DetectPH running to detect devices properly"
-            
-            let date = Date().addingTimeInterval(3)
-            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-            let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            
-            let notifUUID = UUID().uuidString
-            let notifRequest = UNNotificationRequest(identifier: notifUUID, content: notifContent, trigger: notifTrigger)
-            
-            notifCenter.add(notifRequest) { (error) in
-                if error != nil {
-                    print("Notification center add error: \(String(describing: error))")
-                }
+        let notifContent = UNMutableNotificationContent()
+        notifContent.title = "DetectPH is running in the background"
+        notifContent.body = "Please keep DetectPH running to detect devices properly"
+        
+        let date = Date().addingTimeInterval(3)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let requestIdentifier = "BG notif"
+        let notifRequest = UNNotificationRequest(identifier: requestIdentifier, content: notifContent, trigger: notifTrigger)
+        
+        notifCenter.add(notifRequest) { (error) in
+            if error != nil {
+                print("Notification center add error: \(String(describing: error))")
             }
-            
-//            print("notification added")
-            
-        } else {
-            // Fallback on earlier versions
         }
+            
+//        print("notification added")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -227,6 +255,14 @@ class ViewController: UIViewController {
             return
         }
         controller.bluetoothManager = self.bluetoothManager
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
     }
 }
 

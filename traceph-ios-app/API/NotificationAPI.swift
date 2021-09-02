@@ -9,15 +9,47 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
 
-struct NotificationAPI {
+class NotificationAPI: NSObject, UNUserNotificationCenterDelegate {
     struct Constants {
         static let ROOT_URL = "https://www.detectph.com/api"
         static let NOTIF_URL = "\(Constants.ROOT_URL)/notification"
         static let CONFIRM_URL = "\(Constants.NOTIF_URL)/confirm"
         
         static let NODE_ID_KEY = "node_id"
+    }
+    
+    func setupNotification(){
+        print("Setting up notification...")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(exposedNotif), name: Notification.Name("Exposed"), object: nil)
+        
+        getNotification()
+    }
+    
+    @objc func exposedNotif(_ notification: Notification){
+        let message = notification.object as! String?
+        
+        let notifCenter = UNUserNotificationCenter.current()
+        let notifContent = UNMutableNotificationContent()
+        notifContent.title = "You have been exposed"
+        notifContent.body = message!
+        notifContent.sound = UNNotificationSound.default
+        
+        let date = Date().addingTimeInterval(1)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let notifUUID = UUID().uuidString
+        
+        let notifRequest = UNNotificationRequest(identifier: notifUUID, content: notifContent, trigger: notifTrigger)
+        
+        notifCenter.add(notifRequest) { (error) in
+            if error != nil {
+                print("Notification center add error: \(String(describing: error))")
+            }
+        }
     }
     
     func getNotification() {
@@ -33,11 +65,11 @@ struct NotificationAPI {
             
             Alamofire.request(request as URLRequestConvertible)
             .validate()
-            .responseString { response in
+            .responseString { [self] response in
                 switch response.result {
                     case .success(let message):
-                        print(message)
-                        // Show message in notification
+//                        print(message)
+                        NotificationCenter.default.post(name: Notification.Name("Exposed"), object: message)    // Show notif
                         saveNotif(message: message)
                         sendConfirmation()
                             .onSucceed(){ _ in
@@ -99,5 +131,13 @@ struct NotificationAPI {
         }
         
         return promise
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
     }
 }
