@@ -217,7 +217,9 @@ class ReportViewController: UIViewController {
         let code = (authCodeTextField?.text)!
         // Shows error prompt if auth code is not 6 numbers
         if code.count != 6 || !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: code)){
-            print("Auth code is not 6 numbers")
+            let authCodeAlert = UIAlertController(title: "Authentication code", message: "You must input 6 numbers", preferredStyle: .alert)
+            authCodeAlert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(authCodeAlert, animated: true, completion: nil)
             return
         }
         
