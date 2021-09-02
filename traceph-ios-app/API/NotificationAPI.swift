@@ -14,8 +14,7 @@ import UserNotifications
 
 class NotificationAPI: NSObject, UNUserNotificationCenterDelegate {
     struct Constants {
-        static let ROOT_URL = "https://www.detectph.com/api"
-        static let NOTIF_URL = "\(Constants.ROOT_URL)/notification"
+        static let NOTIF_URL = "\(config.Constants.ROOT_URL)/notification"
         static let CONFIRM_URL = "\(Constants.NOTIF_URL)/confirm"
         
         static let NODE_ID_KEY = "node_id"
