@@ -176,13 +176,17 @@ class ReportViewController: UIViewController {
                 authCodeTextView?.text = result
                 counterTimer = 30
                 countDown()
-                UIView.transition(from: qrScanView!, to: inputTokenView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; view = inputTokenView })
+                UIView.transition(from: qrScanView!, to: inputTokenView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; authCodeModalView?.isHidden = false; view = inputTokenView })
             }
             
-            // Status code 400:
-            // Either caused by broken QR or scanning of non-DetectPH QR
-            verdictTextView?.text = "Sorry but your report could not be made. It's possible that you may have reported before or your QR code is broken."
-            UIView.transition(from: qrScanView!, to: verdictView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; view = verdictView })
+            ReportAPI().getToken(nodeID: nodeID, data: qrCode)
+            .onFail { [self] result in
+                print(result)
+                // Status code 400:
+                // Either caused by broken QR or scanning of non-DetectPH QR
+                verdictTextView?.text = "Sorry but your report could not be made. It's possible that you may have reported before or your QR code is broken."
+                UIView.transition(from: qrScanView!, to: verdictView!, duration: 1, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: { [self] _ in qrScanView?.isHidden = true; view = verdictView })
+            }
         }
     }
     

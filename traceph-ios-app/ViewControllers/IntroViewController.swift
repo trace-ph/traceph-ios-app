@@ -22,6 +22,8 @@ class IntroViewController: UIViewController {
     var bluetoothManager: BluetoothManager?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     @IBAction func privPolicyLink(){
@@ -70,7 +72,9 @@ class IntroViewController: UIViewController {
     
     func proceed() {
         DefaultsKeys.userHasConsented.setBool(true)
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 

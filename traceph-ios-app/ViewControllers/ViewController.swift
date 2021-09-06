@@ -182,7 +182,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
 //        #else
         debugView = nil
         view = shareView
-//        bluetoothManager.detect()
         //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false

@@ -21,6 +21,11 @@ class NotificationAPI: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func setupNotification(){
+        if !DefaultsKeys.userHasConsented.boolValue {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: { self.setupNotification() })   // Recheck consent after 1 minute
+            return
+        }
+        
         print("Setting up notification...")
         
         NotificationCenter.default.addObserver(self, selector: #selector(exposedNotif), name: Notification.Name("Exposed"), object: nil)

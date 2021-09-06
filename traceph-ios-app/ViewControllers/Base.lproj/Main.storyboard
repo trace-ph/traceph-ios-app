@@ -24,8 +24,8 @@
                         <outlet property="peripheralStatus" destination="Tos-4a-cam" id="Ulq-aA-Q7m"/>
                         <outlet property="shareTextView" destination="TgF-UG-kol" id="Y2O-xo-ZQH"/>
                         <outlet property="shareView" destination="Eqg-dj-kgn" id="fKR-kH-Vmh"/>
-                        <segue destination="PEJ-ZK-VDo" kind="presentation" identifier="intro" animates="NO" modalPresentationStyle="fullScreen" id="Ygr-ZA-A0C"/>
-                        <segue destination="xie-LI-JGp" kind="presentation" identifier="authorize" id="wR8-ds-58k"/>
+                        <segue destination="PEJ-ZK-VDo" kind="show" identifier="intro" animates="NO" id="Ygr-ZA-A0C"/>
+                        <segue destination="xie-LI-JGp" kind="presentation" identifier="authorize" animates="NO" modalPresentationStyle="fullScreen" id="wR8-ds-58k"/>
                     </connections>
                 </viewController>
                 <view contentMode="scaleToFill" id="Eqg-dj-kgn" userLabel="ShareView">
@@ -72,7 +72,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                                 <action selector="lowPowerPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Sv-QO-DX2"/>
                             </connections>
                         </button>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-BB-BsH">
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-BB-BsH">
                             <rect key="frame" x="345" y="122" width="51" height="31"/>
                             <connections>
                                 <action selector="toggleContact:" destination="BYZ-38-t0r" eventType="valueChanged" id="Lji-J6-a05"/>
@@ -393,7 +393,7 @@ Let this app run in the background. Whenever we confirm that someone you have en
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="voV-Zx-leV">
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="voV-Zx-leV">
                             <rect key="frame" x="188.5" y="471" width="37" height="37"/>
                             <color key="color" red="0.20450231429999999" green="0.51321405170000001" blue="0.85580605269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
@@ -1218,19 +1218,28 @@ Let this app run in the background. Whenever we confirm that someone you have en
             <objects>
                 <viewController storyboardIdentifier="intro" id="PEJ-ZK-VDo" customClass="IntroViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Of-QR-IKT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DESIGNED BY FREEPIK" translatesAutoresizingMaskIntoConstraints="NO" id="6pQ-0E-VfG">
-                                <rect key="frame" x="29" y="127" width="356" height="112"/>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-3d-pUa">
-                                <rect key="frame" x="29" y="274" width="356" height="412"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="412" id="6mt-tB-WZF"/>
-                                </constraints>
-                                <string key="text">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive of COVID-19.
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tkn-G1-5fb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2c-wG-nDp">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nez-AM-yLC">
+                                                <rect key="frame" x="30" y="10" width="89.5" height="43"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DESIGNEDBYFREEPIK" translatesAutoresizingMaskIntoConstraints="NO" id="ZWf-tL-tRS">
+                                                <rect key="frame" x="30" y="63" width="354" height="112"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" verticalHuggingPriority="249" scrollEnabled="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kV4-jc-c0V">
+                                                <rect key="frame" x="30" y="195" width="354" height="767"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text">DetectPH would like to ask for your consent in sending information of encounters with you if they have been confirmed positive of COVID-19.
 
 To do this, we will need your help by turning on your device bluetooth and location and disabling your battery optimizations for this app. DetectPH exchanges Bluetooth signals with nearby mobile phones which runs the same app. These signal will serve as records of your contacts. The records are made as long as the app is open, even in the background. You may opt-out from being traced by disabling contact-tracing. We DO NOT access your location. We're only using the location access to ensure Bluetooth is working.
 
@@ -1241,83 +1250,103 @@ Do turn on your internet or mobile data every few hours to receive notifications
 Please allow the app to send you notifications and use the low-power mode to ensure that the application is running properly when you're in high-risk environments.
 
 Let's help each other in these times. Early detection, better protection.</string>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhs-wX-j4I">
-                                <rect key="frame" x="31" y="76" width="352" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9U-6s-bRg">
-                                <rect key="frame" x="30" y="706" width="354" height="30"/>
-                                <state key="normal" title="DetectPH Privacy Policy"/>
-                                <connections>
-                                    <action selector="privPolicyLink" destination="PEJ-ZK-VDo" eventType="touchDown" id="i65-UF-E3R"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqh-ds-Olx">
-                                <rect key="frame" x="31" y="786" width="352" height="44"/>
-                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0G-bo-qc0">
+                                                <rect key="frame" x="30" y="992" width="165" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Gn3-Vr-pwy"/>
+                                                </constraints>
+                                                <state key="normal" title="DetectPH Privacy Policy"/>
+                                                <connections>
+                                                    <action selector="privPolicyLink" destination="PEJ-ZK-VDo" eventType="touchDown" id="pQg-yA-BT3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttA-PP-nq6">
+                                                <rect key="frame" x="30" y="1042" width="359.5" height="40"/>
+                                                <rect key="contentStretch" x="0.40000000000000002" y="0.20000000000000001" width="1" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="q0O-A7-xwB"/>
+                                                </constraints>
+                                                <state key="normal" image="square" catalog="system">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="I have read and accept the privacy policy of this app.">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="toggleCheckBox:" destination="PEJ-ZK-VDo" eventType="touchUpInside" id="LwN-h7-SXZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErF-LT-dlk">
+                                                <rect key="frame" x="30" y="1122" width="354" height="38"/>
+                                                <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="38" id="qIN-YV-fVh"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                <state key="normal" title="Agree">
+                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="agreeAction:" destination="PEJ-ZK-VDo" eventType="touchDown" id="11y-yr-m7e"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="L0G-bo-qc0" secondAttribute="trailing" constant="20" symbolic="YES" id="0Mm-6b-68U"/>
+                                            <constraint firstItem="ttA-PP-nq6" firstAttribute="top" secondItem="L0G-bo-qc0" secondAttribute="bottom" constant="10" id="A5T-kN-3li"/>
+                                            <constraint firstItem="ZWf-tL-tRS" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="ABD-g6-Zui"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZWf-tL-tRS" secondAttribute="trailing" constant="30" id="ENa-yG-8WS"/>
+                                            <constraint firstItem="kV4-jc-c0V" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="IOX-iI-YtW"/>
+                                            <constraint firstAttribute="trailing" secondItem="kV4-jc-c0V" secondAttribute="trailing" constant="30" id="Kvw-BN-SPr"/>
+                                            <constraint firstAttribute="trailing" secondItem="ErF-LT-dlk" secondAttribute="trailing" constant="30" id="RNA-ce-ZBu"/>
+                                            <constraint firstItem="ErF-LT-dlk" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="VeR-38-1Iv"/>
+                                            <constraint firstItem="L0G-bo-qc0" firstAttribute="top" secondItem="kV4-jc-c0V" secondAttribute="bottom" constant="30" id="Vuk-fj-GhO"/>
+                                            <constraint firstAttribute="bottom" secondItem="ErF-LT-dlk" secondAttribute="bottom" constant="40" id="a3I-oe-t6g"/>
+                                            <constraint firstItem="nez-AM-yLC" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="cNK-Zr-LcK"/>
+                                            <constraint firstItem="L0G-bo-qc0" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="eQL-4U-A6M"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nez-AM-yLC" secondAttribute="trailing" symbolic="YES" id="fuN-E6-0Z4"/>
+                                            <constraint firstItem="ZWf-tL-tRS" firstAttribute="top" secondItem="nez-AM-yLC" secondAttribute="bottom" constant="10" id="mz0-y2-3kD"/>
+                                            <constraint firstItem="ttA-PP-nq6" firstAttribute="leading" secondItem="f2c-wG-nDp" secondAttribute="leading" constant="30" id="pDn-wK-80r"/>
+                                            <constraint firstItem="kV4-jc-c0V" firstAttribute="top" secondItem="ZWf-tL-tRS" secondAttribute="bottom" constant="20" id="pmp-9R-vpM"/>
+                                            <constraint firstItem="ErF-LT-dlk" firstAttribute="top" secondItem="ttA-PP-nq6" secondAttribute="bottom" constant="40" id="qq8-8f-jsz"/>
+                                            <constraint firstItem="nez-AM-yLC" firstAttribute="top" secondItem="f2c-wG-nDp" secondAttribute="top" constant="10" id="z5z-Uk-iaZ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="PTs-JF-raj"/>
+                                    <constraint firstItem="f2c-wG-nDp" firstAttribute="top" secondItem="fPb-QS-7br" secondAttribute="top" id="6oh-aP-4hm"/>
+                                    <constraint firstItem="f2c-wG-nDp" firstAttribute="width" secondItem="6wQ-mf-mv8" secondAttribute="width" id="Hwh-y7-qeA"/>
+                                    <constraint firstItem="f2c-wG-nDp" firstAttribute="leading" secondItem="fPb-QS-7br" secondAttribute="leading" id="QdC-O0-Ujd"/>
+                                    <constraint firstItem="f2c-wG-nDp" firstAttribute="trailing" secondItem="fPb-QS-7br" secondAttribute="trailing" id="Z5e-dV-nZo"/>
+                                    <constraint firstItem="f2c-wG-nDp" firstAttribute="bottom" secondItem="fPb-QS-7br" secondAttribute="bottom" id="n3v-CO-mBz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Agree">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="agreeAction:" destination="PEJ-ZK-VDo" eventType="touchUpInside" id="bx5-Sv-Eqm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36S-gn-feh">
-                                <rect key="frame" x="30" y="738" width="354" height="18"/>
-                                <rect key="contentStretch" x="0.40000000000000002" y="0.20000000000000001" width="1" height="1"/>
-                                <state key="normal" image="square" catalog="system">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="I have read and accept the privacy policy of this app.">
-                                            <attributes>
-                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" metaFont="system" size="14"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <state key="selected" image="checkmark.square.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="toggleCheckBox:" destination="PEJ-ZK-VDo" eventType="touchDown" id="rSq-ik-bRB"/>
-                                </connections>
-                            </button>
+                                <viewLayoutGuide key="contentLayoutGuide" id="fPb-QS-7br"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="6wQ-mf-mv8"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="L0s-zN-7yX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ZJd-3d-pUa" firstAttribute="top" secondItem="6pQ-0E-VfG" secondAttribute="bottom" constant="35" id="21A-z9-E4k"/>
-                            <constraint firstItem="A9U-6s-bRg" firstAttribute="leading" secondItem="L0s-zN-7yX" secondAttribute="leading" constant="30" id="8fz-8p-dcq"/>
-                            <constraint firstItem="ZJd-3d-pUa" firstAttribute="leading" secondItem="L0s-zN-7yX" secondAttribute="leading" constant="29" id="AY3-yf-thN"/>
-                            <constraint firstItem="Hhs-wX-j4I" firstAttribute="top" secondItem="L0s-zN-7yX" secondAttribute="top" constant="32" id="BMs-Vr-u5v"/>
-                            <constraint firstItem="L0s-zN-7yX" firstAttribute="bottom" secondItem="Qqh-ds-Olx" secondAttribute="bottom" constant="32" id="DeY-SR-QAC"/>
-                            <constraint firstItem="36S-gn-feh" firstAttribute="top" secondItem="A9U-6s-bRg" secondAttribute="bottom" constant="2" id="F5Y-ef-lzU"/>
-                            <constraint firstItem="Hhs-wX-j4I" firstAttribute="centerX" secondItem="6pQ-0E-VfG" secondAttribute="centerX" id="JtF-i6-tCR"/>
-                            <constraint firstItem="Qqh-ds-Olx" firstAttribute="centerX" secondItem="ZJd-3d-pUa" secondAttribute="centerX" id="LQf-zS-8Rh"/>
-                            <constraint firstItem="A9U-6s-bRg" firstAttribute="top" secondItem="ZJd-3d-pUa" secondAttribute="bottom" constant="20" id="QGe-O6-tAU"/>
-                            <constraint firstItem="36S-gn-feh" firstAttribute="leading" secondItem="L0s-zN-7yX" secondAttribute="leading" constant="30" id="YPB-fD-HeO"/>
-                            <constraint firstItem="6pQ-0E-VfG" firstAttribute="width" secondItem="ZJd-3d-pUa" secondAttribute="width" id="cqR-I9-GXm"/>
-                            <constraint firstItem="Hhs-wX-j4I" firstAttribute="width" secondItem="6pQ-0E-VfG" secondAttribute="width" multiplier="0.988764" id="gUa-zQ-SVZ"/>
-                            <constraint firstItem="L0s-zN-7yX" firstAttribute="trailing" secondItem="A9U-6s-bRg" secondAttribute="trailing" constant="30" id="hdl-oY-LE1"/>
-                            <constraint firstItem="6pQ-0E-VfG" firstAttribute="top" secondItem="Hhs-wX-j4I" secondAttribute="bottom" constant="8" id="ive-bM-kri"/>
-                            <constraint firstItem="L0s-zN-7yX" firstAttribute="trailing" secondItem="ZJd-3d-pUa" secondAttribute="trailing" constant="29" id="nGm-he-3cD"/>
-                            <constraint firstItem="6pQ-0E-VfG" firstAttribute="centerX" secondItem="ZJd-3d-pUa" secondAttribute="centerX" id="s4w-rh-Toc"/>
-                            <constraint firstItem="Qqh-ds-Olx" firstAttribute="width" secondItem="ZJd-3d-pUa" secondAttribute="width" multiplier="0.988764" id="waT-ys-IyN"/>
-                            <constraint firstItem="L0s-zN-7yX" firstAttribute="trailing" secondItem="36S-gn-feh" secondAttribute="trailing" constant="30" id="yCO-2d-8Gi"/>
+                            <constraint firstItem="Tkn-G1-5fb" firstAttribute="leading" secondItem="L0s-zN-7yX" secondAttribute="leading" id="Jy2-Tj-wO5"/>
+                            <constraint firstItem="Tkn-G1-5fb" firstAttribute="trailing" secondItem="L0s-zN-7yX" secondAttribute="trailing" id="Y4A-7F-aUb"/>
+                            <constraint firstAttribute="bottom" secondItem="Tkn-G1-5fb" secondAttribute="bottom" id="nrq-mq-Tkz"/>
+                            <constraint firstItem="Tkn-G1-5fb" firstAttribute="top" secondItem="L0s-zN-7yX" secondAttribute="top" id="ns3-wo-2Iq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ktg-DX-NOn"/>
                     <connections>
-                        <outlet property="checkBox" destination="36S-gn-feh" id="wvn-JX-hqD"/>
+                        <outlet property="checkBox" destination="ttA-PP-nq6" id="3ll-EC-CbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUk-rg-wam" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1329,11 +1358,11 @@ Let's help each other in these times. Early detection, better protection.</strin
             <objects>
                 <viewController id="xie-LI-JGp" customClass="PermissionModalViewController" customModule="DetectPH" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2GU-UQ-n5a">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDM-Ky-Npo">
-                                <rect key="frame" x="29" y="212" width="356" height="500"/>
+                                <rect key="frame" x="29" y="256" width="356" height="510"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">We noticed that your bluetooth is off.
 
@@ -1343,7 +1372,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Par-WC-mPl">
-                                <rect key="frame" x="31" y="732" width="352" height="44"/>
+                                <rect key="frame" x="31" y="786" width="352" height="44"/>
                                 <color key="backgroundColor" red="0.83595865960000004" green="0.1994457543" blue="0.28233325479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="fPg-EB-Ww7"/>
@@ -1357,7 +1386,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="TracePH" translatesAutoresizingMaskIntoConstraints="NO" id="FYg-SB-XZK">
-                                <rect key="frame" x="150.5" y="32" width="113" height="160"/>
+                                <rect key="frame" x="150.5" y="76" width="113" height="160"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5Y8-3f-xGo"/>
@@ -1401,7 +1430,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
     </scenes>
     <resources>
         <image name="CP_Infographic" width="2299" height="3315"/>
-        <image name="DESIGNED BY FREEPIK" width="280" height="112"/>
+        <image name="DESIGNEDBYFREEPIK" width="280" height="112"/>
         <image name="HQ_Infographic" width="2048" height="1769"/>
         <image name="Mask Group 1" width="280" height="112"/>
         <image name="TracePH" width="113" height="160"/>
