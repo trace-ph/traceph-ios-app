@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1422,6 +1423,20 @@ Cg
                                             <action selector="unwindToHomeScreenWithSegue:" destination="NLQ-th-y3S" eventType="touchDown" id="pt2-xR-2Yg"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2o-8t-fMv">
+                                        <rect key="frame" x="369" y="35" width="30" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="0XD-Bf-saR"/>
+                                            <constraint firstAttribute="height" constant="22" id="y5d-1y-fod"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="photo" catalog="system" symbolScale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="galleryBtn" destination="NLQ-th-y3S" eventType="touchUpInside" id="hgU-kB-qlo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1429,7 +1444,9 @@ Cg
                                     <constraint firstAttribute="bottom" secondItem="N32-aA-qFb" secondAttribute="bottom" constant="8" id="Ddh-Ue-H08"/>
                                     <constraint firstAttribute="height" constant="70" id="PFO-To-JoY"/>
                                     <constraint firstItem="lbt-FV-bUH" firstAttribute="leading" secondItem="cwf-lq-C2f" secondAttribute="leading" constant="15" id="QiL-92-HoX"/>
+                                    <constraint firstAttribute="bottom" secondItem="Q2o-8t-fMv" secondAttribute="bottom" constant="13" id="k3D-ZS-WZB"/>
                                     <constraint firstItem="N32-aA-qFb" firstAttribute="centerX" secondItem="cwf-lq-C2f" secondAttribute="centerX" id="prt-mi-aIR"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q2o-8t-fMv" secondAttribute="trailing" constant="15" id="rAn-tG-Uxh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1442,6 +1459,7 @@ Cg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="galleryIcon" destination="Q2o-8t-fMv" id="8tu-Sh-B5q"/>
                         <outlet property="topBar" destination="cwf-lq-C2f" id="hPM-hn-mTw"/>
                     </connections>
                 </viewController>
@@ -2089,6 +2107,7 @@ Please turn on your bluetooth from your settings to start using DetectPH app.</s
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="reportHeader" width="8000" height="4500"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

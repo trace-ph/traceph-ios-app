@@ -10,12 +10,14 @@ import UIKit
 import AVFoundation
 
 @available(iOS 13.0, *)
-class QRScannerViewController: UIViewController {
+class QRScannerViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var topBar: UIView!
+    @IBOutlet weak var galleryIcon: UIButton!
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +69,18 @@ class QRScannerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func galleryBtn(){
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            print("Opening gallery")
+
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 @available(iOS 13.0, *)
@@ -90,6 +104,48 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 dismiss(animated: true, completion: nil)    // Close segue
             }
         }
+    }
+}
+
+@available(iOS 13.0, *)
+extension QRScannerViewController: UIImagePickerControllerDelegate {
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("Picking image done")
+        
+        // Initialize QR code detector and image to be detected
+        if let qrcodeImg = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let detector: CIDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: CIContext(), options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])!
+            let ciImage: CIImage = CIImage(image:qrcodeImg)!
+            let decoderOptions = [CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
+            
+            // Decode QR code
+            var qrCodeLink = ""
+            let features = detector.features(in: ciImage, options: decoderOptions)
+            for case let feature as CIQRCodeFeature in features {
+                qrCodeLink += feature.messageString!
+                print(feature.messageString!)
+            }
+
+            if qrCodeLink == "" {
+                print("nothing")
+            } else {
+                print("message: \(qrCodeLink)")
+            }
+            // Send qr code to Report view controller
+            NotificationCenter.default.post(name: Notification.Name("QRcode"), object: qrCodeLink)
+            dismiss(animated: true, completion: nil)
+        } else {
+            print("Something went wrong")
+            // Send empty string to Report view controller
+            NotificationCenter.default.post(name: Notification.Name("QRcode"), object: "")
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Picker is canceled")
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -162,7 +162,7 @@ class ReportViewController: UIViewController {
     
     @objc func didGetQRCode(_ notification: Notification){
         qrCode = notification.object as! String?
-//        print(qrCode!)
+//        print("QR code:", qrCode!)
         
         qrScanView?.isHidden = false
         view = qrScanView
