@@ -53,12 +53,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     var isLowPower = false
-    
-    
     @IBOutlet weak var lowPowerButton: UIButton!
-    
-    
-    
     
     @IBAction func lowPowerPress(_ sender: Any) {
         
@@ -69,12 +64,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             shareTextView?.isHidden = true
             contactTracingLabel?.isHidden = true
             contactTracingSwitch?.isHidden = true
+            navigationController?.isNavigationBarHidden = true
             
             lowPowerButton.setTitle("TURN OFF", for: .normal)
             lowPowerButton.backgroundColor = UIColor.black
             
             isLowPower = true
-            
         }
         
         else {
@@ -84,6 +79,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             shareTextView?.isHidden = false
             contactTracingLabel?.isHidden = false
             contactTracingSwitch?.isHidden = false
+            navigationController?.isNavigationBarHidden = false
             
             lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
             lowPowerButton.backgroundColor = UIColor.systemGreen
@@ -120,29 +116,23 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     // Shows/Removes notification that the app is creating records of contacts
     @objc func isContactTracing(_ notification: Notification){
         let isOn = notification.object as! Bool
-        let notifCenter = UNUserNotificationCenter.current()
-        notifCenter.delegate = self
-        let requestIdentifier = "is.contact.tracing"
+        let notifManager = LocalNotificationManager()
         
         if isOn {
-            let notifContent = UNMutableNotificationContent()
-            notifContent.title = "Recording contacts..."
-            notifContent.body = "DetectPH is creating records of your contacts"
-            
             let date = Date().addingTimeInterval(1)
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-            let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             
-            let notifRequest = UNNotificationRequest(identifier: requestIdentifier, content: notifContent, trigger: notifTrigger)
-            
-            notifCenter.add(notifRequest) { (error) in
-                if error != nil {
-                    print("Notification center add error: \(String(describing: error))")
-                }
-            }
+            notifManager.notifications.append(LocalNotification(
+                id: "is.contact.tracing",
+                title: "Recording contacts...",
+                body: "DetectPH is creating records of your contacts",
+                datetime: dateComponents,
+                repeats: false
+            ))
+            notifManager.schedule()
         
         } else {
-            notifCenter.removeDeliveredNotifications(withIdentifiers: [requestIdentifier])
+            notifManager.removeNotification(requestIdentifier: ["is.contact.tracing"])
         }
     }
     
@@ -199,25 +189,18 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @objc func didEnterBackground() {
 //        print("App entered background")
-            
-        let notifCenter = UNUserNotificationCenter.current()
-        
-        let notifContent = UNMutableNotificationContent()
-        notifContent.title = "DetectPH is running in the background"
-        notifContent.body = "Please keep DetectPH running to detect devices properly"
-        
         let date = Date().addingTimeInterval(3)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        let requestIdentifier = "BG notif"
-        let notifRequest = UNNotificationRequest(identifier: requestIdentifier, content: notifContent, trigger: notifTrigger)
-        
-        notifCenter.add(notifRequest) { (error) in
-            if error != nil {
-                print("Notification center add error: \(String(describing: error))")
-            }
-        }
+        let notifManager = LocalNotificationManager()
+        notifManager.notifications.append(LocalNotification(
+            id: "BG notif",
+            title: "DetectPH is running in the background",
+            body: "Please keep DetectPH running to detect devices properly",
+            datetime: dateComponents,
+            repeats: false
+        ))
+        notifManager.schedule()
             
 //        print("notification added")
     }

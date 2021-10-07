@@ -24,6 +24,7 @@
 		0BA1EE9326B00ED10003FB1A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9226B00ED10003FB1A /* NotificationViewController.swift */; };
 		0BA1EE9526B00EF80003FB1A /* ExposedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9426B00EF80003FB1A /* ExposedViewController.swift */; };
 		0BA1EE9726B00F2C0003FB1A /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1EE9626B00F2C0003FB1A /* AboutUsViewController.swift */; };
+		0BD51BA2270EC3D500E664B1 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD51BA1270EC3D500E664B1 /* LocalNotificationManager.swift */; };
 		0BF3F29D26D7575500D39CAF /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF3F29C26D7575500D39CAF /* QRScannerViewController.swift */; };
 		0BF3F29F26DCBA5F00D39CAF /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF3F29E26DCBA5F00D39CAF /* ReportAPI.swift */; };
 		0BF3F2A126DF6E7300D39CAF /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF3F2A026DF6E7200D39CAF /* NotificationAPI.swift */; };
@@ -97,6 +98,7 @@
 		0BA1EE9226B00ED10003FB1A /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		0BA1EE9426B00EF80003FB1A /* ExposedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposedViewController.swift; sourceTree = "<group>"; };
 		0BA1EE9626B00F2C0003FB1A /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		0BD51BA1270EC3D500E664B1 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		0BF3F29C26D7575500D39CAF /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		0BF3F29E26DCBA5F00D39CAF /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
 		0BF3F2A026DF6E7200D39CAF /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				C6C759D5243200FD002C4C5C /* BluetoothManager.swift */,
 				C6C759D32431FF61002C4C5C /* LocationService.swift */,
 				0BF3F2A226DF7A8600D39CAF /* Extensions.swift */,
+				0BD51BA1270EC3D500E664B1 /* LocalNotificationManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				0BF3F2A326DF7A8600D39CAF /* Extensions.swift in Sources */,
 				C60AE9F8243864B50041B871 /* DefaultsKeys.swift in Sources */,
 				C64F51502447319500E0CA4E /* Secrets.swift in Sources */,
+				0BD51BA2270EC3D500E664B1 /* LocalNotificationManager.swift in Sources */,
 				0B547EAD2668C0D20028337A /* recognizedDevices.swift in Sources */,
 				0BA1EE9526B00EF80003FB1A /* ExposedViewController.swift in Sources */,
 			);

@@ -28,6 +28,20 @@ class NotificationAPI: NSObject, UNUserNotificationCenterDelegate {
         
         print("Setting up notification...")
         
+        // Setup daily notifications
+        var date = DateComponents()
+        date.hour = 9
+        date.minute = 0
+        let notifManager = LocalNotificationManager()
+        notifManager.notifications.append(LocalNotification(
+            id: "Daily notif",
+            title: "Daily reminder",
+            body: "Good morning! Remember to open the app when you're outside or to check if you have been exposed.",
+            datetime: date,  // At 9 AM
+            repeats: true
+        ))
+        notifManager.schedule()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(exposedNotif), name: Notification.Name("Exposed"), object: nil)
         
         getNotification()
@@ -36,24 +50,18 @@ class NotificationAPI: NSObject, UNUserNotificationCenterDelegate {
     @objc func exposedNotif(_ notification: Notification){
         let message = notification.object as! String?
         
-        let notifCenter = UNUserNotificationCenter.current()
-        let notifContent = UNMutableNotificationContent()
-        notifContent.title = "You have been exposed"
-        notifContent.body = message!
-        notifContent.sound = UNNotificationSound.default
-        
-        let date = Date().addingTimeInterval(1)
+        let date = Date().addingTimeInterval(3)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let notifUUID = UUID().uuidString
         
-        let notifRequest = UNNotificationRequest(identifier: notifUUID, content: notifContent, trigger: notifTrigger)
-        
-        notifCenter.add(notifRequest) { (error) in
-            if error != nil {
-                print("Notification center add error: \(String(describing: error))")
-            }
-        }
+        let notifManager = LocalNotificationManager()
+        notifManager.notifications.append(LocalNotification(
+            id: UUID().uuidString,
+            title: "You have been exposed",
+            body: message!,
+            datetime: dateComponents,
+            repeats: false
+        ))
+        notifManager.schedule()
     }
     
     func getNotification() {
