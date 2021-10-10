@@ -50,13 +50,47 @@ class BluetoothManager: NSObject {
     }
     
     func detect() {
-        stopBluetooth = false
         viewController?.reloadTable(indexPath: nil)
         guard centralManager.state == .poweredOn else {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
         }
         
+        // Start advertising if previously closed
+        if(!peripheralManager.isAdvertising){
+            APIController.sourceNodeID.observe(using: { result in
+                switch result {
+                case .success(let value):
+                    // reset manager
+                    self.peripheralManager.stopAdvertising()
+                    self.peripheralManager.removeAllServices()
+                    
+                    //add service
+                    let service:CBMutableService = {
+                        let sendMSG = value.data(using: .utf8)
+                        
+                        //create characteristics
+                        let characteristic = CBMutableCharacteristic(type: Constants.SERVICE_IDENTIFIER, properties: [.read], value: sendMSG, permissions: [.readable])
+                        //create service
+                        let service = CBMutableService(type: Constants.SERVICE_IDENTIFIER, primary: true)
+                        //set characteristic
+                        service.characteristics = [characteristic]
+                        return service
+                    }()
+                    self.peripheralManager.add(service)
+                    
+                    self.peripheralManager.startAdvertising([
+                        CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
+                        CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
+                    ])
+                case .failure(let error):
+                    print(error)
+                    return
+                }
+            })
+        }
+        
+        stopBluetooth = false
         startTimer()
     }
     
@@ -64,10 +98,11 @@ class BluetoothManager: NSObject {
     func stop() {
         NSLog("Stopping scan and advertising...")
         stopBluetooth = true
-        self.centralManager.stopScan()
-        self.peripheralManager.stopAdvertising()
+        centralManager.stopScan()
+        peripheralManager.stopAdvertising()
+        peripheralManager.removeAllServices()
         
-        if(!self.centralManager.isScanning && !self.peripheralManager.isAdvertising){
+        if(!centralManager.isScanning && !peripheralManager.isAdvertising){
             print("Scanning and advertising is successfully stopped")
         }
     }
@@ -79,17 +114,9 @@ class BluetoothManager: NSObject {
         discoveryLog.removeAll()
         toConnect.removeAll()
         
-        // Start advertising if previously closed
-        if(!peripheralManager.isAdvertising){
-            peripheralManager.startAdvertising([
-                CBAdvertisementDataLocalNameKey : Constants.USER_PROFILE,
-                CBAdvertisementDataServiceUUIDsKey : [Constants.SERVICE_IDENTIFIER]
-            ])
-        }
-        
         NSLog("Calling scan for peripherals (startTimer)...")
         self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        self.perform(#selector(endScanning), with: self, afterDelay: 1);  // Stops scanning after 1 second
+        self.perform(#selector(endScanning), with: self, afterDelay: 4);  // Stops scanning after 4 seconds
         
         
     }
@@ -194,6 +221,11 @@ extension BluetoothManager: CBCentralManagerDelegate {
         //                print("ignoring: \(peripheral.identifier)")
         //            return
         //        }
+        
+        let manufacturer = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSString
+        print("\(peripheral.identifier) Manufacturer data: \(String(describing: manufacturer))")
+        print(peripheral)
+        
         //append node
         let detected_node =  node_data(
             name: peripheral.name ?? "N/A",
