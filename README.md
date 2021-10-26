@@ -1,7 +1,7 @@
 # traceph-ios-app
 TracePH iOS app is a Swift mobile application.
 
-##Prerequisites
+## Prerequisites
 * CocoaPods
 * Xcode (latest version)
 * iOS device (max iOS 15.0)
