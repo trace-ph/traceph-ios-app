@@ -19,10 +19,9 @@ protocol ViewControllerInputs {
 }
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     struct Constants {
         static let REUSE_IDENTIFIER = "discoveredNodeCell"
-        static let downloadURL: String = "https://endcov.ph/dashboard/"
     }
     
     enum Segues: String {
@@ -48,19 +47,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareTextView: UITextView?
     @IBOutlet weak var detectButton: UIButton?
     @IBOutlet weak var deviceTable: UITableView?
-    @IBOutlet weak var qrTextView: UITextView!
     @IBOutlet weak var headerImage: UIImageView!
-    @IBOutlet weak var qrImage: UIImageView!
-    @IBOutlet weak var copyButton: UIButton!
+    @IBOutlet weak var contactTracingLabel: UILabel?
+    @IBOutlet weak var contactTracingSwitch: UISwitch?
     
     
     var isLowPower = false
-    
-    
     @IBOutlet weak var lowPowerButton: UIButton!
-    
-    
-    
     
     @IBAction func lowPowerPress(_ sender: Any) {
         
@@ -69,16 +62,14 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = true
             shareTextView?.isHidden = true
-            copyButton.isHidden = true
-            qrTextView?.isHidden = true
-            qrImage.isHidden = true
-            detectButton?.isHidden = true
+            contactTracingLabel?.isHidden = true
+            contactTracingSwitch?.isHidden = true
+            navigationController?.isNavigationBarHidden = true
             
             lowPowerButton.setTitle("TURN OFF", for: .normal)
             lowPowerButton.backgroundColor = UIColor.black
             
             isLowPower = true
-            
         }
         
         else {
@@ -86,10 +77,9 @@ class ViewController: UIViewController {
             
             headerImage.isHidden = false
             shareTextView?.isHidden = false
-            copyButton.isHidden = false
-            qrTextView?.isHidden = false
-            qrImage.isHidden = false
-            detectButton?.isHidden = false
+            contactTracingLabel?.isHidden = false
+            contactTracingSwitch?.isHidden = false
+            navigationController?.isNavigationBarHidden = false
             
             lowPowerButton.setTitle("LOW-POWER MODE", for: .normal)
             lowPowerButton.backgroundColor = UIColor.systemGreen
@@ -112,10 +102,40 @@ class ViewController: UIViewController {
             detectButton?.setTitle("Enable Contact-tracing", for: .normal)
         }
     }
-    
-    @IBAction func copyAction(_ sender: UIButton?) {
-        UIPasteboard.general.string = Constants.downloadURL
+    @IBAction func toggleContact(_ sender: UISwitch) {
+        if sender.isOn {
+            bluetoothManager.detect()
+        } else {
+            bluetoothManager.stop()
+        }
+        
+        // Trigger notification behavior
+        NotificationCenter.default.post(name: Notification.Name("isContactTracing"), object: sender.isOn)
     }
+    
+    // Shows/Removes notification that the app is creating records of contacts
+    @objc func isContactTracing(_ notification: Notification){
+        let isOn = notification.object as! Bool
+        let notifManager = LocalNotificationManager()
+        
+        if isOn {
+            let date = Date().addingTimeInterval(1)
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            
+            notifManager.notifications.append(LocalNotification(
+                id: "is.contact.tracing",
+                title: "Recording contacts...",
+                body: "DetectPH is creating records of your contacts",
+                datetime: dateComponents,
+                repeats: false
+            ))
+            notifManager.schedule()
+        
+        } else {
+            notifManager.removeNotification(requestIdentifier: ["is.contact.tracing"])
+        }
+    }
+    
     
     func updateTextFont(textView: UITextView) {
         if (textView.text.isEmpty || textView.bounds.size.equalTo(CGSize.zero)) {
@@ -142,6 +162,7 @@ class ViewController: UIViewController {
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bluetoothManager = BluetoothManager(inputs: self)
@@ -151,51 +172,37 @@ class ViewController: UIViewController {
 //        #else
         debugView = nil
         view = shareView
-//        bluetoothManager.detect()
-        shareTextView?.text += "\n\(Constants.downloadURL)"
         //        shareTextView?.translatesAutoresizingMaskIntoConstraints = true
         shareTextView?.sizeToFit()
         shareTextView?.isScrollEnabled = false
         //        qrTextView?.translatesAutoresizingMaskIntoConstraints = true
-        qrTextView?.sizeToFit()
-        qrTextView?.isScrollEnabled = false
-        detectButton?.setTitle("Enable Contact-tracing", for: .normal)
 //        #endif
         
         let backgroundNotifCenter = NotificationCenter.default
         backgroundNotifCenter.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        backgroundNotifCenter.addObserver(self, selector: #selector(isContactTracing), name: Notification.Name("isContactTracing"), object: nil)
+        
+        // Call notification function
+        NotificationAPI().setupNotification()
         
     }
     
     @objc func didEnterBackground() {
 //        print("App entered background")
+        let date = Date().addingTimeInterval(3)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         
-        if #available(iOS 10.0, *) {
+        let notifManager = LocalNotificationManager()
+        notifManager.notifications.append(LocalNotification(
+            id: "BG notif",
+            title: "DetectPH is running in the background",
+            body: "Please keep DetectPH running to detect devices properly",
+            datetime: dateComponents,
+            repeats: false
+        ))
+        notifManager.schedule()
             
-            let notifCenter = UNUserNotificationCenter.current()
-            
-            let notifContent = UNMutableNotificationContent()
-            notifContent.title = "DetectPH is running in the background"
-            notifContent.body = "Please keep DetectPH running to detect devices properly"
-            
-            let date = Date().addingTimeInterval(3)
-            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-            let notifTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            
-            let notifUUID = UUID().uuidString
-            let notifRequest = UNNotificationRequest(identifier: notifUUID, content: notifContent, trigger: notifTrigger)
-            
-            notifCenter.add(notifRequest) { (error) in
-                if error != nil {
-                    print("Notification center add error: \(String(describing: error))")
-                }
-            }
-            
-//            print("notification added")
-            
-        } else {
-            // Fallback on earlier versions
-        }
+//        print("notification added")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -230,6 +237,14 @@ class ViewController: UIViewController {
             return
         }
         controller.bluetoothManager = self.bluetoothManager
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
     }
 }
 

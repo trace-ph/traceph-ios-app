@@ -20,16 +20,18 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Your camera is needed to scan DetectPH QR codes</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Bluetooth is required to detect other devices</string>
+	<string>Bluetooth is required to detect other devices for contact tracing</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Bluetooth is required to detect other devices</string>
+	<string>Bluetooth is required to detect other devices for contact tracing</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your location is needed for contact tracing</string>
+	<string>Your location is needed for Bluetooth to work</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location is needed for contact tracing</string>
+	<string>Your location is needed for Bluetooth to work</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is needed for contact tracing</string>
+	<string>Your location is needed for Bluetooth to work</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

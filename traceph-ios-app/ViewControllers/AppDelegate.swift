@@ -104,5 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // Local notifications
+    private func application(_ application: UIApplication, didReceive notification: UNNotificationRequest) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 }
-

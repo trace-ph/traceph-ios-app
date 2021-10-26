@@ -55,9 +55,8 @@ struct Contact {
 
 struct APIController {
     struct Constants {
-        static let ROOT_URL = "https://www.detectph.com/api"
-        static let CONTACTS_POST_URL = "\(Constants.ROOT_URL)/node_contacts"
-        static let NODE_URL = "\(Constants.ROOT_URL)/node"
+        static let CONTACTS_POST_URL = "\(config.Constants.ROOT_URL)/node_contacts"
+        static let NODE_URL = "\(config.Constants.ROOT_URL)/node"
         static let CONTACTS_KEY = "contacts"
         static let DEVICE_ID_KEY = "device_id"
         static let DEVICE_MODEL_KEY = "device_model"
@@ -97,12 +96,11 @@ struct APIController {
             parameters: [Constants.DEVICE_ID_KEY: deviceID, Constants.DEVICE_MODEL_KEY: deviceModel],
             encoding: JSONEncoding.default
         )
-            .validate()
-            .responseJSON { response in
-                
-                print("fetchNodeID response: \(response)")
-                
-                switch response.result{
+        .validate()
+        .responseJSON { response in
+            print("fetchNodeID response: \(response)")
+            
+            switch response.result{
                 case .success(let value):
                     guard let node = JSON(value).dictionary,
                         let nodeID = node[Constants.NODE_ID_KEY]?.string else {
@@ -111,9 +109,10 @@ struct APIController {
                     }
                     assert(node[Constants.DEVICE_ID_KEY]?.string == deviceID, "response deviceID: \(node[Constants.DEVICE_ID_KEY]?.string ?? "") != \(deviceID)")
                     promise.resolve(with: nodeID)
+                    
                 case .failure(let error):
                     promise.reject(with: error)
-                }
+            }
         }
         return promise
     }
