@@ -89,7 +89,7 @@ class BluetoothManager: NSObject {
         
         NSLog("Calling scan for peripherals (startTimer)...")
         self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        self.perform(#selector(endScanning), with: self, afterDelay: 1);  // Stops scanning after 1 second
+        self.perform(#selector(endScanning), with: self, afterDelay: 3);  // Stops scanning after 1 second
         
         
     }
@@ -385,17 +385,18 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         let recvMSG = String(decoding:data, as: UTF8.self)
+        print("\tmsg: ", recvMSG)
         let item = discoveryLog[discIndex].newWithMessage(recvMSG)
         discoveryLog[discIndex] = item
         localStorage.append(item)
-//        print(localStorage)
+        print("\tlocal storage: ", localStorage)
         
         // Add unrecognized devices
-        if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
-            recognizedDevice.append(device_data(
-                peripheralIdentifier: peripheral.identifier, node_id: recvMSG
-            ))
-        }
+//        if(!recognizedDevice.contains {$0.peripheralIdentifier == peripheral.identifier}){
+//            recognizedDevice.append(device_data(
+//                peripheralIdentifier: peripheral.identifier, node_id: recvMSG
+//            ))
+//        }
         
         //disconnect
         centralManager.cancelPeripheralConnection(peripheral)
