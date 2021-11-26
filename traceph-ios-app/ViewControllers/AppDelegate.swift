@@ -8,12 +8,10 @@
 
 import UIKit
 import UserNotifications
-import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let appProcessingTaskId = "com.detectph.ios"
     var window: UIWindow?
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

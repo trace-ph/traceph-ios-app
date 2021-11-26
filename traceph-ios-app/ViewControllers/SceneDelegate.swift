@@ -7,18 +7,61 @@
 //
 
 import UIKit
+import CoreBluetooth
+import Foundation
+import BackgroundTasks
+import UserNotifications
+
+
+//enum DeviceLockState {
+//    case locked
+//    case unlocked
+//}
+//
+//class ViewUtility {
+//    class func checkLockState(completion: @escaping (DeviceLockState) -> Void) {
+//        DispatchQueue.main.async {
+//            if (UIApplication.shared.isProtectedDataAvailable) {
+//                completion(.unlocked)
+//            } else {
+//                completion(.locked)
+//            }
+//        }
+//    }
+//}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+//    var backgroundTaskID: UIBackgroundTaskIdentifier!
+    var bluetoothManager: BluetoothManager!
+//    var viewControl: ViewController
+    
     @available(iOS 13.0, *)
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // MARK: Schedule Background Tasks
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "DetectPH.BGRefresh", using: nil) {
+            task in
+
+            print("BG Refresh Task Registered")
+            task.setTaskCompleted(success: true)
+            self.handleBackgroundRefresh(task: task as! BGAppRefreshTask)
+        }
+
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "DetectPH.BGProcess", using: nil) {
+            task in
+
+            print("BG processing Task Registered")
+            task.setTaskCompleted(success: true)
+            self.handleBackgroundProcessing(task: task as! BGProcessingTask)
+        }
     }
 
     @available(iOS 13.0, *)
@@ -45,6 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        print("Scene will enter foreground.")
     }
 
     @available(iOS 13.0, *)
@@ -52,8 +96,142 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        print("Scene did enter background.")
+        scheduleAppRefresh()
+        scheduleAppProcessing()
     }
+    
+    @available(iOS 13.0, *)
+    func scheduleAppRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: "DetectPH.BGRefresh")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30)
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            print("Scheduled.")
+        } catch {
+            print("Could not schedule app refresh: \(error)")
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func scheduleAppProcessing() {
+        let request = BGProcessingTaskRequest(identifier: "DetectPH.BGProcess")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30)
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            print("Scheduled.")
+            //bluetoothManager.detect()
+        } catch {
+            print("Could not schedule app refresh: \(error)")
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func handleBackgroundRefresh(task: BGAppRefreshTask) {
+        scheduleAppRefresh()
+        print("\tA.")
+        
+        let notifManager = LocalNotificationManager()
+        let date = Date()
+        let dateComponents = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: date
+        )
+        notifManager.notifications.append(
+            LocalNotification(
+                id: "Wake up Notif",
+                title: "Gising! Gising!",
+                body: "Test iOS Message Background Close",
+                datetime: dateComponents,
+                repeats: true
+            )
+        )
+        notifManager.schedule()
+        print("\tNotif time: \(dateComponents)")
+    }
+    
+    
+    @available(iOS 13.0, *)
+    func handleBackgroundProcessing(task: BGProcessingTask) {
+        scheduleAppProcessing()
+        print("\tB.")
+        
+        let notifManager = LocalNotificationManager()
+        let date = Date()
+        let dateComponents = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: date
+        )
+        notifManager.notifications.append(
+            LocalNotification(
+                id: "Wake up Notif",
+                title: "Gising! Gising!",
+                body: "Test iOS Message Background Close",
+                datetime: dateComponents,
+                repeats: true
+            )
+        )
+        notifManager.schedule()
+        print("\tNotif time: \(dateComponents)")
+    }
+    
+    
+    
+    func showPhoneState() {
+        let notifManager = LocalNotificationManager()
+        let date = Date()
+        let dateComponents = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: date
+        )
 
+        bluetoothManager.detect()
+        notifManager.notifications.append(
+            LocalNotification(
+                id: "Wake up Notif",
+                title: "Gising! Gising!",
+                body: "Test iOS Message Background Close",
+                datetime: dateComponents,
+                repeats: true
+            )
+        )
 
+        notifManager.schedule()
+        print("\tNotif time: \(dateComponents)")
+
+//        switch deviceLockState {
+//            case .locked:
+//                print("State: Locked")
+//                print("BG CLOSE")
+//                bluetoothManager.detect()
+//                notifManager.notifications.append(
+//                    LocalNotification(
+//                        id: "Wake up Notif",
+//                        title: "Gising! Gising!",
+//                        body: "Test iOS Message Background Close",
+//                        datetime: dateComponents,
+//                        repeats: true
+//                    )
+//                )
+//                print("\tNotif time: \(dateComponents)")
+//
+//            case .unlocked:
+//                print("State: Unlocked")
+//                print("BG OPEN")
+//                bluetoothManager.detect()
+//                notifManager.notifications.append(
+//                    LocalNotification(
+//                        id: "Wake up Notif",
+//                        title: "Gising! Gising!",
+//                        body: "Test iOS Message Background Open",
+//                        datetime: dateComponents,
+//                        repeats: true
+//                    )
+//                )
+//                print("\tNotif time: \(dateComponents)")
+//        }
+    }
 }
 

@@ -51,7 +51,9 @@ class BluetoothManager: NSObject {
     
     func detect() {
         stopBluetooth = false
+        //print("before")
         viewController?.reloadTable(indexPath: nil)
+        //print("after")
         guard centralManager.state == .poweredOn else {
             assertionFailure("Disable Detect Button if Central Manager is not powered on")
             return
@@ -89,8 +91,9 @@ class BluetoothManager: NSObject {
         
         NSLog("Calling scan for peripherals (startTimer)...")
         self.centralManager.scanForPeripherals(withServices: [ Constants.SERVICE_IDENTIFIER], options: nil)
-        self.perform(#selector(endScanning), with: self, afterDelay: 3);  // Stops scanning after 1 second
         
+        self.perform(#selector(endScanning), with: self, afterDelay: 2);  // Stops scanning after 1 second
+        print("after scanning for perip")
         
     }
     
@@ -124,6 +127,7 @@ class BluetoothManager: NSObject {
                 ctr = ctr + 1
                 let peripheralIndex = toConnect.firstIndex(where: {$0.identifier == node.peripheralIdentifier})
                 currentPeripheral = toConnect[peripheralIndex!]
+                print("after toConnect[periphIndex]")
                 currentPeripheral.delegate = self
                 
                 // Add delay before continuing

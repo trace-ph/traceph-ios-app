@@ -107,7 +107,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
     }
 
-    let appProcessingTaskId = "com.detectph.ios"
+//    let appProcessingTaskId = "com.detectph.ios"
     var toggleDetect = false
     var backgroundTaskID: UIBackgroundTaskIdentifier!
     
@@ -125,21 +125,9 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         }
         
     }
-    
-    @available(iOS 13.0, *)
-    func scheduleAppRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: appProcessingTaskId)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 30) // Refresh after __ minute.
-        
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            print("Submitted")
-        } catch {
-            print("Could not schedule app refresh task \(error.localizedDescription)")
-        }
-    }
-    
-    func showPhoneState(_ deviceLockState: DeviceLockState) {
+
+    func showPhoneState() {
+        print("showPhoneState")
         let date = Date().addingTimeInterval(3)
         let dateComponents = Calendar.current.dateComponents(
             [.year, .month, .day, .hour, .minute, .second],
@@ -147,21 +135,19 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         )
         let notifManager = LocalNotificationManager()
         
-        switch deviceLockState {
-            case .locked:
-                print("State: Locked")
-                print("BG Close")
-                notifManager.notifications.append(LocalNotification(
-                    id: "Wake up Notif",
-                    title: "Gising! Gising!",
-                    body: "Test iOS Message Background Close",
-                    datetime: dateComponents,
-                    repeats: true
-                ))
-            case .unlocked:
-                print("State: Unlocked")
-        }
+        bluetoothManager.detect()
+        print("\tBLE in BG")
+        notifManager.notifications.append(
+            LocalNotification(
+                id: "Wake up Notif",
+                title: "Gising! Gising!",
+                body: "Test iOS Message Background Close",
+                datetime: dateComponents,
+                repeats: true
+            )
+        )
         notifManager.schedule()
+        print("\tNotif time: \(dateComponents)")
     }
     
     
@@ -254,7 +240,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     }
     
     @objc func didEnterBackground() {
-        print("VW App entered background")
+        print("[ViewControl] App entered background")
         let notifManager = LocalNotificationManager()
         let date = Date().addingTimeInterval(3)
         let dateComponents = Calendar.current.dateComponents(
@@ -262,47 +248,13 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             from: date
         )
         
-        if #available(iOS 13, *) {
-            self.scheduleAppRefresh()
-        }
-
-        // FALSE if device is locked
-        //      Reference: https://nemecek.be/blog/104/checking-if-device-is-locked-or-sleeping-in-ios
-//        if(UIApplication.shared.isProtectedDataAvailable) {
-            notifManager.notifications.append(LocalNotification(
+        notifManager.notifications.append(LocalNotification(
                 id: "BG notif",
                 title: "DetectPH is running in the background",
                 body: "Please keep DetectPH running to detect devices properly",
                 datetime: dateComponents,
                 repeats: false
             ))
-//        } else {
-//            notifManager.notifications.append(LocalNotification(
-//                id: "WakeUpNotif",
-//                title: "Gising! Gising!",
-//                body: "Test iOS Message",
-//                datetime: Calendar.current.dateComponents(
-//                    [.year, .month, .day, .hour, .minute, .second],
-//                    from: Date().addingTimeInterval(1)),
-//                repeats: true
-//            ))
-//        }
-            
-        notifManager.schedule()
-        print("A")
-        
-        backgroundTaskID = UIApplication.shared.beginBackgroundTask()
-        print(backgroundTaskID.rawValue)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 25) { [weak self] in
-            print("B")
-            ViewUtility.checkLockState() { lockState in
-                if let self = self {
-                    self.showPhoneState(lockState)
-                    UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
-                    print("out")
-                }
-            }
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -339,11 +291,15 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         controller.bluetoothManager = self.bluetoothManager
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
     }
 }

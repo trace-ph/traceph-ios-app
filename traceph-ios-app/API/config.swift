@@ -10,6 +10,6 @@ import Foundation
 
 class config: NSObject {
     struct Constants {
-        static let ROOT_URL = "http://192.168.1.135:3000/api"
+        static let ROOT_URL = "http://192.168.1.113:3000/api"
     }
 }
